@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+/*
+ * Pure mono palette, light and dark (VEL-WEB-landing AC-28..AC-30, revision 4). Each token is defined once with
+ * light-dark(); the page is dark unless the visitor chose light with the header toggle (`data-theme` on <html>, set
+ * before first paint by the inline script in layout.tsx). Black and white carry the brand; amber and green are reserved
+ * for the trust states.
+ */
+@theme {
+  --color-paper: light-dark(#ffffff, #000000);
+  --color-surface: light-dark(#f5f5f5, #111111);
+  --color-ink: light-dark(#0a0a0a, #ffffff);
+  --color-muted: light-dark(#5c5c5c, #a3a3a3);
+  --color-line: light-dark(#e5e5e5, #262626);
+  --color-accent: light-dark(#0a0a0a, #ffffff);
+  --color-accent-strong: light-dark(#2a2a2a, #e0e0e0);
+  --color-on-accent: light-dark(#ffffff, #000000);
+  --color-observed: light-dark(#6e7a76, #8a8f8d);
+  --color-suggested: light-dark(#b26b00, #f0a73a);
+  --color-suggested-ink: light-dark(#7f4d00, #f6c06a);
+  --color-suggested-soft: light-dark(#fff3dc, #2e2410);
+  --color-approved: light-dark(#1c7347, #4cc38a);
+  --color-approved-soft: light-dark(#e3f2e9, #0f2a1c);
+  --color-danger: light-dark(#b42318, #f97066);
+
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* Dark unless light was chosen; this also holds without JavaScript. */
+:root {
+  color-scheme: dark;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  scrollbar-color: var(--color-line) var(--color-paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  caret-color: var(--color-accent);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
+a {
+  text-underline-offset: 0.2em;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* React Flow's own chrome, themed from the tokens (its stylesheet loads later, hence the extra specificity). */
+.react-flow .react-flow__attribution {
+  background: transparent;
+}
+.react-flow .react-flow__attribution a {
+  color: var(--color-muted);
+}
+
+/* The suggested link settling into an approved link. */
+.react-flow__edge-path {
+  transition: stroke 400ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .react-flow__edge-path {
+    transition: none;
+  }
+}
+
+/* Demo: dry-run progress and report lines (VEL-WEB-landing AC-36). Used only through motion-safe utilities. */
+@keyframes dryrun {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* Micro-interactions (VEL-WEB-landing AC-37): quiet, short, and off for reduced motion. */
+:root {
+  interpolate-size: allow-keywords;
+}
+
+@utility press {
+  transition:
+    transform 120ms ease-out,
+    background-color 150ms ease-out,
+    border-color 150ms ease-out,
+    color 150ms ease-out;
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    &:active:not(:disabled) {
+      transform: none;
+    }
+  }
+}
+
+details::details-content {
+  block-size: 0;
+  overflow-y: clip;
+  transition:
+    block-size 250ms ease-out,
+    content-visibility 250ms allow-discrete;
+}
+details[open]::details-content {
+  block-size: auto;
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 24;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  details::details-content {
+    transition: none;
+  }
+}
+
+/* "Connects to" marquee (VEL-WEB-landing AC-43): two identical rows, shifted by one row's width. */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
