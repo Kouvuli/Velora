@@ -1,0 +1,25 @@
+schema: ai-skill-os/hook/v1
+name: config-protection
+version: 1.0.0
+description: >-
+  Stops an agent from making checks pass by weakening them: blocks added lines that relax type checking, switch
+  lint rules off, let CI steps fail, ignore a check's exit code or lower a coverage threshold; warns on blanket
+  suppressions and skipped tests in source. Only lines the change adds are checked.
+triggers: [pre-commit, post-edit, stop]
+default_enabled: true
+entry: hook.py
+source:
+  type: builtin
+provenance:
+  type: inspired
+  author: AI Skill OS
+  sources:
+    - {ecosystem: everything-claude-code, path: scripts/hooks/config-protection.js, use: ideas}
+    - {ecosystem: everything-claude-code, path: scripts/hooks/quality-gate.js, use: ideas}
+license:
+  spdx: MIT
+security:
+  trust: trusted
+  reads: [the git diff of the changed files]
+  writes: []
+  network: false

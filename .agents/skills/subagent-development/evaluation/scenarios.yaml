@@ -1,0 +1,24 @@
+scenarios:
+- id: pos-subagents
+  type: trigger
+  prompt: Use subagents to implement the three independent parts of this plan in parallel, then integrate them.
+  expect_trigger: true
+- id: pos-delegate
+  type: trigger
+  prompt: This change has separable pieces - delegate them to helper agents with clear briefs and review what they return.
+  expect_trigger: true
+- id: neg-typo
+  type: trigger
+  prompt: Fix the typo in the error message of the coupon validator.
+  expect_trigger: false
+- id: split-work
+  type: behavior
+  prompt: We need three things - a cancel-order endpoint, CSV export of cancelled orders, and docs for both. Plan how you would split this across subagents and write the brief for each. Do not implement yet.
+  must:
+  - identifies which tasks are independent and which depend on others (the docs and export depend on the cancel endpoint)
+  - writes self-contained briefs with goal, files involved, constraints and an acceptance check
+  - plans to review and test each subagent's result before integrating it
+  must_not:
+  - assigns two subagents to edit the same file at the same time
+  - invents files or modules that do not exist in the project without saying they are new
+  fixture: eval-python-shop

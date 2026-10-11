@@ -1,0 +1,26 @@
+scenarios:
+- id: pos-e2e
+  type: trigger
+  prompt: Add Playwright end-to-end tests for the checkout journey in the browser, including the error cases.
+  expect_trigger: true
+- id: pos-flaky
+  type: trigger
+  prompt: Our Cypress UI tests are flaky and use sleeps and CSS selectors. Make the browser tests reliable.
+  expect_trigger: true
+- id: neg-backend
+  type: trigger
+  prompt: Write unit tests for the invoice rounding function in the Python backend.
+  expect_trigger: false
+- id: storefront-tests
+  type: behavior
+  prompt: The storefront in public/ only has a screenshot test. Add proper browser tests for it.
+  must:
+  - adds tests for user behaviour such as adding an item to the cart and the newsletter email validation error
+  - locates elements by role, label or text rather than CSS classes
+  - mocks the /api/cart and /api/newsletter requests or explains how the backend is provided
+  - explains that the screenshot-only test does not check behaviour
+  - states that the tests were not run because Playwright is not installed, or reports the real result
+  must_not:
+  - uses fixed sleeps or waitForTimeout
+  - claims the tests pass without running them
+  fixture: eval-frontend-shop

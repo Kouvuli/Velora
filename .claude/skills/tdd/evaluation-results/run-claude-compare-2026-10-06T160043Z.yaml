@@ -1,0 +1,136 @@
+evaluator: runner:claude
+model: tool default
+skill: tdd
+version: 1.1.1
+types:
+- compare
+scenarios:
+- coupon-limit
+setups:
+  canonical:tdd:
+    path: null
+    scenarios: 1
+    errors: 0
+    scenarios_passed: 1
+    criteria_pass_rate: 1.0
+    tokens_approx: 821
+    vendor_specific: []
+    body_lines: 33
+    results:
+    - id: coupon-limit
+      pass: true
+      checks:
+      - id: must-1
+        criterion: 'MUST: writes a failing test for the new rule before changing shop/coupons.py'
+        pass: true
+        reason: Before writing tests/test_coupons.py, the agent changed shop/coupons.py only to add an
+          empty `TooManyCoupons` class so the test would import; the rule itself (the length check) was
+          added only after the failing test existed and had been run.
+      - id: must-2
+        criterion: 'MUST: runs the test and shows it failing for the expected reason before implementing'
+        pass: true
+        reason: 'The agent ran `python3 -m unittest tests.test_coupons -v`, observed `AssertionError:
+          TooManyCoupons not raised` (the missing rule, not an import error), and only then edited coupons.py
+          to add the check.'
+      - id: must-3
+        criterion: 'MUST: implements only what the test requires and then runs the whole test suite green'
+        pass: true
+        reason: 'The green step added only `if len(order.coupons) >= 2: raise TooManyCoupons(code)`, and
+          the agent then ran `python3 -m unittest discover -s tests -v` across the whole suite (7/7, and
+          finally 9/9 OK).'
+      - id: must-4
+        criterion: 'MUST: reports the actual test commands and results'
+        pass: true
+        reason: The final answer quotes the real commands and results, including `python3 -m unittest
+          discover -s tests -v` giving `Ran 9 tests ... OK`, the red failure message, and the mutant failures.
+      - id: must-not-1
+        criterion: 'MUST NOT: writes the implementation before the test'
+        pass: true
+        reason: The coupon-limit logic was written only after test_rejects_a_third_coupon existed and
+          had failed; the only earlier edit was an empty exception class with no behavior.
+      - id: must-not-2
+        criterion: 'MUST NOT: claims a test failed or passed without running it'
+        pass: true
+        reason: Each pass or fail claim has a matching unittest run in the log, and the agent openly said
+          that the Cycle 2 and 3 tests passed straight away, then showed them red by running them against
+          temporarily broken code.
+  superpowers:test-driven-development:
+    path: /home/kali/.ai-skills/cache/ai-skills-compare-bqpj2p9i/superpowers-test-driven-development
+    scenarios: 1
+    errors: 0
+    scenarios_passed: 0
+    criteria_pass_rate: 0.833
+    tokens_approx: 2389
+    vendor_specific: []
+    body_lines: 326
+    results:
+    - id: coupon-limit
+      pass: false
+      checks:
+      - id: must-1
+        criterion: 'MUST: writes a failing test for the new rule before changing shop/coupons.py'
+        pass: true
+        reason: The log shows tests/test_coupons.py was written and run before any edit to shop/coupons.py.
+      - id: must-2
+        criterion: 'MUST: runs the test and shows it failing for the expected reason before implementing'
+        pass: true
+        reason: 'The agent ran `python3 -m unittest tests.test_coupons` and got an ImportError, added
+          only the empty TooManyCoupons class, then reran it and got `AssertionError: TooManyCoupons not
+          raised` before writing the check.'
+      - id: must-3
+        criterion: 'MUST: implements only what the test requires and then runs the whole test suite green'
+        pass: true
+        reason: Green 1 added only the `len(order.coupons) >= 2` check, then ran `python3 -m unittest
+          discover -s tests -v` and reported all 7 tests passing; after the refactor, the full suite passed
+          again with 9 tests.
+      - id: must-4
+        criterion: 'MUST: reports the actual test commands and results'
+        pass: false
+        reason: The final answer reports results such as `Ran 9 tests ... OK` and the mutant failures,
+          but never states the test commands it ran, such as `python3 -m unittest discover -s tests`.
+      - id: must-not-1
+        criterion: 'MUST NOT: writes the implementation before the test'
+        pass: true
+        reason: The only production code added before the failing assertion was the empty exception class,
+          needed so the test could import it; the rule itself was written after the RED run.
+      - id: must-not-2
+        criterion: 'MUST NOT: claims a test failed or passed without running it'
+        pass: true
+        reason: Each pass and fail claim, including the two mutant runs done after the blocked script,
+          has a matching unittest run in the activity log.
+  matt-pocock:tdd:
+    path: /home/kali/.ai-skills/cache/ai-skills-compare-bqpj2p9i/matt-pocock-tdd
+    scenarios: 1
+    errors: 1
+    scenarios_passed: 0
+    criteria_pass_rate: null
+    tokens_approx: 885
+    vendor_specific: []
+    body_lines: 34
+    results:
+    - id: coupon-limit
+      pass: false
+      checks: []
+      error: |
+        claude exited 1: You've hit your session limit · resets 7pm (UTC)
+  baseline (no skill):
+    path: null
+    scenarios: 1
+    errors: 1
+    scenarios_passed: 0
+    criteria_pass_rate: null
+    tokens_approx: 0
+    vendor_specific: []
+    body_lines: 0
+    results:
+    - id: coupon-limit
+      pass: false
+      checks: []
+      error: |
+        claude exited 1: You've hit your session limit · resets 7pm (UTC)
+summary:
+  winner: canonical:tdd
+  ranking:
+  - canonical:tdd
+  - superpowers:test-driven-development
+  complete: false

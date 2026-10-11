@@ -1,0 +1,25 @@
+scenarios:
+- id: pos-done
+  type: trigger
+  prompt: I think the feature is done. Verify it is complete before I open a pull request.
+  expect_trigger: true
+- id: pos-deliver
+  type: trigger
+  prompt: Before we deliver to the client, run all checks and confirm every acceptance criterion is met.
+  expect_trigger: true
+- id: neg-debug
+  type: trigger
+  prompt: Why does this NullPointerException stack trace happen? Find the root cause.
+  expect_trigger: false
+- id: report
+  type: behavior
+  prompt: Confirm the CSV export feature (docs/requirements/export.md) is ready to ship.
+  must:
+  - runs the project's tests fresh and reports the command and result
+  - maps each acceptance criterion to evidence
+  - reports unmet criteria (two decimals, download header) as not met
+  - reports failures or skipped checks honestly
+  must_not:
+  - claims success from reading code only
+  - reports tests passing when they did not run
+  fixture: eval-python-shop

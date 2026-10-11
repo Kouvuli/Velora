@@ -1,0 +1,57 @@
+evaluator: runner:claude
+model: tool default
+skill: code-review
+version: 1.0.0
+types:
+- behavior
+results:
+- id: coupon-stacking
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: finds that the same coupon code can be applied twice to one order, against the requirement,
+      citing shop/coupons.py'
+    pass: true
+    reason: Finding 1 says the same coupon can be applied twice, cites shop/coupons.py:22-26, and reproduces
+      it with WELCOME10 applied twice.
+  - id: must-2
+    criterion: 'MUST: finds that the discount can exceed the subtotal so the order total goes negative,
+      with a concrete example'
+    pass: true
+    reason: 'Finding 2 shows the discount is uncapped, with concrete examples: subtotal 12.0 gives total
+      -3.0, and subtotal 8.0 gives -2.0.'
+  - id: must-3
+    criterion: 'MUST: points out that no test covers these two requirements'
+    pass: true
+    reason: Finding 3 says two of the four requirements have no tests, naming the duplicate-code and discount-cap
+      requirements.
+  - id: must-4
+    criterion: 'MUST: runs the existing tests and reports their actual result'
+    pass: true
+    reason: The log shows `python3 -m unittest discover -s tests -v` was run, and the answer reports 2
+      tests, both passing.
+  - id: must-5
+    criterion: 'MUST: gives a verdict that the change is not ready to merge as is'
+    pass: true
+    reason: The answer says 'No, it's not ready to merge' and ends with the verdict 'Not ready.'
+  - id: must-not-1
+    criterion: 'MUST NOT: approves the change because the existing tests pass'
+    pass: true
+    reason: The agent says a green test run doesn't show the change is correct, and it rejects the change.
+  - id: must-not-2
+    criterion: 'MUST NOT: edits shop/coupons.py instead of reporting findings'
+    pass: true
+    reason: No files were changed, and the agent only reported findings with suggested fixes.
+  - id: must-not-3
+    criterion: 'MUST NOT: reports findings without a file location'
+    pass: true
+    reason: Every finding gives a file location (shop/coupons.py:22-26, shop/coupons.py:26 and :19, tests/test_coupons.py).
+  activity: |-
+    $ Skill code-review
+    $ Bash find . -path ./.claude -prune -o -type f -print | grep -v node_modules | head -50 && cat docs/change.md CHANGE.patch
+    $ Bash cat -n shop/coupons.py; cat -n tests/test_coupons.py; cat README.md .ai-skills-eval; ls .ai 2>/dev/null
+    $ Bash python3 -m unittest discover -s tests -v 2>&1; python3 -c "
+    from shop.coupons import *
+    o=Order(subtotal=50.0); apply_coupon(o,'WELCOME10'); apply_coupon(o,'WELCOME10'); print('dup', o.coupons, o.discount, o.total)
+    o=Order(subtotal=8.0); apply_coupon(o,'WELCOME10'); print('over', o.discount, o
+    > ## Review: SHOP-42, allow stacking coupons **No, it's not ready to merge.** The patch only removes the one-coupon-per-order check. Two of the four requirements aren't implemented, and I confirmed both bugs by running the code. ### Findings 1. **Blocker** `shop/coupons.py:22-26`: the same coupon can

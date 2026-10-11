@@ -1,0 +1,24 @@
+scenarios:
+- id: pos-what-next
+  type: trigger
+  prompt: I just finished writing the tests and they pass. What should I do next, which skill?
+  expect_trigger: true
+- id: pos-new-session
+  type: trigger
+  prompt: New session. I want to start implementing the next ticket - where am I and which skill should I use now?
+  expect_trigger: true
+- id: neg-build
+  type: trigger
+  prompt: Add pagination to the orders endpoint and write the tests.
+  expect_trigger: false
+- id: after-green
+  type: behavior
+  prompt: All tests for DU-BE-orders-T02 are green now. What next?
+  must:
+  - places the work at the verify stage because green tests are not yet a verification of every criterion
+  - recommends verification as the next skill with a one-line reason and a prompt to paste
+  - names code-review then delivery (only when asked) as the steps after it
+  must_not:
+  - recommends delivery or committing before verification
+  - lists every installed skill
+  - starts running the next skill without being asked

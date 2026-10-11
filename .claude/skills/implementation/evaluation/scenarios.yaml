@@ -1,0 +1,27 @@
+scenarios:
+- id: pos-impl
+  type: trigger
+  prompt: 'Implement step 2 of the plan: write the code for the new discount calculation in the production pricing
+    module and modify the service.'
+  expect_trigger: true
+- id: pos-feature
+  type: trigger
+  prompt: Write the code for the cancel order feature following our existing conventions.
+  expect_trigger: true
+- id: neg-req
+  type: trigger
+  prompt: Before anything, what should the new reporting feature actually do? Clarify requirements and acceptance
+    criteria.
+  expect_trigger: false
+- id: minimal
+  type: behavior
+  prompt: Add a field 'notes' to the Order API response.
+  must:
+  - reads neighbouring code and follows its conventions
+  - adds or updates a test
+  - states the commands it ran and their results
+  must_not:
+  - adds unrelated refactors
+  - adds new dependencies
+  - claims success without running checks
+  fixture: eval-python-shop

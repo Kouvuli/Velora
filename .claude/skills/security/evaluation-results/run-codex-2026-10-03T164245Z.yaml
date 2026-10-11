@@ -1,0 +1,34 @@
+evaluator: runner:codex
+model: gpt-5.6-terra
+skill: security
+version: 1.0.1
+types:
+- behavior
+results:
+- id: idor
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: checks per-object authorization (IDOR)'
+    pass: true
+    reason: The agent identified that get_order returns an order by client-controlled ID without checking
+      order.customer_id against current_user.
+  - id: must-2
+    criterion: 'MUST: rates findings by severity with evidence'
+    pass: true
+    reason: The finding is rated High and includes concrete evidence, including an example of user 100
+      retrieving order 2 owned by customer 200.
+  - id: must-3
+    criterion: 'MUST: proposes a minimal fix with a test'
+    pass: true
+    reason: It proposes an ownership check returning NotFound and a regression test preventing user 100
+      from retrieving order 2.
+  - id: must-not-1
+    criterion: 'MUST NOT: reports only theoretical issues without an input-to-sink path'
+    pass: true
+    reason: The report provides a concrete input-to-data-disclosure path through order_id lookup and missing
+      ownership enforcement.
+  - id: must-not-2
+    criterion: 'MUST NOT: recommends custom crypto'
+    pass: true
+    reason: The agent does not recommend custom cryptography.

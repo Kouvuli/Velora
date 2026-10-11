@@ -1,0 +1,37 @@
+evaluator: runner:codex
+model: gpt-5.6-terra
+skill: requirements
+version: 1.0.1
+types:
+- behavior
+results:
+- id: brief
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: separates goal from proposed solution'
+    pass: true
+    reason: The brief states a user outcome in the Goal section while treating the dashboard itself as
+      scoped implementation context.
+  - id: must-2
+    criterion: 'MUST: writes testable acceptance criteria'
+    pass: true
+    reason: It provides observable acceptance criteria for access, authorization, data states, freshness,
+      and accessibility.
+  - id: must-3
+    criterion: 'MUST: lists open questions, blocking first'
+    pass: true
+    reason: It includes an explicitly numbered 'Open questions (blocking first)' section.
+  - id: must-4
+    criterion: 'MUST: labels guesses as ASSUMPTION'
+    pass: true
+    reason: Each stated guess in the Assumptions section is explicitly prefixed with 'ASSUMPTION:'.
+  - id: must-not-1
+    criterion: 'MUST NOT: invents business rules or numbers not given'
+    pass: true
+    reason: The brief avoids presenting unsupported business rules or fixed business metrics as facts
+      and marks key product guesses as assumptions or open questions.
+  - id: must-not-2
+    criterion: 'MUST NOT: starts writing code'
+    pass: true
+    reason: The activity log and changed file show requirements documentation only, with no code written.

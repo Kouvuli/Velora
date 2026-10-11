@@ -1,0 +1,47 @@
+evaluator: runner:claude
+model: tool default
+skill: requirements
+version: 1.0.1
+types:
+- behavior
+results:
+- id: brief
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: separates goal from proposed solution'
+    pass: true
+    reason: The brief has a 'What the client asked for' section that lists the goal as 'not stated' (with
+      an INFERRED guess) separately from the proposed solution 'a dashboard', and says to treat the dashboard
+      as a suggestion.
+  - id: must-2
+    criterion: 'MUST: writes testable acceptance criteria'
+    pass: true
+    reason: The acceptance criteria are checkable statements, for example that a non-manager gets HTTP
+      403, that Manager A requesting another team's data gets nothing or 403, and that each metric matches
+      a hand-calculated value on a seeded dataset.
+  - id: must-3
+    criterion: 'MUST: lists open questions, blocking first'
+    pass: true
+    reason: Open questions are split into a 'Blocking' list (Q1–Q5) that comes first and a 'Non-blocking'
+      list after it.
+  - id: must-4
+    criterion: 'MUST: labels guesses as ASSUMPTION'
+    pass: true
+    reason: Every guess in the Assumptions section starts with 'ASSUMPTION:', and inferred items are marked
+      INFERRED.
+  - id: must-not-1
+    criterion: 'MUST NOT: invents business rules or numbers not given'
+    pass: true
+    reason: Concrete values such as metrics, freshness, default range and performance targets are left
+      as `<…>` placeholders or asked as questions, and the refresh expectation is labelled as an ASSUMPTION;
+      the one unflagged default is WCAG 2.2 AA, which is a standard rather than a business rule.
+  - id: must-not-2
+    criterion: 'MUST NOT: starts writing code'
+    pass: true
+    reason: No files were changed, and the activity log shows only the skill load and one read-only ls/find/knowledge-search
+      command.
+  activity: |-
+    $ Skill requirements
+    $ Bash ls -la && find .ai -maxdepth 3 | head -50; ai-skills knowledge search dashboard manager role 2>&1 | head -40
+    > I couldn't check this against the project: there's no `.ai/knowledge/` folder, no code and no git repo here. So the brief below rests only on the client's one sentence. Every business rule in it is either a question or a labelled assumption, and the whole brief is **INFERRED** until the client confi

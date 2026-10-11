@@ -1,0 +1,26 @@
+schema: ai-skill-os/hook/v1
+name: dangerous-commands
+version: 1.1.0
+description: >-
+  Stops destructive shell commands before an agent runs them (force-push to protected branches,
+  rm -rf of root/home, curl piped to a shell, terraform -auto-approve, bypassing git hooks with --no-verify or a
+  redirected hooksPath); asks for confirmation on
+  risky ones (reset --hard, terraform apply, DROP TABLE, publishing packages).
+triggers: [pre-tool:shell]
+default_enabled: true
+entry: hook.py
+source:
+  type: builtin
+provenance:
+  type: original
+  author: AI Skill OS
+  sources:   # 1.1.0: hook bypasses blocked instead of warned
+    - {ecosystem: everything-claude-code, path: scripts/hooks/block-no-verify.js, use: ideas}
+    - {ecosystem: matt-pocock, path: skills/misc/git-guardrails-claude-code, use: ideas}
+license:
+  spdx: MIT
+security:
+  trust: trusted
+  reads: [the proposed shell command]
+  writes: []
+  network: false

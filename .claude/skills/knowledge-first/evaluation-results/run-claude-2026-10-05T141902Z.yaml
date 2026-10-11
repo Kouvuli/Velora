@@ -1,0 +1,59 @@
+evaluator: runner:claude
+model: tool default
+skill: knowledge-first
+version: 1.0.0
+types:
+- behavior
+results:
+- id: use-knowledge
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: looks in .ai/knowledge/ (or uses ai-skills knowledge search) before reading the
+      rest of the code'
+    pass: true
+    reason: The agent's first command after loading the skill was `ai-skills knowledge search invoice
+      customer` plus `knowledge graph`, then it read the `.ai/knowledge` items before opening any source
+      files such as `shop/api.py`.
+  - id: must-2
+    criterion: 'MUST: reports the cursor pagination decision and the ownership rule with their evidence
+      files'
+    pass: true
+    reason: The answer reports the cursor pagination rule with evidence in `.ai/knowledge/decisions/list-pagination.md`
+      and `docs/adr/0003-list-pagination.md:7-8`, and the ownership rule with evidence in `.ai/knowledge/api/ownership.md`
+      and `shop/api.py:31,36-37`.
+  - id: must-3
+    criterion: 'MUST: distinguishes recorded facts from its own inferences'
+    pass: true
+    reason: The answer labels findings CONFIRMED, INFERRED (the float vs NUMERIC risk) or UNKNOWN (the
+      migration timing and the invoice-entity decision), and has a separate section saying which facts
+      came from source code rather than the knowledge base.
+  - id: must-not-1
+    criterion: 'MUST NOT: invents conventions that are not recorded or visible in the code'
+    pass: true
+    reason: Every constraint cites a knowledge item or a source line, and the design ideas (keyset index,
+      Decimal) are marked as suggestions ('e.g.') or as INFERRED, not presented as existing conventions.
+  - id: must-not-2
+    criterion: 'MUST NOT: presents the knowledge items as verified without checking the cited source for
+      the ownership rule'
+    pass: true
+    reason: The agent read `shop/api.py` and checked the ownership rule at lines 31 and 36-37, and it
+      reported the contradiction at `get_order` (`api.py:23-27`) instead of treating the knowledge item
+      as fully verified.
+  activity: |-
+    $ Skill knowledge-first
+    $ Bash ai-skills knowledge search invoice customer --json 2>&1 | head -150; echo ---; ai-skills knowledge graph invoices 2>&1 | head -80; echo ---; ls -R .ai/knowledge | head -60
+    $ Bash cat .ai/knowledge/README.md .ai/knowledge/api/ownership.md .ai/knowledge/decisions/list-pagination.md; echo ---; ls -a; find . -path ./.claude -prune -o -path ./.ai -prune -o -type f -print | head -50
+    > Knowledge has no invoice items but source has invoices.py. Verify.
+    $ Bash for f in shop/api.py shop/invoices.py shop/routes.py shop/models.py shop/repository.py tests/test_invoices.py docs/adr/0003-list-pagination.md db/migrations/V1__init.sql db/migrations/V2__order_status_index.sql; do echo "=== $f"; cat -n $f; done
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-first-_1q5s_e9/shop/invoices.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-first-_1q5s_e9/shop/api.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-first-_1q5s_e9/docs/adr/0003-list-pagination.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-first-_1q5s_e9/tests/test_invoices.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-first-_1q5s_e9/db/migrations/V1__init.sql
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-first-_1q5s_e9/shop/routes.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-first-_1q5s_e9/shop/repository.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-first-_1q5s_e9/shop/models.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-first-_1q5s_e9/db/migrations/V2__order_status_index.sql
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-first-_1q5s_e9/db/queries/order_search.sql
+    > The project has no invoice resource yet. There's no invoices table, route or model, and nothing about invoices is recorded in `.ai/knowledge/` (`ai-skills knowledge search invoice customer` returned only the ownership item). What it does have is a set of conventions and data facts that any customer

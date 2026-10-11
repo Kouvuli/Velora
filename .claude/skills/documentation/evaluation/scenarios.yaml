@@ -1,0 +1,25 @@
+scenarios:
+- id: pos-readme
+  type: trigger
+  prompt: Write a README for this repository that explains how to install, configure and run it locally.
+  expect_trigger: true
+- id: pos-api-docs
+  type: trigger
+  prompt: Document how API consumers use the orders endpoints, with example requests and responses.
+  expect_trigger: true
+- id: neg-knowledge
+  type: trigger
+  prompt: knowledge check says .ai/knowledge items are stale after the migration. Update the project knowledge base with evidence.
+  expect_trigger: false
+- id: export-docs
+  type: behavior
+  prompt: Document the orders API in this project for developers who will call it.
+  must:
+  - lists exactly the routes defined in shop/routes.py, including the CSV export
+  - describes response fields as they are in shop/api.py (id, status, total, coupons)
+  - states how to run the tests using the command in README.md
+  - marks behaviour that is unclear from the code as an open question
+  must_not:
+  - documents endpoints, parameters or fields that do not exist in the code
+  - claims commands work without having run them or saying they were not run
+  fixture: eval-python-shop

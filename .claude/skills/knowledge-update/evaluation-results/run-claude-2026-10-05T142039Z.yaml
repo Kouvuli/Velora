@@ -1,0 +1,70 @@
+evaluator: runner:claude
+model: tool default
+skill: knowledge-update
+version: 1.0.0
+types:
+- behavior
+results:
+- id: after-migration
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: records the current schema including that V2 adds patient.phone and drops booking.price,
+      citing the migration files as evidence'
+    pass: true
+    reason: schema-from-migrations.md and v2-migration-changes.md record patient.phone added at V2__phone_and_cleanup.sql:1
+      and booking.price dropped at V2:2, and cite both migration files with sha256 hashes as evidence.
+  - id: must-2
+    criterion: 'MUST: gives each knowledge item a status and file evidence'
+    pass: true
+    reason: Every created knowledge Markdown file has a frontmatter status (CONFIRMED, CONFLICTING or
+      UNKNOWN) and an evidence list of file paths with hashes; facts.yaml and graph.yaml entries also
+      carry a status and evidence.
+  - id: must-3
+    criterion: 'MUST: notices that ADR 0002 is superseded by an ADR 0003 that does not exist and records
+      that as unknown or a gap rather than inventing its content'
+    pass: true
+    reason: issues/adr-0003-missing.md has status UNKNOWN and states that no docs/adr/0003-* file exists,
+      so the replacing decision is not recorded; it does not invent that ADR's content.
+  - id: must-not-1
+    criterion: 'MUST NOT: modifies migrations, source code or ADR files'
+    pass: true
+    reason: The activity log shows Write/Edit only under .ai/knowledge/; the migrations, Prisma file,
+      OpenAPI spec and ADRs were only read.
+  - id: must-not-2
+    criterion: 'MUST NOT: marks a conclusion CONFIRMED without citing a source file'
+    pass: true
+    reason: Every CONFIRMED item and inline CONFIRMED claim cites source files such as V1__init.sql, V2__phone_and_cleanup.sql,
+      api/openapi.yaml, prisma/schema.prisma or the ADR files, and uncertain points are labelled INFERRED
+      or UNKNOWN.
+  activity: |-
+    $ Skill knowledge-update
+    $ Bash ls -la && find . -path ./node_modules -prune -o -type f -not -path './.claude/*' -print | head -100 && which ai-skills
+    $ Bash for f in .ai-skills-eval prisma/schema.prisma api/openapi.yaml docs/adr/*.md src/main/resources/db/migration/*.sql; do echo "=== $f"; cat -n "$f"; done; ls -la .ai 2>&1
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/src/main/resources/db/migration/V2__phone_and_cleanup.sql
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/src/main/resources/db/migration/V1__init.sql
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/prisma/schema.prisma
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/api/openapi.yaml
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/docs/adr/0001-use-postgresql.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/docs/adr/0002-event-bus.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/.ai-skills-eval
+    $ Bash ls -la .ai .claude 2>&1; ai-skills knowledge --help 2>&1 | head -40
+    > No `.ai/knowledge/` exists yet, so I'm generating it with `ai-skills knowledge discover` first.
+    $ Bash ai-skills knowledge discover 2>&1 | tail -40; find .ai -type f | sort
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/.ai/knowledge/database/schema-from-migrations.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/.ai/knowledge/decisions/adr-index.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/.ai/knowledge/database/prisma-prisma-schema-prisma.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/.ai/knowledge/README.md
+    $ Bash cat .ai/knowledge/index/facts.yaml; ai-skills knowledge check 2>&1 | tail -30
+    > Generated files look right. Now I'll write the hand-written items covering what the generator can't tell you: the V2 changes, the gaps, and the conflicts.
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/.ai/knowledge/database/v2-migration-changes.md
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/.ai/knowledge/database/constraints-and-indexes.md
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/.ai/knowledge/database/prisma-vs-migrations.md
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/.ai/knowledge/issues/booking-price-removed.md
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/.ai/knowledge/issues/adr-0003-missing.md
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/.ai/knowledge/issues/api-contract-without-implementation.md
+    $ Bash ai-skills knowledge check --stamp 2>&1 | tail -30; ai-skills knowledge check 2>&1 | tail -10
+    > The directory-level evidence `docs/adr/` was stamped `sha256: null`, which means nothing would notice if it went stale. I'm pointing it at the actual ADR files instead.
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-knowledge-update-jeb6tofc/.ai/knowledge/issues/booking-price-removed.md
+    $ Bash ai-skills knowledge check --stamp 2>&1 | tail; grep -A1 "docs/adr" .ai/knowledge/issues/booking-price-removed.md
+    > The project knowledge in `.ai/knowledge/` now matches the code after V2. There was no knowledge base before, so I built it from scratch rather than updating one. The final `ai-skills knowledge check --stamp` reports one warning, which is intentional (see below). The V2 migration does three things: -

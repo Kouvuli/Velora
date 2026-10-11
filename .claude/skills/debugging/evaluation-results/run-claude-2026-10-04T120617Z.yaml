@@ -1,0 +1,65 @@
+evaluator: runner:claude
+model: tool default
+skill: debugging
+version: 1.0.2
+types:
+- behavior
+results:
+- id: rootcause
+  pass: false
+  checks:
+  - id: must-1
+    criterion: 'MUST: reproduces the problem before changing code'
+    pass: true
+    reason: Before writing to shop/invoices.py, the agent ran a python3 script over the sample orders
+      that showed order 1 at 1.78 and order 2 at 8.92, and printed Decimal(1.5*1.19).
+  - id: must-2
+    criterion: 'MUST: states hypotheses with predictions'
+    pass: false
+    reason: The log never states a hypothesis with a prediction before testing it; the only progress message
+      is 'I reproduced it... Now I'm fixing the rounding with Decimal', and ruling out coupons appears
+      only afterward in the final summary.
+  - id: must-3
+    criterion: 'MUST: explains the causal chain with evidence'
+    pass: true
+    reason: The final answer traces the chain from the float product 1.5*1.19 being stored as 1.78499999…,
+      to round() rounding it down to 1.78, citing the printed Decimal value and the old code's outputs,
+      and also notes that round() rounds halves to even.
+  - id: must-4
+    criterion: 'MUST: adds a regression test'
+    pass: true
+    reason: The agent added test_rounds_half_cent_up and test_rounds_half_cent_up_with_quantity to tests/test_invoices.py,
+      asserting 1.79 and 8.93, the values the old code got wrong.
+  - id: must-not-1
+    criterion: 'MUST NOT: changes code before identifying a cause'
+    pass: true
+    reason: The diagnostic script, which printed the 1.78 total and the 1.78499… float value, ran before
+      the Write to shop/invoices.py.
+  - id: must-not-2
+    criterion: 'MUST NOT: suppresses the error with try/catch or retries'
+    pass: true
+    reason: The fix replaces the float math with Decimal and ROUND_HALF_UP quantization, and adds no try/except
+      or retry logic.
+  activity: |-
+    $ Skill debugging
+    $ Bash find . -type f -not -path './.claude/*' | head -50 && ls -R .ai/knowledge 2>/dev/null
+    $ Bash for f in shop/invoices.py shop/coupons.py shop/models.py shop/repository.py tests/test_invoices.py README.md; do echo "=== $f"; cat -n $f; done
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-debugging-1m15lba6/shop/invoices.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-debugging-1m15lba6/tests/test_invoices.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-debugging-1m15lba6/shop/coupons.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-debugging-1m15lba6/shop/repository.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-debugging-1m15lba6/shop/models.py
+    $ Bash python3 -c "
+    from decimal import Decimal
+    from shop.invoices import gross_total, net_total
+    from shop.repository import find_all
+    for o in find_all(): print(o.id, net_total(o), repr(net_total(o)*1.19), gross_total(o))
+    print(Decimal(1.5*1.19))
+    "
+    > I reproduced it: order 1 comes out as 1.78 when it should be 1.79, and order 2 has the same problem (8.92 instead of 8.93). Now I'm fixing the rounding with `Decimal`.
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-debugging-1m15lba6/shop/invoices.py
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-debugging-1m15lba6/tests/test_invoices.py
+    $ Bash python3 -m unittest discover -s tests -t . 2>&1 | tail -5; grep -rn "round(\|VAT\|\* 1\.19\|net_total\|gross_total" shop db | grep -v "^shop/invoices.py"
+    $ Bash python3 -m unittest tests.test_invoices tests.test_api tests.test_export 2>&1 | tail -15
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-debugging-1m15lba6/.ai/knowledge/issues/invoice-cent-rounding.md
+    > Invoice totals were computed with ordinary binary floats, so totals ending in exactly half a cent could round down instead of up. I fixed the calculation in `shop/invoices.py`, and all 8 tests now pass. **What was wrong:** `gross_total` did `round(net * 1.19, 2)`. For order 1, 1.50 × 1.19 should be

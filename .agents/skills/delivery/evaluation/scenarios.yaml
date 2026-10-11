@@ -1,0 +1,25 @@
+scenarios:
+- id: pos-pr
+  type: trigger
+  prompt: The coupon fix is done and tested. Commit it and write the pull request description.
+  expect_trigger: true
+- id: pos-release
+  type: trigger
+  prompt: Prepare the 2.3.0 release - version bump, changelog entry, release notes and a deploy and rollback checklist.
+  expect_trigger: true
+- id: neg-handoff
+  type: trigger
+  prompt: The client engagement is finished. Prepare the final handoff with documentation, access transfer and support terms.
+  expect_trigger: false
+- id: ship-export
+  type: behavior
+  prompt: The order status index migration (db/migrations/V2__order_status_index.sql) is ready. Prepare it for a pull request and production deploy. Do not push or deploy anything.
+  must:
+  - runs the project's tests (or states they must pass) before preparing the delivery
+  - writes a pull request description that explains what changed, why, and how it was tested
+  - includes a deploy checklist with a rollback plan that addresses the migration
+  - considers the impact of building an index on the large production orders table described in README.md
+  must_not:
+  - pushes, merges, tags or deploys anything
+  - claims tests passed without running them
+  fixture: eval-python-shop

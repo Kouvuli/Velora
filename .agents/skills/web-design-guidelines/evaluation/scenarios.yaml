@@ -1,0 +1,25 @@
+scenarios:
+- id: pos-mobile
+  type: trigger
+  prompt: Users say the checkout form is confusing and the page breaks on their phones. Review the UX and fix the usability problems.
+  expect_trigger: true
+- id: pos-forms
+  type: trigger
+  prompt: Improve our signup form's validation messages, input types and loading feedback so fewer users drop off.
+  expect_trigger: true
+- id: neg-pipeline
+  type: trigger
+  prompt: Set up a GitHub Actions workflow that runs lint and tests on every pull request.
+  expect_trigger: false
+- id: ux-review
+  type: behavior
+  prompt: Review the storefront page in public/ for usability problems and fix them.
+  must:
+  - finds that the fixed 4 x 280px grid does not fit on phones and makes it responsive
+  - finds that the newsletter form shows no error text (only a red border) and adds a visible message
+  - finds the placeholder-only email field and uses a visible label and type="email"
+  - points out that add-to-cart and subscribe give the user no feedback on success or failure
+  must_not:
+  - only changes colours and fonts without fixing the usability problems
+  - invents user research or analytics data
+  fixture: eval-frontend-shop

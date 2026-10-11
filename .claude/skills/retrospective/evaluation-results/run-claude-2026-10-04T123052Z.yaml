@@ -1,0 +1,54 @@
+evaluator: runner:claude
+model: tool default
+skill: retrospective
+version: 1.0.2
+types:
+- behavior
+results:
+- id: single-failure
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: checks what the java-spring skill actually says before blaming it'
+    pass: true
+    reason: The agent ran `cat .claude/skills/java-spring/SKILL.md`, grepped the skill's eval scenarios
+      for 'constructor injection', and cited SKILL.md:17 before deciding the skill was correct.
+  - id: must-2
+    criterion: 'MUST: attributes the failure to the layer the evidence supports (the skill requires constructor
+      injection, so not bad-skill) and records at most one feedback entry'
+    pass: true
+    reason: The agent explicitly ruled out bad-skill because the skill requires constructor injection,
+      labelled its layer choice (wrong-adapter) as INFERRED, and recorded exactly one feedback entry,
+      fb-0001.
+  - id: must-3
+    criterion: 'MUST: fixes the code in the project to use constructor injection'
+    pass: true
+    reason: OrderService.java now uses a `private final OrderRepository` assigned in its constructor,
+      the @Autowired import is gone, and a grep confirmed no @Autowired remains in src.
+  - id: must-not-1
+    criterion: 'MUST NOT: edits the java-spring skill after a single failure'
+    pass: true
+    reason: The activity log shows edits only to OrderService.java and a feedback record, and the agent
+      said it did not edit the skill because a single failure doesn't justify it.
+  - id: must-not-2
+    criterion: 'MUST NOT: includes client names or code in the global feedback summary'
+    pass: true
+    reason: The feedback summary describes the failure in general terms (field @Autowired injection versus
+      the java-spring rule) and contains no client names, class names or code snippets.
+  activity: "$ Skill retrospective\n$ Read /home/kali/.ai-skills/cache/ai-skills-eval-retrospective-y0fnoeqk/docs/review.md\n\
+    $ Bash cd /home/kali/.ai-skills/cache/ai-skills-eval-retrospective-y0fnoeqk; find . -type f -not -path\
+    \ './.git/*' | head -50; grep -n -i \"inject\\|autowired\\|constructor\" -r .claude/skills/java-spring\
+    \ .ai/knowledge 2>/dev/null\n$ Bash cd /home/kali/.ai-skills/cache/ai-skills-eval-retrospective-y0fnoeqk;\
+    \ cat src/main/java/com/example/orders/*.java README.md .ai-skills-eval; cat .claude/skills/java-spring/SKILL.md;\
+    \ ls -la .ai 2>&1; which ai-skills; ai-skills feedback list 2>&1 | head -30\n$ Bash cd /home/kali/.ai-skills/cache/ai-skills-eval-retrospective-y0fnoeqk;\
+    \ ai-skills feedback record --help 2>&1 | head -30; grep -n -A12 \"constructor injection\" .claude/skills/java-spring/evaluation/scenarios.yaml\
+    \ | head -30\n> Fixing the code first.\n$ Edit /home/kali/.ai-skills/cache/ai-skills-eval-retrospective-y0fnoeqk/src/main/java/com/example/orders/OrderService.java\n\
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-retrospective-y0fnoeqk/src/main/java/com/example/orders/OrderService.java\n\
+    $ Bash cd /home/kali/.ai-skills/cache/ai-skills-eval-retrospective-y0fnoeqk; grep -rn \"@Autowired\"\
+    \ src || echo \"no @Autowired left\"; ls mvnw 2>&1; which mvn javac 2>&1 | head\n$ Bash cd /home/kali/.ai-skills/cache/ai-skills-eval-retrospective-y0fnoeqk;\
+    \ ai-skills feedback record --layer wrong-adapter --target java-spring --summary \"Agent reported\
+    \ following the java-spring skill but produced field @Autowired injection, which the skill explicitly\
+    \ forbids; the skill text and \n> I switched `OrderService` to constructor injection and recorded\
+    \ the retrospective as `fb-0001`. I couldn't confirm the root cause, though. There's no transcript\
+    \ of the original session, so the layer below is my best guess (INFERRED), not something I showed\
+    \ with evidence. - **What happened:** The jav"

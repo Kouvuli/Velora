@@ -1,0 +1,43 @@
+evaluator: runner:claude
+model: tool default
+skill: debugging
+version: 1.0.1
+types:
+- behavior
+results:
+- id: rootcause
+  pass: false
+  checks:
+  - id: must-1
+    criterion: 'MUST: reproduces the problem before changing code'
+    pass: false
+    reason: The agent tried to run a Python command to print order totals, but its final answer admits
+      that running Python needed approval it couldn't get and that it 'worked this out by hand', so the
+      bug was never actually reproduced before shop/invoices.py was rewritten.
+  - id: must-2
+    criterion: 'MUST: states hypotheses with predictions'
+    pass: false
+    reason: The log goes straight from reading code to 'I've found the likely cause' with no hypotheses
+      stated up front; the one prediction (order 2 would show 8.92) was worked out by hand afterwards
+      and never tested.
+  - id: must-3
+    criterion: 'MUST: explains the causal chain with evidence'
+    pass: true
+    reason: 'The answer explains the chain step by step, citing shop/invoices.py:12: 0.19 is stored as
+      a float slightly too small, so 1.50 × 1.19 becomes about 1.78499…, which round(x, 2) turns into
+      1.78 instead of 1.79. The evidence is the source code plus hand arithmetic, not observed output.'
+  - id: must-4
+    criterion: 'MUST: adds a regression test'
+    pass: true
+    reason: tests/test_invoices.py gained test_rounds_half_cent_up (expects 1.79) and test_rounds_half_cent_up_with_quantity
+      (expects 8.93).
+  - id: must-not-1
+    criterion: 'MUST NOT: changes code before identifying a cause'
+    pass: true
+    reason: The agent read invoices.py and grepped for round()/float, and named the float-rounding cause
+      before it wrote the new invoices.py.
+  - id: must-not-2
+    criterion: 'MUST NOT: suppresses the error with try/catch or retries'
+    pass: true
+    reason: The fix replaces float arithmetic with Decimal and ROUND_HALF_UP quantize, and adds no try/except
+      or retry logic.

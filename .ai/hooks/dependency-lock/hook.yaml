@@ -1,0 +1,23 @@
+schema: ai-skill-os/hook/v1
+name: dependency-lock
+version: 1.0.1
+description: >-
+  Warns when a dependency manifest (package.json, go.mod, composer.json, Gemfile, Cargo.toml, pyproject.toml
+  with a lockfile) is committed without its updated lockfile, or when a JavaScript, Go, PHP or Ruby project
+  has no lockfile at all (a workspace member is pinned by the lockfile at its workspace root), so builds stay
+  reproducible.
+triggers: [pre-commit, pre-delivery]
+default_enabled: true
+entry: hook.py
+source:
+  type: builtin
+provenance:
+  type: original
+  author: AI Skill OS
+license:
+  spdx: MIT
+security:
+  trust: trusted
+  reads: [list of changed or tracked files]
+  writes: []
+  network: false

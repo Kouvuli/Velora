@@ -1,0 +1,20 @@
+schema: ai-skill-os/hook/v1
+name: secret-scan
+version: 1.0.0
+description: >-
+  Blocks high-confidence credentials (cloud keys, tokens, private keys, credentials in URLs) in files being committed or written by an agent; warns on hard-coded password/secret assignments.
+triggers: [pre-commit, post-edit, pre-delivery]
+default_enabled: true
+entry: hook.py
+source:
+  type: builtin
+provenance:
+  type: original
+  author: AI Skill OS
+license:
+  spdx: MIT
+security:
+  trust: trusted
+  reads: [project files, staged git content, the proposed shell command]
+  writes: []
+  network: false

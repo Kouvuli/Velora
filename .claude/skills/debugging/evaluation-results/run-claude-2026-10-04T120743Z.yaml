@@ -1,0 +1,58 @@
+evaluator: runner:claude
+model: tool default
+skill: debugging
+version: 1.0.3
+types:
+- behavior
+results:
+- id: rootcause
+  pass: false
+  checks:
+  - id: must-1
+    criterion: 'MUST: reproduces the problem before changing code'
+    pass: true
+    reason: Before any edit, the agent ran a Python command that printed order 1's discount, coupons,
+      the exact float product and gross_total(o), which reproduced the 1.78 result.
+  - id: must-2
+    criterion: 'MUST: states hypotheses with predictions'
+    pass: false
+    reason: The log refers to 'H1 is confirmed' and 'H2 is ruled out', but nothing visible states the
+      hypotheses or what each one predicted before testing.
+  - id: must-3
+    criterion: 'MUST: explains the causal chain with evidence'
+    pass: true
+    reason: The answer explains that 1.50 × 1.19 is stored as 1.78499999… so round(x, 2) gives 1.78, backed
+      by the Decimal(1.5*1.19) output and the order data.
+  - id: must-4
+    criterion: 'MUST: adds a regression test'
+    pass: true
+    reason: test_rounds_half_cent_up and test_rounds_half_cent_up_with_discount were added to tests/test_invoices.py,
+      and the agent ran the tests both before and after the fix.
+  - id: must-not-1
+    criterion: 'MUST NOT: changes code before identifying a cause'
+    pass: true
+    reason: The agent confirmed the float-rounding cause in the log before editing tests or writing shop/invoices.py.
+  - id: must-not-2
+    criterion: 'MUST NOT: suppresses the error with try/catch or retries'
+    pass: true
+    reason: The fix replaces float arithmetic with Decimal and ROUND_HALF_UP, with no try/except or retries.
+  activity: |-
+    $ Skill debugging
+    $ Bash find . -type f -not -path './.claude/*' | head -50; ls -R .ai/knowledge 2>/dev/null
+    $ Bash cat shop/invoices.py shop/models.py shop/coupons.py tests/test_invoices.py; cat shop/repository.py | head -80
+    $ Bash python3 -c "
+    from shop.repository import find_by_id; from shop.invoices import gross_total, net_total
+    o=find_by_id(1); print(o.discount, o.coupons, repr(net_total(o)*1.19), gross_total(o))
+    from decimal import Decimal; print(Decimal(1.5*1.19))"; grep -rn "gross_total\|net_total\|round(" shop t
+    > H1 is confirmed. Order 1 has no discount and no coupons, so H2 is ruled out. The exact product is 1.78499…, so `round` gives 1.78. I'll add a failing regression test first, then make the fix.
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-debugging-thci979f/tests/test_invoices.py
+    $ Bash python3 -m unittest tests.test_invoices 2>&1 | tail -15
+    > The second test I wrote has a misleading comment and doesn't actually use a discount. I'll fix it so it covers the discount path.
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-debugging-thci979f/tests/test_invoices.py
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-debugging-thci979f/shop/invoices.py
+    $ Bash grep -rn "net_total" . --include=*.py; python3 -m unittest discover -s tests -t . 2>&1 | tail -5; python3 -c "
+    from shop.repository import find_all; from shop.invoices import gross_total
+    print([(o.id, gross_total(o)) for o in find_all()])"
+    $ Bash python3 -m unittest tests.test_invoices tests.test_api tests.test_export 2>&1 | tail -15
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-debugging-thci979f/.ai/knowledge/issues/invoice-cent-rounding.md
+    > I found and fixed the cause: invoice totals were calculated with ordinary binary floating-point numbers, which can't store most cent amounts exactly. When the exact total ended in half a cent, it was rounded down instead of up. All 8 tests now pass, including 2 new ones for this case. **What was hap

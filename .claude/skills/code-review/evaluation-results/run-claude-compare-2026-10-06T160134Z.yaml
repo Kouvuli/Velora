@@ -1,0 +1,103 @@
+evaluator: runner:claude
+model: tool default
+skill: code-review
+version: 1.1.0
+types:
+- compare
+scenarios:
+- coupon-stacking
+setups:
+  canonical:code-review:
+    path: null
+    scenarios: 1
+    errors: 1
+    scenarios_passed: 0
+    criteria_pass_rate: null
+    tokens_approx: 1179
+    vendor_specific: []
+    body_lines: 53
+    results:
+    - id: coupon-stacking
+      pass: false
+      checks: []
+      error: |
+        claude exited 1: You've hit your session limit · resets 7pm (UTC)
+  superpowers:requesting-code-review:
+    path: /home/kali/.ai-skills/cache/ai-skills-compare-jc3389cd/superpowers-requesting-code-review
+    scenarios: 1
+    errors: 1
+    scenarios_passed: 0
+    criteria_pass_rate: null
+    tokens_approx: 743
+    vendor_specific: []
+    body_lines: 91
+    results:
+    - id: coupon-stacking
+      pass: false
+      checks: []
+      error: |
+        claude exited 1: You've hit your session limit · resets 7pm (UTC)
+  superpowers:receiving-code-review:
+    path: /home/kali/.ai-skills/cache/ai-skills-compare-jc3389cd/superpowers-receiving-code-review
+    scenarios: 1
+    errors: 1
+    scenarios_passed: 0
+    criteria_pass_rate: null
+    tokens_approx: 1541
+    vendor_specific: []
+    body_lines: 201
+    results:
+    - id: coupon-stacking
+      pass: false
+      checks: []
+      error: |
+        claude exited 1: You've hit your session limit · resets 7pm (UTC)
+  matt-pocock:code-review:
+    path: /home/kali/.ai-skills/cache/ai-skills-compare-jc3389cd/matt-pocock-code-review
+    scenarios: 1
+    errors: 1
+    scenarios_passed: 0
+    criteria_pass_rate: null
+    tokens_approx: 1639
+    vendor_specific: []
+    body_lines: 83
+    results:
+    - id: coupon-stacking
+      pass: false
+      checks: []
+      error: |
+        claude exited 1: You've hit your session limit · resets 7pm (UTC)
+  caveman:caveman-review:
+    path: /home/kali/.ai-skills/cache/ai-skills-compare-jc3389cd/caveman-caveman-review
+    scenarios: 1
+    errors: 1
+    scenarios_passed: 0
+    criteria_pass_rate: null
+    tokens_approx: 628
+    vendor_specific: []
+    body_lines: 46
+    results:
+    - id: coupon-stacking
+      pass: false
+      checks: []
+      error: |
+        claude exited 1: You've hit your session limit · resets 7pm (UTC)
+  baseline (no skill):
+    path: null
+    scenarios: 1
+    errors: 1
+    scenarios_passed: 0
+    criteria_pass_rate: null
+    tokens_approx: 0
+    vendor_specific: []
+    body_lines: 0
+    results:
+    - id: coupon-stacking
+      pass: false
+      checks: []
+      error: |
+        claude exited 1: You've hit your session limit · resets 7pm (UTC)
+summary:
+  winner: null
+  ranking: []
+  complete: false

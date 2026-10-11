@@ -1,0 +1,352 @@
+schema: ai-skill-os/lock/v1
+generated_at: '2026-10-10T15:21:31+00:00'
+skill_os:
+  commit: b7863149b9bfe1adecb4e9f4d0d603fce01e2e45
+skills:
+  acceptance-criteria:
+    version: 1.1.0
+    content_hash: sha256:d289e62d903c5a2a69ad2dd782e91689d7ce2c95bec977304d2c4bd92d1ab94d
+    source:
+      type: builtin
+    provenance: original
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  accessibility:
+    version: 1.0.0
+    content_hash: sha256:dc4b499b044a0cb28a16fe064e4785d506b54ff0f06a9bbe8d56e4babcf0a481
+    source:
+      type: builtin
+    provenance: original
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  architecture:
+    version: 1.1.0
+    content_hash: sha256:da2e97941d0e1b512f8b658b68598c2b3b4656e8ae8633fc883498fc8aa597a1
+    source:
+      type: builtin
+    provenance: merged
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  architecture-diff:
+    version: 1.0.0
+    content_hash: sha256:cb29b4ca8453ece08b42b267d031bc4b7091759b2533e343d2b7bdcef30e018b
+    source:
+      type: builtin
+    provenance: original
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  brainstorm:
+    version: 1.1.0
+    content_hash: sha256:68889f05e7b1b0d924d1f95f027ca0b5fe7d2feaeb70e0c716ad4c0e11b46abe
+    source:
+      type: builtin
+    provenance: merged
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  security:
+    version: 1.0.1
+    content_hash: sha256:e46be9c07b1d049531ee2a046cd934bcdf7af2333808018e9438b7cb8ac4bb10
+    source:
+      type: builtin
+    provenance: original
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  testing:
+    version: 1.0.1
+    content_hash: sha256:e85b668d15851b6bbfa702e2cc5f286a0f0a08370d00fea93722665efb719085
+    source:
+      type: builtin
+    provenance: original
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  code-review:
+    version: 1.1.0
+    content_hash: sha256:b557623831ddde924732b20b9afb973026bda58d193ce2e25d032500adfd1f57
+    source:
+      type: builtin
+    provenance: merged
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  debugging:
+    version: 1.1.1
+    content_hash: sha256:c7404548d9ad890a9e24214ebd1193356f412c9972abb6d8442b547fd754dce5
+    source:
+      type: builtin
+    provenance: merged
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  verification:
+    version: 1.2.0
+    content_hash: sha256:255891160fbd2c81878cc8813233ef8a9d0d4e5f3518c0a1ae44ff6b025aff3e
+    source:
+      type: builtin
+    provenance: merged
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  delivery:
+    version: 1.1.0
+    content_hash: sha256:6b76559ca29555bdde982117036427366569b88d5cb74a62df906f9edc0b5440
+    source:
+      type: builtin
+    provenance: inspired
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  documentation:
+    version: 1.0.0
+    content_hash: sha256:93b769fee7f5214dab70e9356fd5b4e1247b81d392d400a18f5311078104b77a
+    source:
+      type: builtin
+    provenance: original
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  domain-modeling:
+    version: 1.1.0
+    content_hash: sha256:decb93afc4ffffac3a2b85864bde6cecbc72e48d96b35ed9d3b192ce10f71973
+    source:
+      type: builtin
+    provenance: inspired
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  frontend-design:
+    version: 1.1.1
+    content_hash: sha256:6d854d2597dc3d57486383d2941df2e042ec5c7040b69b4a055e091ccb29c0f1
+    source:
+      type: builtin
+    provenance: merged
+    license: MIT AND Apache-2.0
+    trust: trusted
+    requested_by: manifest
+  frontend-testing:
+    version: 1.1.0
+    content_hash: sha256:99aff5e84af837252e4bd49a92f1a4cdb870439676b5673e37ebbbb859792f7f
+    source:
+      type: builtin
+    provenance: inspired
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  implementation:
+    version: 1.0.1
+    content_hash: sha256:c64b7b61aa975bc4b90319338981ffd91cc5154cdb692f01c6080b11a64a7a1f
+    source:
+      type: builtin
+    provenance: inspired
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  knowledge-first:
+    version: 1.0.0
+    content_hash: sha256:f0c6159d000609f1067ee1865ff923fdcd07d723ab16ef7c951a7bb94d528724
+    source:
+      type: builtin
+    provenance: original
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  knowledge-update:
+    version: 1.1.0
+    content_hash: sha256:0ca7fd7dd3dc16f70e144afe34dfd76f9a71a7828295a1a51c53f7662920ed16
+    source:
+      type: builtin
+    provenance: original
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  next-step:
+    version: 1.0.0
+    content_hash: sha256:6cae0572b217d846338bb66c13577f9ca273d784e273b4716e077a8fd1665942
+    source:
+      type: builtin
+    provenance: original
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  react:
+    version: 1.1.0
+    content_hash: sha256:69a987c2c0837963c1fcc85fa9e59a7d62a00b53432d72b689e37edcd06e280f
+    source:
+      type: builtin
+    provenance: inspired
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  nextjs:
+    version: 1.0.1
+    content_hash: sha256:17c18a6b40cd8ac14fbd6dd71e40bb0213998c1de2afb89016105ac3ffa33d61
+    source:
+      type: builtin
+    provenance: original
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  performance:
+    version: 1.0.0
+    content_hash: sha256:9bd8eeaa92c438ccdfd04e0acc1b27d49356d9979f97749462301e784ce0b409
+    source:
+      type: builtin
+    provenance: original
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  requirements:
+    version: 1.2.0
+    content_hash: sha256:5c2246d5cf44623420ec63f65375cde49268f9e8ca50a78c47158418648cda4f
+    source:
+      type: builtin
+    provenance: merged
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  planning:
+    version: 1.2.0
+    content_hash: sha256:c39742f8f54d05fbf1f2d46b697f16a27bce0488ccb40c27a8745726886165f9
+    source:
+      type: builtin
+    provenance: merged
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  retrospective:
+    version: 1.0.2
+    content_hash: sha256:2e1f094fee0a361a40997f80bdbb73d4d938b56f8257d1a901f7ffc9f3c27bf8
+    source:
+      type: builtin
+    provenance: original
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  search-first:
+    version: 1.0.0
+    content_hash: sha256:3a07f9b80bb7f4f8df11cd426accff47c0acd952f8db309c9f0880589b65a05d
+    source:
+      type: builtin
+    provenance: original
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  simplicity-guard:
+    version: 1.1.0
+    content_hash: sha256:1ee74096b8d887543e080a3334b1e878b5771a79d18351f2cb1070be1a7c7880
+    source:
+      type: builtin
+    provenance: merged
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  subagent-development:
+    version: 1.1.0
+    content_hash: sha256:e9cb355241b0548ace8c198e7622d7c820a5db5fa6103d021549a0604ed57e3f
+    source:
+      type: builtin
+    provenance: merged
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  tdd:
+    version: 1.1.1
+    content_hash: sha256:b045a3794c622db26fd6eff2c9dc53ca247bf59f73997276bd6f576f7e9cfdc1
+    source:
+      type: builtin
+    provenance: merged
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  web-design-guidelines:
+    version: 1.1.0
+    content_hash: sha256:b06549944c726dec8c1fb6405dbff55fe1adcc3c0fd34fc3692e6d9a347c8457
+    source:
+      type: builtin
+    provenance: merged
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+  web-motion-3d:
+    version: 1.0.0
+    content_hash: sha256:f2347acbd9012b97512894e9f6f3ffa6a6fe1380ce144210d776126758aa97eb
+    source:
+      type: builtin
+    provenance: original
+    license: MIT
+    trust: trusted
+    requested_by: manifest
+agents:
+  explorer:
+    version: 1.0.0
+    content_hash: sha256:118284eeb9baef8011ac724e1eebd3970a4fafbfd58d3e7c90e8831f6c2bbeb5
+  knowledge-curator:
+    version: 1.1.0
+    content_hash: sha256:4a0435047c28a823c8b05002a3fc639f61d5521a7d22849130cc3ccd9ac0ff2d
+  reviewer:
+    version: 1.2.0
+    content_hash: sha256:b0408c5c47f81fd042c7438cba5c9c0e13a302c9eb30199b5cbe147c1c5ac41b
+materialized:
+  mode: portable
+  dirs:
+  - .agents/skills
+  - .claude/skills
+  managed:
+  - acceptance-criteria
+  - accessibility
+  - architecture
+  - architecture-diff
+  - brainstorm
+  - code-review
+  - debugging
+  - delivery
+  - documentation
+  - domain-modeling
+  - frontend-design
+  - frontend-testing
+  - implementation
+  - knowledge-first
+  - knowledge-update
+  - next-step
+  - nextjs
+  - performance
+  - planning
+  - react
+  - requirements
+  - retrospective
+  - search-first
+  - security
+  - simplicity-guard
+  - subagent-development
+  - tdd
+  - testing
+  - verification
+  - web-design-guidelines
+  - web-motion-3d
+hooks:
+  runner: sha256:ddb349ad3e8e3e0eae0967f309beaa7b8b22c4079782d7ba0c329111124cc471
+  hooks:
+    config-protection:
+      version: 1.0.0
+      content_hash: sha256:d5605d00d0bc6b47a1864ee2bcb4a0af3dde5428f1b0402bff6cd6856d475a8f
+    dangerous-commands:
+      version: 1.1.0
+      content_hash: sha256:079edef3f3e1a5b8a80c8ddf51846f1ee6653740ac46b16a7fe1e66f5a426103
+    dependency-lock:
+      version: 1.0.1
+      content_hash: sha256:aad4cb3671ee418867f13a85ac8081ae8d3b7c37603323570131cdf324b3ef34
+    project-checks:
+      version: 1.1.0
+      content_hash: sha256:94356340114205a62514c8cccd8d29b95e57fc91d7af02fbf09d0b11a1973744
+    secret-scan:
+      version: 1.0.0
+      content_hash: sha256:be6414147d6c30649985766d217541f486c4a9904f304f3826404aa1284e8c62
+    sensitive-files:
+      version: 1.0.0
+      content_hash: sha256:b3bcaf60b04b7161af9b3760375351eb6e2616242e55a455fc4876c63e4d8e55

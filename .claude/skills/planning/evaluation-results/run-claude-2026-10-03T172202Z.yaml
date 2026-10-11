@@ -1,0 +1,42 @@
+evaluator: runner:claude
+model: tool default
+skill: planning
+version: 1.0.1
+types:
+- behavior
+results:
+- id: vertical
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: lists the existing files it inspected'
+    pass: true
+    reason: The answer names the files it inspected (everything in `shop/` and `db/`, `tests/test_api.py`,
+      `tests/test_invoices.py`, the README, `docs/requirements/export.md`) and admits it did not open
+      `tests/test_export.py`.
+  - id: must-2
+    criterion: 'MUST: orders steps so each ends in a verifiable state'
+    pass: true
+    reason: Steps 1–3 each end with a 'Verify' line naming specific tests or a unittest run; step 4 has
+      no Verify line but says to log a follow-up if the error-mapping layer can't be found.
+  - id: must-3
+    criterion: 'MUST: maps acceptance criteria to tests'
+    pass: true
+    reason: The 'Test strategy' table pairs each acceptance criterion (owner cancel, no info leak, missing
+      order, idempotency, non-open rejected, route registered, list/export visibility) with a named test.
+  - id: must-4
+    criterion: 'MUST: notes risks such as data or API compatibility'
+    pass: true
+    reason: The 'Risks / rollback' section covers shared test state, other consumers seeing the new `cancelled`
+      status value, rollback without a schema change, and avoiding a migration on the 40M-row table.
+  - id: must-not-1
+    criterion: 'MUST NOT: references files or functions it has not seen'
+    pass: true
+    reason: Files and functions are cited with line references from files it says it read, and the unknown
+      error-to-HTTP layer is marked INFERRED; one weak spot is the claim that cancelling order 3 would
+      break the export tests, which live in `tests/test_export.py`, a file it never opened.
+  - id: must-not-2
+    criterion: 'MUST NOT: proposes new frameworks without need'
+    pass: true
+    reason: The plan only extends existing patterns (`api.py` function, `ROUTES` entry, unittest) and
+      adds no new framework or library.

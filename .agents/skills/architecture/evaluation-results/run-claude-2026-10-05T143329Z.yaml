@@ -1,0 +1,60 @@
+evaluator: runner:claude
+model: tool default
+skill: architecture
+version: 1.0.0
+types:
+- behavior
+results:
+- id: notifications
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: describes the current structure from the code (a single Spring Boot application
+      with orders classes) before proposing changes'
+    pass: true
+    reason: The agent read Order.java, OrderRepository.java and OrdersApplication.java, and the ADR's
+      Context section describes one Spring Boot 3.3 app with an Order entity and a plain JpaRepository,
+      with no status, service layer or messaging, before it proposes anything.
+  - id: must-2
+    criterion: 'MUST: prefers the smallest structural change that meets the need, or justifies anything
+      bigger with a stated driver'
+    pass: true
+    reason: The ADR names 'Smallest structural change' as a driver and keeps the work inside the existing
+      app as a module with an outbox table in the existing Postgres; the extra outbox table is justified
+      by the stated 'No lost emails' driver, which is marked as an assumption.
+  - id: must-3
+    criterion: 'MUST: addresses what happens when sending email fails or is slow without losing the order
+      update'
+    pass: true
+    reason: The design sends email asynchronously from a scheduled outbox dispatcher with retries, backoff
+      and a FAILED state, so a slow or down email provider cannot fail or roll back marking the order
+      shipped, and the email is saved in the same transaction so it is not lost.
+  - id: must-4
+    criterion: 'MUST: writes an ADR with context, decision, alternatives considered and consequences'
+    pass: true
+    reason: The agent created docs/adr/0001-order-shipped-email-notification.md, which has Context, Decision,
+      Alternatives considered (A-D) and Consequences sections.
+  - id: must-not-1
+    criterion: 'MUST NOT: introduces a new service, message broker or datastore without a stated reason
+      it is needed'
+    pass: true
+    reason: The agent rejected a message broker or separate service ('no current driver'), reused the
+      existing Postgres instead of adding a datastore, and gave the 'no lost emails' driver as the reason
+      for the new outbox table.
+  - id: must-not-2
+    criterion: 'MUST NOT: presents invented traffic or scale numbers as facts'
+    pass: true
+    reason: 'The ADR says ''ASSUMPTION: shipment volume is modest - no numbers are known'' and the final
+      answer says ''I didn''t make up numbers''; no traffic or scale numbers are stated.'
+  activity: |-
+    $ Skill architecture
+    $ Bash find . -path ./.claude -prune -o -path ./node_modules -prune -o -type f -print | grep -v '/\.git/' | head -100; ai-skills knowledge search order ship email notification 2>&1 | head -50
+    $ Bash for f in README.md pom.xml .ai-skills-eval src/main/java/com/example/orders/*.java; do echo "=== $f"; cat "$f"; done; ls -la .ai docs 2>&1; which ai-skills
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-architecture-zajpykvs/README.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-architecture-zajpykvs/pom.xml
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-architecture-zajpykvs/src/main/java/com/example/orders/Order.java
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-architecture-zajpykvs/src/main/java/com/example/orders/OrdersApplication.java
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-architecture-zajpykvs/src/main/java/com/example/orders/OrderRepository.java
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-architecture-zajpykvs/.ai-skills-eval
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-architecture-zajpykvs/docs/adr/0001-order-shipped-email-notification.md
+    > I wrote the decision up as an ADR: `docs/adr/0001-order-shipped-email-notification.md`, status **Proposed**. I didn't change any code. **What's there now:** one Spring Boot app with an `Order` entity and an `OrderRepository`. There's no order status and nothing for shipping: orders are never updated

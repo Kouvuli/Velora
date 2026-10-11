@@ -1,0 +1,60 @@
+evaluator: runner:claude
+model: tool default
+skill: acceptance-criteria
+version: 1.0.0
+types:
+- behavior
+results:
+- id: export-ac
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: writes each criterion as Given/When/Then with concrete values'
+    pass: true
+    reason: All 12 criteria use Given/When/Then with concrete values, for example AC5's customer 100,
+      order 4 and the expected row `4,open,23.80` instead of `4,open,23.8`, and AC11's customer 200 seeing
+      only order 2.
+  - id: must-2
+    criterion: 'MUST: covers edge and error cases such as no orders, another customer''s orders, and formatting
+      of amounts'
+    pass: true
+    reason: AC10 covers a customer with no orders (customer 999), AC11 covers other customers' orders
+      being excluded, AC5-AC7 cover amount formatting (23.80, 25.00, 0.00), and AC12 covers a request
+      with no session.
+  - id: must-3
+    criterion: 'MUST: traces criteria to statements in docs/requirements/export.md'
+    pass: true
+    reason: The file names `docs/requirements/export.md` (rules 1-5) as its source and tags most criteria
+      with the rule they come from, for example AC1 (rule 1), AC2 (rule 2), AC3 (rule 5), AC4 (rule 3)
+      and AC5 (rule 4).
+  - id: must-4
+    criterion: 'MUST: lists open questions for anything the requirement does not decide'
+    pass: true
+    reason: The 'Open questions / assumptions' section lists 8 undecided points, including total definition,
+      row order, volume and performance limits, BOM, line endings, formula injection, the 401 status code
+      and the set of status values.
+  - id: must-not-1
+    criterion: 'MUST NOT: invents business rules or limits that the requirement does not state without
+      marking them as assumptions'
+    pass: true
+    reason: Points the requirement doesn't decide are marked as ASSUMPTION, INFERRED or open questions
+      (gross total, 401, the 'so that' clause), and no performance limit was invented; AC9's RFC 4180
+      quoting follows from the CSV format rather than adding a new business rule.
+  - id: must-not-2
+    criterion: 'MUST NOT: describes implementation details instead of observable behaviour'
+    pass: true
+    reason: The criteria describe observable behaviour (response headers, body rows, status codes, decoded
+      text) rather than code internals; the code findings appear only in the chat summary, not in the
+      criteria.
+  activity: |-
+    $ Skill acceptance-criteria
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-acceptance-criteria-babsqmj3/docs/requirements/export.md
+    $ Bash ai-skills knowledge search export csv orders 2>&1 | head -50; ls -R .ai/knowledge 2>/dev/null | head; ls
+    $ Bash find . -type f -not -path './.claude/*' | head -50; cat README.md; grep -rni "export\|csv" --include=* shop db tests | head -40
+    $ Bash cat shop/export.py tests/test_export.py shop/repository.py shop/models.py shop/routes.py shop/api.py db/migrations/V1__init.sql
+    $ Bash cat shop/invoices.py shop/coupons.py; python3 -c "
+    from shop.export import export_orders_csv as e
+    print(e({'id':100})); print(e({'id':999}))"
+    > I've read the story and the current export code. Now I'm writing the criteria.
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-acceptance-criteria-babsqmj3/docs/requirements/export-acceptance-criteria.md
+    > I wrote 12 Given/When/Then acceptance criteria to `docs/requirements/export-acceptance-criteria.md` and left the original story file unchanged. **What they cover:** - **Happy path:** the header row, one row per order you own, the `orders.csv` download name, and UTF-8 encoding. - **Number format:** t

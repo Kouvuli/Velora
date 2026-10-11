@@ -1,0 +1,25 @@
+scenarios:
+- id: pos-gwt
+  type: trigger
+  prompt: Write Given/When/Then acceptance criteria for the story "customers can cancel their own order".
+  expect_trigger: true
+- id: pos-dod
+  type: trigger
+  prompt: What is the definition of done for this ticket? Give me testable acceptance criteria the client can sign off.
+  expect_trigger: true
+- id: neg-deploy
+  type: trigger
+  prompt: Set up a GitHub Actions workflow that runs lint and tests on every pull request.
+  expect_trigger: false
+- id: export-ac
+  type: behavior
+  prompt: Write acceptance criteria for the CSV export story in docs/requirements/export.md.
+  must:
+  - writes each criterion as Given/When/Then with concrete values
+  - covers edge and error cases such as no orders, another customer's orders, and formatting of amounts
+  - traces criteria to statements in docs/requirements/export.md
+  - lists open questions for anything the requirement does not decide
+  must_not:
+  - invents business rules or limits that the requirement does not state without marking them as assumptions
+  - describes implementation details instead of observable behaviour
+  fixture: eval-python-shop

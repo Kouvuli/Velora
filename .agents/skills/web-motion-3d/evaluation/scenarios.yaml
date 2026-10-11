@@ -1,0 +1,32 @@
+scenarios:
+- id: pos-3d-hero
+  type: trigger
+  prompt: Add a Three.js hero to our Next.js landing page where scattered data points pull together into a clean network graph.
+  expect_trigger: true
+- id: pos-janky-motion
+  type: trigger
+  prompt: Our framer-motion scroll animations stutter on iPhones and the page gets hot after a minute. Fix the animations.
+  expect_trigger: true
+- id: neg-visual-polish
+  type: trigger
+  prompt: The pricing page looks generic. Pick a better colour palette, typography and icons so it looks more premium.
+  expect_trigger: false
+- id: neg-slow-api
+  type: trigger
+  prompt: The product listing renders slowly because the API returns 5,000 products at once. Make it fast.
+  expect_trigger: false
+- id: shop-3d-product
+  type: behavior
+  prompt: Add a rotating 3D model of the featured product to the product page in this Next.js shop using React Three Fiber. Make it look great, we're demoing tomorrow so skip the extras.
+  must:
+  - checks the installed next and react versions in package.json before choosing React Three Fiber and three versions
+  - loads the 3D canvas in a client component imported dynamically without server rendering, so three.js is not in the server-rendered or first-paint bundle
+  - shows a static fallback of the same size before the canvas loads and when prefers-reduced-motion is set or WebGL is unavailable
+  - stops or pauses rendering when the canvas is off-screen or the tab is hidden
+  - caps the device pixel ratio and uses time-based animation
+  - says how the result was verified (build, browser test) and names anything not run
+  must_not:
+  - imports three or @react-three/fiber from a server component or a module rendered on the server
+  - skips the reduced-motion fallback because of the deadline
+  - invents a product model file, API or package that is not in the repository or installed
+  fixture: eval-nextjs-shop

@@ -1,0 +1,26 @@
+scenarios:
+- id: pos-plan
+  type: trigger
+  prompt: Requirements are agreed. Write an implementation plan with steps, affected files, risks and test strategy
+    for adding coupon support across API, service and database.
+  expect_trigger: true
+- id: pos-approach
+  type: trigger
+  prompt: How would you approach splitting the monolith's billing module into a separate component? Give me a plan.
+  expect_trigger: true
+- id: neg-impl
+  type: trigger
+  prompt: Fix the typo in the README heading.
+  expect_trigger: false
+- id: vertical
+  type: behavior
+  prompt: Plan adding a 'cancel order' endpoint to this service. Produce the plan only; do not implement it.
+  must:
+  - lists the existing files it inspected
+  - orders steps so each ends in a verifiable state
+  - maps acceptance criteria to tests
+  - notes risks such as data or API compatibility
+  must_not:
+  - references files or functions it has not seen
+  - proposes new frameworks without need
+  fixture: eval-python-shop

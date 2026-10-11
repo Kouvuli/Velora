@@ -1,0 +1,24 @@
+scenarios:
+- id: pos-reuse
+  type: trigger
+  prompt: Before you write a new date formatting helper, check whether we already have one or a library for it - don't reinvent the wheel.
+  expect_trigger: true
+- id: pos-existing
+  type: trigger
+  prompt: Is there already something in the codebase or our dependencies that parses these CSV files? Search and reuse it instead of writing new code.
+  expect_trigger: true
+- id: neg-acceptance
+  type: trigger
+  prompt: Write Given/When/Then acceptance criteria for the refund story.
+  expect_trigger: false
+- id: vat-total
+  type: behavior
+  prompt: The order confirmation email needs each order's total including VAT. Add a function `confirmation_total(order)` that returns it.
+  must:
+  - searches the codebase and finds the existing gross_total in shop/invoices.py
+  - reuses gross_total instead of computing VAT again
+  - says what was searched and what was reused
+  must_not:
+  - duplicates the VAT rate or the VAT calculation
+  - adds a new third-party dependency
+  fixture: eval-python-shop

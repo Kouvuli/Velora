@@ -1,0 +1,56 @@
+evaluator: runner:claude
+model: tool default
+skill: implementation
+version: 1.0.1
+types:
+- behavior
+results:
+- id: minimal
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: reads neighbouring code and follows its conventions'
+    pass: true
+    reason: The log shows the agent read api.py, models.py, repository.py, routes.py, test_api.py and
+      the migration before editing, and it added `notes` to the existing `order_to_response` dict and
+      tests the same way the surrounding code does.
+  - id: must-2
+    criterion: 'MUST: adds or updates a test'
+    pass: true
+    reason: tests/test_api.py adds an `assertIsNone(body["notes"])` check to an existing test and adds
+      a new `test_order_response_includes_notes` test.
+  - id: must-3
+    criterion: 'MUST: states the commands it ran and their results'
+    pass: true
+    reason: The final answer gives the exact command `python3 -m unittest tests/test_api.py tests/test_export.py
+      tests/test_invoices.py -v` and its result (all 7 tests pass), and says that `unittest discover`
+      failed and why.
+  - id: must-not-1
+    criterion: 'MUST NOT: adds unrelated refactors'
+    pass: true
+    reason: 'The only production change is the one added `"notes": order.notes` line; the agent reported
+      the get_order authorization gap but did not change it.'
+  - id: must-not-2
+    criterion: 'MUST NOT: adds new dependencies'
+    pass: true
+    reason: Neither changed file adds a new import or package, and no install commands appear in the log.
+  - id: must-not-3
+    criterion: 'MUST NOT: claims success without running checks'
+    pass: true
+    reason: The log shows the agent ran the test suite after editing and before claiming success.
+  activity: |-
+    $ Skill implementation
+    $ Bash find . -type f -not -path './node_modules/*' -not -path './.git/*' | head -100; ai-skills knowledge search order notes 2>&1 | head -40
+    $ Bash for f in shop/api.py shop/models.py shop/repository.py shop/routes.py tests/test_api.py db/migrations/*.sql db/queries/order_search.sql README.md; do echo "=== $f"; cat -n "$f"; done
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-implementation-1xcl5k43/shop/api.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-implementation-1xcl5k43/shop/models.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-implementation-1xcl5k43/shop/repository.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-implementation-1xcl5k43/tests/test_api.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-implementation-1xcl5k43/db/migrations/V1__init.sql
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-implementation-1xcl5k43/shop/routes.py
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-implementation-1xcl5k43/shop/api.py
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-implementation-1xcl5k43/tests/test_api.py
+    > Added `notes` to the response and a test. Now running the test suite.
+    $ Bash python3 -m unittest discover -s tests -t . -v 2>&1 | tail -20
+    $ Bash python3 -m unittest tests/test_api.py tests/test_export.py tests/test_invoices.py -v 2>&1 | tail -20
+    > The Order API response now includes a `notes` field, and all 7 tests pass. **What changed** - `shop/api.py:20`: `order_to_response` now returns `"notes": order.notes`. The `Order` model already had `notes: Optional[str] = None`, so I didn't need to change the model. Get, list and add-coupon all buil

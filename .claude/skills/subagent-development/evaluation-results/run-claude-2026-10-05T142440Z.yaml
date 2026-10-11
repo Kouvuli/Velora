@@ -1,0 +1,65 @@
+evaluator: runner:claude
+model: tool default
+skill: subagent-development
+version: 1.0.0
+types:
+- behavior
+results:
+- id: split-work
+  pass: false
+  checks:
+  - id: must-1
+    criterion: 'MUST: identifies which tasks are independent and which depend on others (the docs and
+      export depend on the cancel endpoint)'
+    pass: true
+    reason: 'The agent drew a dependency graph: docs (C) run only after A and B are merged. It also saw
+      that the export needs the cancel feature''s `"cancelled"` status, and settled that shared constant
+      and the routes before dispatch so A and B can run in parallel.'
+  - id: must-2
+    criterion: 'MUST: writes self-contained briefs with goal, files involved, constraints and an acceptance
+      check'
+    pass: true
+    reason: Briefs A, B and C each give a goal, context with file paths, rules or constraints, a 'Don't
+      touch' list, the tests to write, and a 'Done when' acceptance check that runs the full unittest
+      suite.
+  - id: must-3
+    criterion: 'MUST: plans to review and test each subagent''s result before integrating it'
+    pass: true
+    reason: The 'How I'd review the results' section says the agent will read each diff, run the suite
+      itself instead of trusting the report, check that no file outside the brief changed, and make specific
+      checks for A and B before C runs.
+  - id: must-not-1
+    criterion: 'MUST NOT: assigns two subagents to edit the same file at the same time'
+    pass: false
+    reason: 'This MUST NOT was respected: the agent edits the shared `routes.py` and `models.py` itself
+      before dispatch and states ''two subagents must never edit the same file''. A edits `api.py` and
+      `test_cancel.py`, B edits `export.py` and `test_export.py`, and C edits only docs after both are
+      merged.'
+  - id: must-not-2
+    criterion: 'MUST NOT: invents files or modules that do not exist in the project without saying they
+      are new'
+    pass: true
+    reason: 'Every new artifact is marked as new: `tests/test_cancel.py` is labeled ''new file'', the
+      docs files are introduced with ''Create'', and the `Conflict` class with ''Define''. All other referenced
+      files were read in the activity log.'
+  activity: |-
+    $ Skill subagent-development
+    > Before I write briefs, I need to know what's in the codebase.
+    $ Bash ls -la && find . -path ./node_modules -prune -o -path ./.git -prune -o -type f -print | grep -v '^./.claude/skills' | head -100; ai-skills knowledge search order cancel 2>&1 | head -40
+    $ Bash for f in README.md shop/*.py db/migrations/*.sql db/queries/*.sql docs/requirements/export.md tests/*.py; do echo "=== $f"; cat -n "$f"; done; ls -a .ai 2>&1
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-subagent-development-xe7wtool/shop/api.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-subagent-development-xe7wtool/shop/export.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-subagent-development-xe7wtool/shop/models.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-subagent-development-xe7wtool/shop/repository.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-subagent-development-xe7wtool/shop/routes.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-subagent-development-xe7wtool/docs/requirements/export.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-subagent-development-xe7wtool/README.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-subagent-development-xe7wtool/db/migrations/V1__init.sql
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-subagent-development-xe7wtool/db/migrations/V2__order_status_index.sql
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-subagent-development-xe7wtool/tests/test_api.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-subagent-development-xe7wtool/tests/test_export.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-subagent-development-xe7wtool/shop/coupons.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-subagent-development-xe7wtool/shop/invoices.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-subagent-development-xe7wtool/db/queries/order_search.sql
+    $ Bash python3 -m unittest discover -s tests 2>&1 | tail -5
+    > Here's the plan. Nothing is implemented yet. The baseline test suite passes (6 tests). `.ai/knowledge/` is empty, so everything below comes from reading the source. ## Honest sizing first This change is about 60–80 lines across a small stdlib-only codebase. Writing three briefs costs about as much a

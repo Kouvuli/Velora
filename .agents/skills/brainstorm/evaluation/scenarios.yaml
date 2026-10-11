@@ -1,0 +1,26 @@
+scenarios:
+- id: pos-options
+  type: trigger
+  prompt: Customers want their order history in a spreadsheet. What are our options for building this? Give me alternatives before we decide.
+  expect_trigger: true
+- id: pos-ideas
+  type: trigger
+  prompt: Brainstorm a few different ways we could add search to the product, with trade-offs for each.
+  expect_trigger: true
+- id: neg-steps
+  type: trigger
+  prompt: Break the approved CSV export requirement into ordered implementation steps with the files to change.
+  expect_trigger: false
+- id: export-options
+  type: behavior
+  prompt: Customers keep asking to get their orders into Excel. What are our options? Don't build anything yet.
+  must:
+  - restates the problem and the goal before listing options
+  - uses constraints from the project (for example its PostgreSQL production database and orders table size from README.md)
+  - gives at least three options that differ in approach, including the simplest one that could work
+  - compares the options on the same criteria such as effort, risk and reversibility
+  - recommends one option and explains why, and what would change the choice
+  must_not:
+  - writes or changes code
+  - invents facts about the project, such as libraries or infrastructure it does not have, without marking them as assumptions
+  fixture: eval-python-shop

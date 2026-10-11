@@ -1,0 +1,33 @@
+evaluator: runner:claude
+model: tool default
+skill: security
+version: 1.0.1
+types:
+- behavior
+results:
+- id: idor
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: checks per-object authorization (IDOR)'
+    pass: true
+    reason: 'The answer reports an IDOR in get_order. It shows that customer_id is never compared to current_user
+      and gives a cross-user example: user 100 reading order 2.'
+  - id: must-2
+    criterion: 'MUST: rates findings by severity with evidence'
+    pass: true
+    reason: The findings table has Severity (High, Low) and Evidence columns, and the evidence cites the
+      call chain and specific file/line references.
+  - id: must-3
+    criterion: 'MUST: proposes a minimal fix with a test'
+    pass: true
+    reason: It proposes a minimal owner check that raises NotFound and includes a regression test, test_get_order_rejects_other_users_order.
+  - id: must-not-1
+    criterion: 'MUST NOT: reports only theoretical issues without an input-to-sink path'
+    pass: true
+    reason: 'The main finding traces a concrete path from input to sink: order_id from the URL goes to
+      repository.find_by_id and then order_to_response, with an enumeration example.'
+  - id: must-not-2
+    criterion: 'MUST NOT: recommends custom crypto'
+    pass: true
+    reason: The answer never recommends any cryptography, custom or otherwise.

@@ -1,0 +1,49 @@
+evaluator: runner:claude
+model: tool default
+skill: react
+version: 1.0.1
+types:
+- behavior
+results:
+- id: form
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: checks the project''s existing libraries before choosing tools'
+    pass: true
+    reason: The agent ran `cat package.json` and read the existing `components/Button.tsx` before writing
+      code, and noted that `react-hook-form`, `zod` and `@hookform/resolvers` were already present before
+      using them.
+  - id: must-2
+    criterion: 'MUST: labels inputs and keeps keyboard accessibility'
+    pass: true
+    reason: Both inputs have a `<label htmlFor>` that matches their ids, and the form uses a native `<form>`,
+      native `<input>`s and a submit `Button`, with no custom key handling that would break keyboard use.
+  - id: must-3
+    criterion: 'MUST: tests via roles and labels'
+    pass: true
+    reason: 'The tests find controls with `screen.getByRole("button", { name: "Sign up" })` and `screen.getByLabelText("Email"/"Password")`;
+      only the error messages are checked by text.'
+  - id: must-not-1
+    criterion: 'MUST NOT: uses dangerouslySetInnerHTML with user input'
+    pass: true
+    reason: '`SignupForm.tsx` does not use `dangerouslySetInnerHTML`; error messages are rendered as plain
+      JSX text.'
+  - id: must-not-2
+    criterion: 'MUST NOT: adds a new state library without need'
+    pass: true
+    reason: No new state library was added; the form uses `react-hook-form`, which was already in `package.json`.
+  activity: |-
+    $ Skill react
+    $ Bash ls -la && cat package.json 2>/dev/null; find . -path ./node_modules -prune -o -type f -print | grep -v '^./.claude/skills' | head -50
+    $ Bash for f in components/Button.tsx app/layout.tsx app/checkout/page.tsx "app/products/[id]/page.tsx" lib/session.ts README.md .npmrc; do echo "=== $f"; cat "$f"; done; ls .ai 2>/dev/null; ls node_modules 2>/dev/null | head
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-react-4kf92xqm/components/Button.tsx
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-react-4kf92xqm/app/checkout/page.tsx
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-react-4kf92xqm/README.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-react-4kf92xqm/app/layout.tsx
+    > The project already has `react-hook-form`, `zod` and `@hookform/resolvers`, so I'll use those along with the existing `Button`.
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-react-4kf92xqm/components/SignupForm.tsx
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-react-4kf92xqm/components/SignupForm.test.tsx
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-react-4kf92xqm/components/SignupForm.test.tsx
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-react-4kf92xqm/components/SignupForm.test.tsx
+    > I added a signup form at `components/SignupForm.tsx` with tests in `components/SignupForm.test.tsx`. I haven't run the tests or the type checker: the README says dependencies aren't installed and the sandbox has no network. **How it's built** - It uses the libraries already in `package.json`: `react

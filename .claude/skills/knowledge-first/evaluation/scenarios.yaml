@@ -1,0 +1,24 @@
+scenarios:
+- id: pos-what-known
+  type: trigger
+  prompt: Before you change anything, check what the project knowledge base already knows about the orders endpoints and decisions.
+  expect_trigger: true
+- id: pos-graph
+  type: trigger
+  prompt: What uses the orders table? Query the knowledge graph instead of scanning the whole codebase.
+  expect_trigger: true
+- id: neg-gwt
+  type: trigger
+  prompt: Write Given/When/Then acceptance criteria for the refund story.
+  expect_trigger: false
+- id: use-knowledge
+  type: behavior
+  prompt: We want an endpoint listing a customer's invoices. Before designing it, tell me what the project already knows that constrains it, with evidence.
+  must:
+  - looks in .ai/knowledge/ (or uses ai-skills knowledge search) before reading the rest of the code
+  - reports the cursor pagination decision and the ownership rule with their evidence files
+  - distinguishes recorded facts from its own inferences
+  must_not:
+  - invents conventions that are not recorded or visible in the code
+  - presents the knowledge items as verified without checking the cited source for the ownership rule
+  fixture: eval-python-shop-knowledge

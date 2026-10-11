@@ -1,0 +1,66 @@
+evaluator: runner:claude
+model: tool default
+skill: brainstorm
+version: 1.0.0
+types:
+- behavior
+results:
+- id: export-options
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: restates the problem and the goal before listing options'
+    pass: true
+    reason: Before the Options table, a 'Problem' section restates the goal ('Customers want their order
+      history in Excel') and frames the real question as why the existing CSV export doesn't meet that
+      need.
+  - id: must-2
+    criterion: 'MUST: uses constraints from the project (for example its PostgreSQL production database
+      and orders table size from README.md)'
+    pass: true
+    reason: 'The Constraints section uses project facts: pure Python stdlib, PostgreSQL 16 with ~40M orders,
+      the full-table load in export.py:13 and the missing customer_id index (V2 only indexes status).'
+  - id: must-3
+    criterion: 'MUST: gives at least three options that differ in approach, including the simplest one
+      that could work'
+    pass: true
+    reason: It gives five clearly different options (fix the CSV, native .xlsx, live data feed, background
+      export, publish a guide), including the simplest ones (E at XS effort and A at S effort).
+  - id: must-4
+    criterion: 'MUST: compares the options on the same criteria such as effort, risk and reversibility'
+    pass: true
+    reason: 'One table compares every option on the same columns: Effort, Risk, Reversible? and Fits stack?'
+  - id: must-5
+    criterion: 'MUST: recommends one option and explains why, and what would change the choice'
+    pass: true
+    reason: It recommends A plus the index fix because it is the smallest change, stays on stdlib and
+      fixes the likely causes, and says to choose B if real Excel types or multiple locales are needed,
+      and C/D for recurring refreshes or very large histories.
+  - id: must-not-1
+    criterion: 'MUST NOT: writes or changes code'
+    pass: true
+    reason: No files were created or changed, and the activity log shows only reads, ls/find/knowledge-search
+      commands and the skill call.
+  - id: must-not-2
+    criterion: 'MUST NOT: invents facts about the project, such as libraries or infrastructure it does
+      not have, without marking them as assumptions'
+    pass: true
+    reason: Project claims cite files the agent read (export.py, invoices.py, migrations, requirements).
+      The German-locale guess is labeled 'inferred', customer traits are listed under 'Assumed', and openpyxl
+      and a job queue are named as things the project lacks rather than things it has.
+  activity: |-
+    $ Skill brainstorm
+    $ Bash ls -la && ls -R .ai 2>/dev/null | head -50; ai-skills knowledge search order export csv excel 2>&1 | head -40
+    $ Bash cat README.md; find db docs shop tests -type f | head -50; wc -l $(find db docs shop tests -type f) | tail -1
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-brainstorm-agqpj3fl/README.md
+    $ Bash ls -R /home/kali/.ai-skills/cache/ai-skills-eval-brainstorm-agqpj3fl/db /home/kali/.ai-skills/cache/ai-skills-eval-brainstorm-agqpj3fl/docs /home/kali/.ai-skills/cache/ai-skills-eval-brainstorm-agqpj3fl/shop /home/kali/.ai-skills/cache/ai-skills-eval-brainstorm-agqpj3fl/tests
+    > There's already a CSV export. Let me look at it.
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-brainstorm-agqpj3fl/shop/export.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-brainstorm-agqpj3fl/docs/requirements/export.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-brainstorm-agqpj3fl/shop/routes.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-brainstorm-agqpj3fl/tests/test_export.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-brainstorm-agqpj3fl/shop/repository.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-brainstorm-agqpj3fl/shop/invoices.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-brainstorm-agqpj3fl/db/migrations/V1__init.sql
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-brainstorm-agqpj3fl/db/migrations/V2__order_status_index.sql
+    > I didn't build or change anything. I read the code and found that we already have a CSV export (`GET /api/orders/export.csv`). So the real question is why customers still can't get their orders into Excel. The code suggests some likely reasons. I couldn't run the test suite because shell commands ne

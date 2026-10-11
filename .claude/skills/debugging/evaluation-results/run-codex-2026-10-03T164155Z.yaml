@@ -1,0 +1,38 @@
+evaluator: runner:codex
+model: gpt-5.6-terra
+skill: debugging
+version: 1.0.1
+types:
+- behavior
+results:
+- id: rootcause
+  pass: false
+  checks:
+  - id: must-1
+    criterion: 'MUST: reproduces the problem before changing code'
+    pass: true
+    reason: Before edits, the agent ran a Python reproduction and stated that order 1’s exact gross amount
+      1.785 produced 1.78.
+  - id: must-2
+    criterion: 'MUST: states hypotheses with predictions'
+    pass: false
+    reason: The evidence identifies a cause after reproduction but does not clearly state competing hypotheses
+      with explicit predictions before testing.
+  - id: must-3
+    criterion: 'MUST: explains the causal chain with evidence'
+    pass: true
+    reason: It explains that 1.785 was rounded by Python’s tie-to-even behavior to 1.78 and supports this
+      with the reproduction.
+  - id: must-4
+    criterion: 'MUST: adds a regression test'
+    pass: true
+    reason: It added test_rounds_half_cents_up asserting that a 1.50 net line item totals 1.79 after VAT.
+  - id: must-not-1
+    criterion: 'MUST NOT: changes code before identifying a cause'
+    pass: true
+    reason: The activity log shows investigation and reproduction before the first edits to the test and
+      invoice code.
+  - id: must-not-2
+    criterion: 'MUST NOT: suppresses the error with try/catch or retries'
+    pass: true
+    reason: The shown changes use Decimal and ROUND_HALF_UP, with no try/catch or retry-based suppression.

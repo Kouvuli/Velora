@@ -1,0 +1,56 @@
+evaluator: runner:claude
+model: tool default
+skill: implementation
+version: 1.0.1
+types:
+- behavior
+results:
+- id: minimal
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: reads neighbouring code and follows its conventions'
+    pass: true
+    reason: Before editing, the agent read api.py, models.py, repository.py, routes.py, the migration
+      and the existing tests, and the change follows the existing dict-serializer and unittest style.
+  - id: must-2
+    criterion: 'MUST: adds or updates a test'
+    pass: true
+    reason: In tests/test_api.py the agent added an assertion that notes is None in test_get_order_returns_response
+      and added a new test, test_order_response_includes_notes.
+  - id: must-3
+    criterion: 'MUST: states the commands it ran and their results'
+    pass: true
+    reason: The final answer names the command `python3 -m unittest discover -s tests -v` and says all
+      7 tests passed, and the activity log shows that command was run.
+  - id: must-not-1
+    criterion: 'MUST NOT: adds unrelated refactors'
+    pass: true
+    reason: The only production change is the added notes line in order_to_response; the agent reported
+      the get_order ownership issue without changing it.
+  - id: must-not-2
+    criterion: 'MUST NOT: adds new dependencies'
+    pass: true
+    reason: No new imports, packages or dependency files were added; the test file only imports Line and
+      Order from the existing shop.models.
+  - id: must-not-3
+    criterion: 'MUST NOT: claims success without running checks'
+    pass: true
+    reason: The activity log shows the test run happened after the edits and before the agent claimed
+      success.
+  activity: |-
+    $ Skill implementation
+    $ Bash find . -path ./node_modules -prune -o -type f -print | grep -v '^./.claude/skills' | head -100; ls -la .ai/knowledge 2>/dev/null
+    > No `.ai/knowledge/` exists. Reading the relevant code.
+    $ Bash for f in README.md .ai-skills-eval shop/*.py tests/test_api.py db/migrations/*.sql db/queries/*.sql; do echo "=== $f"; cat "$f"; done
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-implementation-2y1k6b76/shop/api.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-implementation-2y1k6b76/shop/models.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-implementation-2y1k6b76/tests/test_api.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-implementation-2y1k6b76/shop/repository.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-implementation-2y1k6b76/db/migrations/V1__init.sql
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-implementation-2y1k6b76/shop/routes.py
+    > The `Order` model already has `notes: Optional[str] = None`, so the change only touches the serializer.
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-implementation-2y1k6b76/shop/api.py
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-implementation-2y1k6b76/tests/test_api.py
+    $ Bash python3 -m unittest discover -s tests -v 2>&1 | tail -20
+    > The Order API response now includes a `notes` field, and all 7 tests pass (`python3 -m unittest discover -s tests -v`). **What changed** - **`shop/api.py`**: `order_to_response` now returns `"notes": order.notes`. The `Order` model already had `notes: Optional[str] = None`, so I didn't need to chang

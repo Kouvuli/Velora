@@ -1,0 +1,27 @@
+scenarios:
+- id: pos-audit
+  type: trigger
+  prompt: Audit the storefront for accessibility against WCAG 2.2 AA and fix the issues for keyboard and screen reader users.
+  expect_trigger: true
+- id: pos-a11y
+  type: trigger
+  prompt: A blind customer says our site doesn't work with their screen reader. Fix the a11y problems.
+  expect_trigger: true
+- id: neg-perf
+  type: trigger
+  prompt: The orders list endpoint takes 8 seconds. Profile it and make it fast.
+  expect_trigger: false
+- id: storefront-audit
+  type: behavior
+  prompt: Make the storefront in public/ accessible to keyboard and screen reader users.
+  must:
+  - replaces the clickable div elements (Cart link and Add buttons) with real links or buttons
+  - adds alt text to the images and a visible label for the email input
+  - restores a visible focus indicator instead of outline none
+  - fixes text with insufficient contrast such as the #aaaaaa muted text
+  - makes the newsletter error perceivable without colour (text, announced to screen readers)
+  - adds a lang attribute to the html element
+  must_not:
+  - adds ARIA roles to divs instead of using native elements
+  - claims WCAG compliance without saying what was verified and how
+  fixture: eval-frontend-shop

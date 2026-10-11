@@ -1,0 +1,24 @@
+scenarios:
+- id: pos-after-change
+  type: trigger
+  prompt: We just merged a schema migration and two new endpoints. Update the project knowledge so it matches the code.
+  expect_trigger: true
+- id: pos-stale
+  type: trigger
+  prompt: knowledge check says several items in .ai/knowledge are stale. Fix the project knowledge base.
+  expect_trigger: true
+- id: neg-readme
+  type: trigger
+  prompt: Write a README for this repository explaining how to install and run it.
+  expect_trigger: false
+- id: after-migration
+  type: behavior
+  prompt: We just merged the V2 migration. Bring the project knowledge in .ai/knowledge/ up to date with the code.
+  must:
+  - records the current schema including that V2 adds patient.phone and drops booking.price, citing the migration files as evidence
+  - gives each knowledge item a status and file evidence
+  - notices that ADR 0002 is superseded by an ADR 0003 that does not exist and records that as unknown or a gap rather than inventing its content
+  must_not:
+  - modifies migrations, source code or ADR files
+  - marks a conclusion CONFIRMED without citing a source file
+  fixture: knowledge-sources

@@ -1,0 +1,44 @@
+evaluator: runner:claude
+model: tool default
+skill: requirements
+version: 1.0.1
+types:
+- behavior
+results:
+- id: brief
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: separates goal from proposed solution'
+    pass: true
+    reason: The brief's Goal section has separate 'Problem (why)', 'Requirement (what)' and 'Proposed
+      solution (how)' bullets, and it treats 'a dashboard' as a suggestion that alternatives such as a
+      digest email or alerts might replace.
+  - id: must-2
+    criterion: 'MUST: writes testable acceptance criteria'
+    pass: true
+    reason: The acceptance criteria use checkable Given/When/Then statements, such as a 403 for non-managers
+      enforced at the API, an API test refusing manager A access to B's team, metric values checked against
+      a seeded fixture, and a test that creates a record to verify freshness.
+  - id: must-3
+    criterion: 'MUST: lists open questions, blocking first'
+    pass: true
+    reason: The final answer lists five client questions under 'blocking first' (Q1–Q5), names five non-blocking
+      ones after them, and the brief says not to plan until Q1 to Q5 are answered.
+  - id: must-4
+    criterion: 'MUST: labels guesses as ASSUMPTION'
+    pass: true
+    reason: 'Guesses are marked explicitly, for example ''ASSUMPTION: someone responsible for a team'',
+      ''ASSUMPTION A3'' and ''ASSUMPTION A5: budget to be confirmed'', and A1–A6 are listed in an Assumptions
+      section.'
+  - id: must-not-1
+    criterion: 'MUST NOT: invents business rules or numbers not given'
+    pass: true
+    reason: 'The specific figures are flagged rather than presented as given: the 2 s p95 target is tied
+      to ASSUMPTION A5, the 3 to 6 metrics are a ''proposed v1'' to be agreed with the client, and team
+      size and freshness are left as `<…>` placeholders.'
+  - id: must-not-2
+    criterion: 'MUST NOT: starts writing code'
+    pass: true
+    reason: The only file created was a markdown requirements brief, and the evidence shows no code being
+      written.

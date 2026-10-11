@@ -1,0 +1,65 @@
+evaluator: runner:claude
+model: tool default
+skill: planning
+version: 1.0.1
+types:
+- behavior
+results:
+- id: vertical
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: lists the existing files it inspected'
+    pass: true
+    reason: The plan says it read every file under shop/, tests/, db/ and docs/ plus the README, and the
+      log shows Reads of routes.py, api.py, models.py, repository.py, coupons.py, invoices.py, export.py,
+      both migrations, order_search.sql, all three test files and export.md.
+  - id: must-2
+    criterion: 'MUST: orders steps so each ends in a verifiable state'
+    pass: true
+    reason: Steps 1 to 4 each give files, the change and a 'Verify:' line naming a test or check, such
+      as test_cancel_open_order_sets_status_cancelled and the ROUTES assertion plus a full unittest run.
+  - id: must-3
+    criterion: 'MUST: maps acceptance criteria to tests'
+    pass: true
+    reason: 'Each assumed acceptance criterion maps to a named test: owner cancel, non-owner or missing
+      gives NotFound, repeat cancel changes nothing, a non-open status raises OrderNotCancellable, and
+      blocking coupons is covered by test_add_coupon_to_cancelled_order_rejected.'
+  - id: must-4
+    criterion: 'MUST: notes risks such as data or API compatibility'
+    pass: true
+    reason: The Risks section covers status vocabulary and spelling in production data, HTTP mapping of
+      the new exception, cancelled orders now appearing in the list and CSV export, and the effect of
+      a nullable column on the 40M-row table.
+  - id: must-not-1
+    criterion: 'MUST NOT: references files or functions it has not seen'
+    pass: true
+    reason: Every file and function it cites with detail (add_coupon at api.py:36, models.py:18, V1__init.sql:11,
+      get_order at api.py:23, _ORDERS, order_to_response) was in files it read; shop/orders.py appears
+      only as an optional place for new logic, with no claims about its contents.
+  - id: must-not-2
+    criterion: 'MUST NOT: proposes new frameworks without need'
+    pass: true
+    reason: It explicitly rejects a general PATCH endpoint, a state-machine helper and a migration, and
+      adds only one function, one exception and one route following existing patterns.
+  activity: |-
+    $ Skill planning
+    $ Bash find . -path ./node_modules -prune -o -path ./.git -prune -o -type f -print | grep -v '.claude/skills' | head -100; ai-skills knowledge search order cancel 2>&1 | head -50
+    $ Bash ls -la .ai 2>&1; for f in README.md .ai-skills-eval shop/*.py db/queries/*.sql db/migrations/*.sql docs/requirements/export.md tests/*.py; do echo "=== $f"; cat -n "$f"; done
+    > I'll read the files directly instead.
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-4pvxse9t/shop/routes.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-4pvxse9t/shop/api.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-4pvxse9t/shop/models.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-4pvxse9t/shop/repository.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-4pvxse9t/db/migrations/V1__init.sql
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-4pvxse9t/db/migrations/V2__order_status_index.sql
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-4pvxse9t/tests/test_api.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-4pvxse9t/README.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-4pvxse9t/shop/coupons.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-4pvxse9t/shop/invoices.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-4pvxse9t/shop/export.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-4pvxse9t/db/queries/order_search.sql
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-4pvxse9t/tests/test_invoices.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-4pvxse9t/tests/test_export.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-4pvxse9t/docs/requirements/export.md
+    > # Plan: `POST /api/orders/{id}/cancel` I read every file under `shop/`, `tests/`, `db/` and `docs/`, plus the README. There is no `.ai/knowledge/` directory and `ai-skills knowledge search order cancel` returned nothing, so this plan is based on the source code alone. There are no written requiremen

@@ -1,0 +1,25 @@
+scenarios:
+- id: pos-model
+  type: trigger
+  prompt: Model the domain for orders, coupons and invoices - entities, invariants, lifecycles and a glossary of business terms.
+  expect_trigger: true
+- id: pos-terms
+  type: trigger
+  prompt: The team uses customer, user and account interchangeably and nobody knows which business rules must always hold. Sort out the domain language.
+  expect_trigger: true
+- id: neg-pipeline
+  type: trigger
+  prompt: Our CI pipeline is slow. Cache dependencies and add a gated deploy stage.
+  expect_trigger: false
+- id: shop-domain
+  type: behavior
+  prompt: Model the domain of this shop (orders, coupons, invoices) and record it in the project knowledge.
+  must:
+  - derives entities, value objects and relationships from the code in shop/
+  - states invariants and marks each as enforced in code (with file location), stated in requirements, or assumed
+  - notices that the code does not prevent applying the same coupon twice and reports it as a gap or question
+  - writes the model to .ai/knowledge/domain/ with a status and evidence
+  must_not:
+  - presents invented business rules or states as facts
+  - changes source code
+  fixture: eval-python-shop

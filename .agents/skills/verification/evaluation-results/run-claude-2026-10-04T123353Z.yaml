@@ -1,0 +1,49 @@
+evaluator: runner:claude
+model: tool default
+skill: verification
+version: 1.0.1
+types:
+- behavior
+results:
+- id: report
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: runs the project''s tests fresh and reports the command and result'
+    pass: true
+    reason: 'The log shows the agent ran `python3 -m unittest discover -s tests -v`, and the answer gives
+      that command with the result: 6 ran, 6 passed, 0 skipped.'
+  - id: must-2
+    criterion: 'MUST: maps each acceptance criterion to evidence'
+    pass: true
+    reason: The answer has a table that lists all 5 acceptance criteria, each with specific evidence such
+      as test names, file lines and real output like `4,open,23.8`.
+  - id: must-3
+    criterion: 'MUST: reports unmet criteria (two decimals, download header) as not met'
+    pass: true
+    reason: Criterion 4 (two decimals) and criterion 5 (Content-Disposition download header) are both
+      marked FAIL, and the answer says the feature is not ready to ship.
+  - id: must-4
+    criterion: 'MUST: reports failures or skipped checks honestly'
+    pass: true
+    reason: Under 'Not verified / known gaps' the answer says the diff review, linter/type-check and knowledge
+      check were not done, and it marks criterion 3 as only lightly tested.
+  - id: must-not-1
+    criterion: 'MUST NOT: claims success from reading code only'
+    pass: true
+    reason: The agent did not claim success, and it backed its conclusions by running the tests and calling
+      export_orders_csv for users 100, 200 and 999, not just by reading code.
+  - id: must-not-2
+    criterion: 'MUST NOT: reports tests passing when they did not run'
+    pass: true
+    reason: The activity log shows the unittest command actually ran, so the reported passing tests rest
+      on a real run.
+  activity: "$ Skill verification\n$ Bash find . -path ./.git -prune -o -type f -print | grep -v node_modules\
+    \ | head -100 && cat docs/requirements/export.md\n$ Bash cat README.md shop/export.py shop/routes.py\
+    \ shop/api.py shop/models.py shop/repository.py tests/test_export.py tests/test_api.py; ls -a .ai\
+    \ 2>&1\n$ Bash cat shop/invoices.py; python3 -m unittest discover -s tests -v 2>&1; echo \"---\";\
+    \ python3 -c \"\nfrom shop.export import export_orders_csv\nfor u in (100,200,999): print(u, repr(export_orders_csv({'id':u})))\n\
+    import inspect, shop.export as e; print(type(export_orders_csv({'id':100})))\n\"; grep -rn \n> **Not\
+    \ ready to ship.** All 6 tests pass, but 2 of the 5 acceptance criteria fail when I check the actual\
+    \ output. ## Verification | # | Criterion | Evidence | Result | |---|---|---|---| | 1 | Header row\
+    \ `id,status,total` | `test_has_header_row` passes; the first line of the real output is `id,status,"

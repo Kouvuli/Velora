@@ -1,0 +1,20 @@
+schema: ai-skill-os/hook/v1
+name: sensitive-files
+version: 1.0.0
+description: >-
+  Blocks committing files that must never be in version control (.env, private keys, key stores, Terraform state); warns on risky ones (tfvars, .npmrc, dumps).
+triggers: [pre-commit, pre-delivery]
+default_enabled: true
+entry: hook.py
+source:
+  type: builtin
+provenance:
+  type: original
+  author: AI Skill OS
+license:
+  spdx: MIT
+security:
+  trust: trusted
+  reads: [project files, staged git content, the proposed shell command]
+  writes: []
+  network: false

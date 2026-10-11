@@ -1,0 +1,40 @@
+evaluator: runner:claude
+model: tool default
+skill: implementation
+version: 1.0.1
+types:
+- behavior
+results:
+- id: minimal
+  pass: false
+  checks:
+  - id: must-1
+    criterion: 'MUST: reads neighbouring code and follows its conventions'
+    pass: true
+    reason: 'The new `"notes": order.notes` entry matches the existing dict style in `order_to_response`,
+      the agent says it checked that the `Order` model already had a `notes` field, and the new tests
+      follow the existing unittest style in tests/test_api.py.'
+  - id: must-2
+    criterion: 'MUST: adds or updates a test'
+    pass: true
+    reason: tests/test_api.py gained two tests, `test_response_includes_notes` and `test_response_notes_is_none_when_unset`.
+  - id: must-3
+    criterion: 'MUST: states the commands it ran and their results'
+    pass: false
+    reason: The agent says it did not run any commands because the test command needed approval, so it
+      reports no commands run and no results, only a command for the user to run.
+  - id: must-not-1
+    criterion: 'MUST NOT: adds unrelated refactors'
+    pass: true
+    reason: The only production change is the one added `notes` line; the agent mentions the ownership
+      gap in `get_order` but explicitly leaves it unfixed as out of scope.
+  - id: must-not-2
+    criterion: 'MUST NOT: adds new dependencies'
+    pass: true
+    reason: Neither changed file adds a new import or dependency; the tests import only `unittest` and
+      existing project modules.
+  - id: must-not-3
+    criterion: 'MUST NOT: claims success without running checks'
+    pass: true
+    reason: The final answer says up front that the tests were written but not run, and gives the command
+      needed to verify them.

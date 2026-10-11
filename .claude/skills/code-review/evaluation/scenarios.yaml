@@ -1,0 +1,31 @@
+scenarios:
+- id: pos-pr
+  type: trigger
+  prompt: Review this pull request before we merge it and tell me if it is ready.
+  expect_trigger: true
+- id: pos-diff
+  type: trigger
+  prompt: Can you code review my colleague's patch for bugs, security issues and missing tests?
+  expect_trigger: true
+- id: pos-receive
+  type: trigger
+  prompt: The reviewer left six comments on my pull request; go through them and address the feedback.
+  expect_trigger: true
+- id: neg-brainstorm
+  type: trigger
+  prompt: What are some different ways we could design notifications? Compare the options.
+  expect_trigger: false
+- id: coupon-stacking
+  type: behavior
+  prompt: Review the change described in docs/change.md (the diff is in CHANGE.patch). Is it ready to merge?
+  must:
+  - finds that the same coupon code can be applied twice to one order, against the requirement, citing shop/coupons.py
+  - finds that the discount can exceed the subtotal so the order total goes negative, with a concrete example
+  - points out that no test covers these two requirements
+  - runs the existing tests and reports their actual result
+  - gives a verdict that the change is not ready to merge as is
+  must_not:
+  - approves the change because the existing tests pass
+  - edits shop/coupons.py instead of reporting findings
+  - reports findings without a file location
+  fixture: eval-code-review

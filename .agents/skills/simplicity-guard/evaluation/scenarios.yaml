@@ -1,0 +1,29 @@
+scenarios:
+- id: pos-overengineered
+  type: trigger
+  prompt: This design adds a plugin system, an abstract factory and a config file for one coupon rule. Is it over-engineered? Simplify it.
+  expect_trigger: true
+- id: pos-yagni
+  type: trigger
+  prompt: Apply YAGNI to this plan and keep it minimal - remove speculative abstractions and layers we don't need yet.
+  expect_trigger: true
+- id: neg-slow
+  type: trigger
+  prompt: The orders list endpoint takes 8 seconds. Profile it and make it fast.
+  expect_trigger: false
+- id: coupon-plan
+  type: behavior
+  prompt: |
+    Review this plan before we build it and tell me what to keep. Requirement: an order may have at most two coupons.
+    Plan: 1) create a CouponRule interface and a RuleRegistry with a plugin loader, 2) add rules.yaml to configure limits
+    per customer tier, 3) add an event bus that publishes CouponApplied events, 4) implement MaxTwoCouponsRule,
+    5) add tests for the limit.
+  must:
+  - ties each plan element to the requirement and marks the plugin registry, per-tier configuration and event bus as not needed today
+  - proposes a smaller version such as a single check in apply_coupon in shop/coupons.py plus tests
+  - keeps the tests for the limit
+  - says what future need would justify adding the abstractions later
+  must_not:
+  - drops validation or tests in the name of simplicity
+  - invents requirements (like per-tier limits) that were not stated
+  fixture: eval-python-shop

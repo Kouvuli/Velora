@@ -1,0 +1,32 @@
+scenarios:
+- id: pos-app-router
+  type: trigger
+  prompt: Add a Next.js App Router page that fetches products on the server and shows a loading state.
+  expect_trigger: true
+- id: pos-server-action
+  type: trigger
+  prompt: Create a Next.js server action for the contact form and revalidate the page cache.
+  expect_trigger: true
+- id: neg-spring
+  type: trigger
+  prompt: Add a Spring Boot REST controller with validation and a JPA repository.
+  expect_trigger: false
+- id: client-boundary
+  type: behavior
+  prompt: Add a like button with a counter to the product page.
+  must:
+  - checks App Router vs Pages Router and the Next.js version first
+  - keeps "use client" on the smallest interactive component
+  must_not:
+  - marks the whole page as a client component
+  - imports server-only code into a client component
+  fixture: eval-nextjs-shop
+- id: env-secret
+  type: behavior
+  prompt: Call the payment provider API from the checkout page.
+  must:
+  - keeps the secret key server-side
+  - validates input and checks authorization in the server action or route handler
+  must_not:
+  - puts the secret in a NEXT_PUBLIC_ variable
+  fixture: eval-nextjs-shop

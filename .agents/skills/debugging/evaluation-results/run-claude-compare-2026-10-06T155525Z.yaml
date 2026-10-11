@@ -1,0 +1,248 @@
+evaluator: runner:claude
+model: tool default
+skill: debugging
+version: 1.1.1
+types:
+- compare
+scenarios:
+- rootcause
+setups:
+  canonical:debugging:
+    path: null
+    scenarios: 1
+    errors: 0
+    scenarios_passed: 1
+    criteria_pass_rate: 1.0
+    tokens_approx: 1098
+    vendor_specific: []
+    body_lines: 35
+    results:
+    - id: rootcause
+      pass: true
+      checks:
+      - id: must-1
+        criterion: 'MUST: reproduces the problem before changing code'
+        pass: true
+        reason: Before editing anything, the agent ran a python3 script over find_all() that printed the
+          wrong totals (1.78 instead of 1.79, 8.92 instead of 8.93) next to the raw float products, and
+          it stated the expected value in its feedback-loop note.
+      - id: must-2
+        criterion: 'MUST: states hypotheses with predictions'
+        pass: true
+        reason: The agent named the hypothesis (float imprecision plus how round() behaves) and said what
+          would confirm it (Decimal with ROUND_HALF_UP should give the correct cents and the float should
+          be 1.78499…), ruled out discounts because orders 1 and 2 have none, ran a test, and then reported
+          'H1 is confirmed'.
+      - id: must-3
+        criterion: 'MUST: explains the causal chain with evidence'
+        pass: true
+        reason: 'The final answer traces the cause step by step: 1.50 × 1.19 = 1.785 exactly, the float
+          product is actually 1.78499999…, so round(…, 2) gives 1.78. This is backed by the printed output
+          of D(1.785) and by the failing test message ''AssertionError: 1.78 != 1.79''.'
+      - id: must-4
+        criterion: 'MUST: adds a regression test'
+        pass: true
+        reason: The agent added test_rounds_half_cent_up to tests/test_invoices.py, showed it failing
+          before the fix, and showed the suite passing afterwards ('Ran 7 tests ... OK').
+      - id: must-not-1
+        criterion: 'MUST NOT: changes code before identifying a cause'
+        pass: true
+        reason: The only change made before the cause was confirmed by the Decimal check was the regression
+          test; the edit to shop/invoices.py came after the test was seen failing.
+      - id: must-not-2
+        criterion: 'MUST NOT: suppresses the error with try/catch or retries'
+        pass: true
+        reason: The fix replaces float arithmetic with Decimal and ROUND_HALF_UP and adds no try/except
+          blocks or retries.
+  superpowers:systematic-debugging:
+    path: /home/kali/.ai-skills/cache/ai-skills-compare-dlnvufr_/superpowers-systematic-debugging
+    scenarios: 1
+    errors: 0
+    scenarios_passed: 0
+    criteria_pass_rate: 0.833
+    tokens_approx: 2360
+    vendor_specific: []
+    body_lines: 279
+    results:
+    - id: rootcause
+      pass: false
+      checks:
+      - id: must-1
+        criterion: 'MUST: reproduces the problem before changing code'
+        pass: true
+        reason: Before editing any file, the agent ran a python3 command that printed gross_total for
+          every order from find_all() and showed Decimal(1.5*1.19), which reproduced the wrong totals.
+      - id: must-2
+        criterion: 'MUST: states hypotheses with predictions'
+        pass: false
+        reason: 'The log never states a hypothesis paired with a prediction before testing it: the cause
+          first appears as ''Confirmed the root cause'' after the investigation, and ''Both fail as predicted''
+          points to predictions that were never written down.'
+      - id: must-3
+        criterion: 'MUST: explains the causal chain with evidence'
+        pass: true
+        reason: 'The final answer gives the causal chain with evidence: 1.785 is stored as 1.78499999999999992…,
+          so round() returns 1.78, and banker''s rounding adds a second way to round down; it backs this
+          with the order 1 and order 2 values and the failing test messages.'
+      - id: must-4
+        criterion: 'MUST: adds a regression test'
+        pass: true
+        reason: The agent added test_rounds_half_cent_up and test_rounds_half_cent_up_with_quantity to
+          tests/test_invoices.py, showed they failed before the fix, and reported 'Ran 8 tests … OK' afterwards.
+      - id: must-not-1
+        criterion: 'MUST NOT: changes code before identifying a cause'
+        pass: true
+        reason: The log shows the reproduction run and the thinking that confirmed the root cause both
+          came before the first Edit or Write to the code.
+      - id: must-not-2
+        criterion: 'MUST NOT: suppresses the error with try/catch or retries'
+        pass: true
+        reason: The fix replaces float arithmetic with Decimal and quantize(ROUND_HALF_UP) and adds no
+          try/except blocks or retries.
+  matt-pocock:diagnosing-bugs:
+    path: /home/kali/.ai-skills/cache/ai-skills-compare-dlnvufr_/matt-pocock-diagnosing-bugs
+    scenarios: 1
+    errors: 0
+    scenarios_passed: 1
+    criteria_pass_rate: 1.0
+    tokens_approx: 2131
+    vendor_specific: []
+    body_lines: 134
+    results:
+    - id: rootcause
+      pass: true
+      checks:
+      - id: must-1
+        criterion: 'MUST: reproduces the problem before changing code'
+        pass: true
+        reason: Before editing anything, the agent ran a python3 script that printed net_total and gross_total
+          for every order from find_all(), showing that order 1 came out as 1.78 instead of 1.79.
+      - id: must-2
+        criterion: 'MUST: states hypotheses with predictions'
+        pass: true
+        reason: 'The agent named two competing hypotheses (float imprecision in the multiplication versus
+          Python''s round-half-to-even) and tested each with a targeted check: Decimal(1.5*1.19) for the
+          stored value, and quantizing an exact 1.785 with ROUND_HALF_EVEN; the expected outcomes were
+          implicit in those checks rather than written out.'
+      - id: must-3
+        criterion: 'MUST: explains the causal chain with evidence'
+        pass: true
+        reason: 'The final answer traces the cause step by step: 1.50 × 1.19 = 1.785, the float is stored
+          as 1.78499…, and an exact 1.785 still rounds half-to-even down to 1.78; it cites the commands
+          that confirmed each step and notes that both causes needed fixing.'
+      - id: must-4
+        criterion: 'MUST: adds a regression test'
+        pass: true
+        reason: 'The agent added test_rounds_half_cent_up to tests/test_invoices.py, ran it before the
+          fix to show it failing (AssertionError: 1.78 != 1.79), and reported it passing afterwards with
+          ''Ran 7 tests … OK''.'
+      - id: must-not-1
+        criterion: 'MUST NOT: changes code before identifying a cause'
+        pass: true
+        reason: The only edits (the test, then invoices.py) came after the diagnostic commands had confirmed
+          both causes, as the log order and the agent's thinking ('Confirmed both hypotheses… Now adding
+          the regression test') show.
+      - id: must-not-2
+        criterion: 'MUST NOT: suppresses the error with try/catch or retries'
+        pass: true
+        reason: The fix replaces the float arithmetic with Decimal and ROUND_HALF_UP and adds no try/except
+          blocks or retries.
+  caveman:investigate-first:
+    path: /home/kali/.ai-skills/cache/ai-skills-compare-dlnvufr_/caveman-investigate-first
+    scenarios: 1
+    errors: 0
+    scenarios_passed: 0
+    criteria_pass_rate: 0.833
+    tokens_approx: 172
+    vendor_specific: []
+    body_lines: 12
+    results:
+    - id: rootcause
+      pass: false
+      checks:
+      - id: must-1
+        criterion: 'MUST: reproduces the problem before changing code'
+        pass: true
+        reason: Before the Write to shop/invoices.py, the agent ran `python3 -c "... print(repr(1.50*1.19),
+          gross_total(find_by_id(1)))"` to see the bad total for order 1.
+      - id: must-2
+        criterion: 'MUST: states hypotheses with predictions'
+        pass: false
+        reason: 'The agent only wrote "Order 1: 1.50 × 1.19 = 1.785 → expected 1.79. Let me confirm."
+          That is an expected value, not a list of hypotheses, each with a prediction that would confirm
+          or rule it out.'
+      - id: must-3
+        criterion: 'MUST: explains the causal chain with evidence'
+        pass: true
+        reason: The final answer traces the cause from the float product 1.78499999… through round(x,
+          2) to 1.78, backed by the repr output it ran. Its added banker's-rounding claim, and the claim
+          that order 2 was previously 8.92, were never shown with evidence.
+      - id: must-4
+        criterion: 'MUST: adds a regression test'
+        pass: true
+        reason: The agent added `test_rounds_half_cent_up` to tests/test_invoices.py, which asserts that
+          a 1.50 line totals 1.79, and ran the suite.
+      - id: must-not-1
+        criterion: 'MUST NOT: changes code before identifying a cause'
+        pass: true
+        reason: The agent edited code only after its diagnostic command and a thinking note identifying
+          the float representation and rounding as the cause.
+      - id: must-not-2
+        criterion: 'MUST NOT: suppresses the error with try/catch or retries'
+        pass: true
+        reason: The fix replaces the float math with Decimal and ROUND_HALF_UP quantization, with no try/except
+          or retry logic.
+  baseline (no skill):
+    path: null
+    scenarios: 1
+    errors: 0
+    scenarios_passed: 0
+    criteria_pass_rate: 0.833
+    tokens_approx: 0
+    vendor_specific: []
+    body_lines: 0
+    results:
+    - id: rootcause
+      pass: false
+      checks:
+      - id: must-1
+        criterion: 'MUST: reproduces the problem before changing code'
+        pass: true
+        reason: Before any edit, the agent ran `python3 -c "...print(gross_total(find_by_id(1)), repr(1.5*1.19))"`
+          and its thinking records that order 1 returns 1.78 instead of 1.79.
+      - id: must-2
+        criterion: 'MUST: states hypotheses with predictions'
+        pass: false
+        reason: The log and answer never state a hypothesis with a prediction before testing it; the agent
+          reports the cause only as already 'Confirmed', with no hypotheses or expected outcomes written
+          down beforehand.
+      - id: must-3
+        criterion: 'MUST: explains the causal chain with evidence'
+        pass: true
+        reason: 'The answer traces the chain from 1.5*1.19 being 1.78499999… in float, to round() rounding
+          halves to even, to the 1.78 result, backed by the repro output, the failing test (`AssertionError:
+          1.78 != 1.79`) and the corrected totals.'
+      - id: must-4
+        criterion: 'MUST: adds a regression test'
+        pass: true
+        reason: It added `test_rounds_half_cent_up` to tests/test_invoices.py, showed it failing before
+          the fix and the full suite passing afterwards (`Ran 7 tests ... OK`).
+      - id: must-not-1
+        criterion: 'MUST NOT: changes code before identifying a cause'
+        pass: true
+        reason: The first code edit (the test, then the invoices.py rewrite) came only after the repro
+          command had identified the float and round-half-even cause.
+      - id: must-not-2
+        criterion: 'MUST NOT: suppresses the error with try/catch or retries'
+        pass: true
+        reason: The fix replaces the float arithmetic with Decimal and ROUND_HALF_UP; it adds no try/except
+          and no retries.
+summary:
+  winner: canonical:debugging
+  ranking:
+  - canonical:debugging
+  - matt-pocock:diagnosing-bugs
+  - caveman:investigate-first
+  - superpowers:systematic-debugging
+  complete: true
+  canonical_gain_over_baseline: 0.167

@@ -1,0 +1,25 @@
+scenarios:
+- id: pos-tests
+  type: trigger
+  prompt: Write unit and integration tests for the order cancellation logic and check test coverage.
+  expect_trigger: true
+- id: pos-tdd
+  type: trigger
+  prompt: Reproduce this bug with a failing regression test first, test-first please.
+  expect_trigger: true
+- id: neg-plan
+  type: trigger
+  prompt: Give me an implementation plan with steps and risks for the migration.
+  expect_trigger: false
+- id: bugtest
+  type: behavior
+  prompt: Users can apply the same coupon twice. Add a test for it.
+  must:
+  - uses the project's existing test framework
+  - writes a test that fails before the fix
+  - names the test after the behaviour
+  - runs the test and reports the command and result
+  must_not:
+  - weakens or deletes existing tests
+  - asserts on private implementation details
+  fixture: eval-python-shop

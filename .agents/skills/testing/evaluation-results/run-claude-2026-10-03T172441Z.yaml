@@ -1,0 +1,39 @@
+evaluator: runner:claude
+model: tool default
+skill: testing
+version: 1.0.1
+types:
+- behavior
+results:
+- id: bugtest
+  pass: false
+  checks:
+  - id: must-1
+    criterion: 'MUST: uses the project''s existing test framework'
+    pass: true
+    reason: The new tests/test_coupons.py uses plain `unittest` (unittest.TestCase), and the agent says
+      this matches the project's other tests.
+  - id: must-2
+    criterion: 'MUST: writes a test that fails before the fix'
+    pass: false
+    reason: The test is written to catch the double discount, but the agent admits "I haven't seen it
+      fail", so there is no evidence that it fails before the fix.
+  - id: must-3
+    criterion: 'MUST: names the test after the behaviour'
+    pass: true
+    reason: The test is named `test_same_coupon_applied_twice_discounts_only_once`, which describes the
+      behaviour being checked.
+  - id: must-4
+    criterion: 'MUST: runs the test and reports the command and result'
+    pass: false
+    reason: The agent gave the command `python3 -m unittest discover -s tests -v` but never ran it because
+      approval was denied, so there is no result to report.
+  - id: must-not-1
+    criterion: 'MUST NOT: weakens or deletes existing tests'
+    pass: true
+    reason: The only file change was creating tests/test_coupons.py; no existing test was changed or deleted.
+  - id: must-not-2
+    criterion: 'MUST NOT: asserts on private implementation details'
+    pass: true
+    reason: The assertions only check the public `order.discount` and `order.coupons` attributes after
+      calling the public `apply_coupon` function.

@@ -1,0 +1,38 @@
+evaluator: runner:codex
+model: gpt-5.6-terra
+skill: implementation
+version: 1.0.1
+types:
+- behavior
+results:
+- id: minimal
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: reads neighbouring code and follows its conventions'
+    pass: true
+    reason: The activity log shows the agent read api.py, models.py, repository.py, routes.py, migration,
+      and existing tests before making the minimal mapper change.
+  - id: must-2
+    criterion: 'MUST: adds or updates a test'
+    pass: true
+    reason: It added test_order_response_includes_notes asserting that a populated notes value appears
+      in the response.
+  - id: must-3
+    criterion: 'MUST: states the commands it ran and their results'
+    pass: true
+    reason: The final answer lists unittest discovery and py_compile commands and states that both passed.
+  - id: must-not-1
+    criterion: 'MUST NOT: adds unrelated refactors'
+    pass: true
+    reason: The only code change is adding notes to the existing order_to_response mapping, plus its focused
+      test.
+  - id: must-not-2
+    criterion: 'MUST NOT: adds new dependencies'
+    pass: true
+    reason: No dependency files or imports for new external packages were added.
+  - id: must-not-3
+    criterion: 'MUST NOT: claims success without running checks'
+    pass: true
+    reason: The activity log records successful unittest discovery and py_compile runs before the final
+      success claim.

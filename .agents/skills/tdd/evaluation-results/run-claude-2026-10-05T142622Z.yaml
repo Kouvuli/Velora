@@ -1,0 +1,94 @@
+evaluator: runner:claude
+model: tool default
+skill: tdd
+version: 1.0.0
+types:
+- behavior
+results:
+- id: coupon-limit
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: writes a failing test for the new rule before changing shop/coupons.py'
+    pass: true
+    reason: The log shows tests/test_coupons.py was written and run before the first Edit to shop/coupons.py;
+      that edit only added the empty TooManyCoupons class so the test could import it.
+  - id: must-2
+    criterion: 'MUST: runs the test and shows it failing for the expected reason before implementing'
+    pass: true
+    reason: The agent ran the test and saw an ImportError, noted that this was not the real failure, added
+      the empty exception class, and reran to get 'TooManyCoupons not raised' before implementing the
+      check.
+  - id: must-3
+    criterion: 'MUST: implements only what the test requires and then runs the whole test suite green'
+    pass: true
+    reason: The implementation is a single limit check placed before the coupon is applied, and the full
+      suite was run with 'python3 -m unittest discover -s tests' after each green and refactor step, ending
+      at 9/9 passing.
+  - id: must-4
+    criterion: 'MUST: reports the actual test commands and results'
+    pass: true
+    reason: 'The final answer gives the command ''python3 -m unittest discover -s tests -v'' and the actual
+      results at each step: 7/7, 8/8, 9/9, the AssertionError messages, and the deliberately broken runs.'
+  - id: must-not-1
+    criterion: 'MUST NOT: writes the implementation before the test'
+    pass: true
+    reason: The limit check in shop/coupons.py was added only after the failing test_rejects_third_coupon
+      run, and the final answer openly says tests 2 and 3 passed straight away against the real code.
+  - id: must-not-2
+    criterion: 'MUST NOT: claims a test failed or passed without running it'
+    pass: true
+    reason: Every claimed pass or fail in the log follows a Bash test run, including the deliberately
+      broken versions done with Edit after the automated script was blocked.
+  activity: |-
+    $ Skill tdd
+    $ Bash find . -path ./.claude -prune -o -path ./.ai -prune -o -type f -print | head -50; ls -la
+    $ Bash for f in README.md shop/coupons.py shop/models.py tests/test_invoices.py shop/invoices.py; do echo "=== $f"; cat -n $f; done; grep -rn coupon --include=*.py --include=*.sql --include=*.md . | grep -v .claude
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/shop/coupons.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/shop/models.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/tests/test_invoices.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/README.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/shop/api.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/tests/test_api.py
+    > Context gathered; `apply_coupon` lives in `shop/coupons.py` with no existing coupon tests. Running the baseline suite next.
+    $ Bash python3 -m unittest discover -s tests 2>&1 | tail -5
+    ~ (thinking) With 6 tests passing as baseline, I'll start building the new behaviors smallest first—beginning with a RED test asserting that a third coupon raises `TooManyCoupons`.
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/tests/test_coupons.py
+    $ Bash python3 -m unittest tests.test_coupons 2>&1 | tail -6
+    $ Bash python3 -m unittest tests.test_coupons 2>&1 | grep -E "Error|error"
+    > That's an import error, not the failure we care about. I'll add just the exception class so the test can fail on the actual behaviour.
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/shop/coupons.py
+    $ Bash python3 -m unittest tests.test_coupons 2>&1 | grep -E "Error|FAIL|OK"
+    > Now it's red for the right reason: `TooManyCoupons not raised`. ### Cycle 1 — GREEN
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/shop/coupons.py
+    $ Bash python3 -m unittest discover -s tests 2>&1 | tail -3
+    > All 7 pass. ### Cycle 1 — REFACTOR The bare `2` is a magic number, so I'll give it a name. I'll run the tests again after the change.
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/shop/coupons.py
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/shop/coupons.py
+    $ Bash python3 -m unittest discover -s tests 2>&1 | tail -3
+    ~ (thinking) This test likely passes immediately since the check runs before mutation, so I'll first verify it fails against a deliberately broken version to confirm it's actually testing something.
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/tests/test_coupons.py
+    $ Bash cp shop/coupons.py /tmp/coupons_good.py && python3 - <<'EOF'
+    p='shop/coupons.py'; s=open(p).read()
+    s=s.replace("""    if len(order.coupons) >= MAX_COUPONS_PER_ORDER:
+            raise TooManyCoupons(code)
+        order.coupons.append(code)
+        order.discount += COUPONS[code]
+    ""","""    order.coupons.
+    > That script was blocked, so I'll do the same check with Edit: break the code on purpose, run the test, then restore it.
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/shop/coupons.py
+    $ Bash python3 -m unittest tests.test_coupons 2>&1 | grep -E "^FAIL|AssertionError|^OK|FAILED"
+    > Red for the right reason: the order was changed. Now I'll restore the code that checks the limit before changing anything:
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/shop/coupons.py
+    $ Bash python3 -m unittest discover -s tests 2>&1 | tail -3
+    > ### Cycle 2 — REFACTOR Both tests repeat the same "order with two coupons" setup, so I'll pull it into a helper.
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/tests/test_coupons.py
+    $ Bash python3 -m unittest discover -s tests 2>&1 | tail -3
+    > ### Cycle 3 — two coupons are still allowed (protects against an off-by-one) This test passes against the current code. I'll first confirm it fails if the limit is set one too low.
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/tests/test_coupons.py
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/shop/coupons.py
+    $ Bash python3 -m unittest tests.test_coupons 2>&1 | grep -E "^(FAIL|ERROR):|TooManyCoupons:|^OK|FAILED"
+    > The guard catches the off-by-one (the second coupon gets rejected). Restoring the limit to 2:
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-tdd-h5mu9r4d/shop/coupons.py
+    $ Bash python3 -m unittest discover -s tests -v 2>&1 | tail -15
+    > An order now rejects a third coupon. I built the rule test-first in three red-green-refactor cycles, and the full suite passes: 9 tests (6 existing, 3 new), run with `python3 -m unittest discover -s tests -v`. ### Steps | # | Test | Red | Green | Refactor | |---|---|---|---|---| | 1 | `test_rejects_

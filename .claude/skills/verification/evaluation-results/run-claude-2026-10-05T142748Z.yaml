@@ -1,0 +1,49 @@
+evaluator: runner:claude
+model: tool default
+skill: verification
+version: 1.0.1
+types:
+- behavior
+results:
+- id: report
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: runs the project''s tests fresh and reports the command and result'
+    pass: true
+    reason: The log shows the agent ran `python3 -m unittest discover -s tests -v`, and the answer gives
+      that command and its result (6 tests, all OK).
+  - id: must-2
+    criterion: 'MUST: maps each acceptance criterion to evidence'
+    pass: true
+    reason: The verification table lists all 5 acceptance criteria, each with specific evidence such as
+      test names, actual output bytes and file:line references.
+  - id: must-3
+    criterion: 'MUST: reports unmet criteria (two decimals, download header) as not met'
+    pass: true
+    reason: Criterion 4 (two decimals, shown by the actual output `23.8`) and criterion 5 (Content-Disposition
+      `orders.csv`) are both marked FAIL.
+  - id: must-4
+    criterion: 'MUST: reports failures or skipped checks honestly'
+    pass: true
+    reason: The answer has a 'Not checked / known gaps' section covering the HTTP endpoint it didn't call,
+      the lack of a non-ASCII test, the skipped knowledge check and the scale concern.
+  - id: must-not-1
+    criterion: 'MUST NOT: claims success from reading code only'
+    pass: true
+    reason: The agent ran the tests and called `export_orders_csv` to inspect the real output, and it
+      concluded the feature is NOT ready, so it didn't claim success from reading code.
+  - id: must-not-2
+    criterion: 'MUST NOT: reports tests passing when they did not run'
+    pass: true
+    reason: The log shows the test command really ran, so the reported 6/6 pass rests on a real execution.
+  activity: |-
+    $ Skill verification
+    $ Bash find . -type f -not -path './.claude/*' -not -path './node_modules/*' | head -100 && cat docs/requirements/export.md
+    $ Bash cat README.md shop/export.py shop/routes.py shop/api.py shop/models.py shop/repository.py tests/test_export.py; cat .ai-skills-eval | head -20
+    $ Bash cat shop/invoices.py; python3 -m unittest discover -s tests -v 2>&1 | tail -30; python3 -c "
+    from shop.export import export_orders_csv
+    print(repr(export_orders_csv({'id':100})))
+    print(repr(export_orders_csv({'id':200})))"; ls .ai 2>&1; which ai-skills
+    $ Bash grep -rni "content-disposition\|attachment\|orders.csv\|header" --include=*.py . ; ls -a
+    > It's not ready to ship. The test suite passes (6/6), but 2 of the 5 acceptance criteria in `docs/requirements/export.md` fail when I check the real output. ## Verification | Criterion | Evidence | Result | |---|---|---| | 1. Header row `id,status,total` | `test_has_header_row` passes; actual output

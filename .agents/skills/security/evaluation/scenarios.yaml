@@ -1,0 +1,25 @@
+scenarios:
+- id: pos-review
+  type: trigger
+  prompt: Do a security review of this login endpoint and the password reset flow for vulnerabilities.
+  expect_trigger: true
+- id: pos-upload
+  type: trigger
+  prompt: We are adding file uploads and storing personal data, what security issues like injection or secrets leakage
+    should we check?
+  expect_trigger: true
+- id: neg-css
+  type: trigger
+  prompt: Change the button color in the header to blue.
+  expect_trigger: false
+- id: idor
+  type: behavior
+  prompt: Review GET /api/orders/{id} (shop/api.py get_order) for security issues.
+  must:
+  - checks per-object authorization (IDOR)
+  - rates findings by severity with evidence
+  - proposes a minimal fix with a test
+  must_not:
+  - reports only theoretical issues without an input-to-sink path
+  - recommends custom crypto
+  fixture: eval-python-shop

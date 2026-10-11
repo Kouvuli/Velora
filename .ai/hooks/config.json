@@ -1,0 +1,21 @@
+{
+  "hooks": [
+    "config-protection",
+    "dangerous-commands",
+    "dependency-lock",
+    "project-checks",
+    "secret-scan",
+    "sensitive-files"
+  ],
+  "commands": {
+    "lint": "npm run lint",
+    "typecheck": "npm run typecheck",
+    "test": "npm run test"
+  },
+  "checks": {
+    "on": [
+      "pre-delivery"
+    ],
+    "timeout": 900
+  }
+}

@@ -1,0 +1,25 @@
+scenarios:
+- id: pos-slow
+  type: trigger
+  prompt: The orders list endpoint takes 8 seconds for customers with a lot of history. Make it fast.
+  expect_trigger: true
+- id: pos-memory
+  type: trigger
+  prompt: Our nightly report job runs out of memory and takes hours. Profile it and find the bottleneck.
+  expect_trigger: true
+- id: neg-wrong
+  type: trigger
+  prompt: Invoice totals are wrong by one cent for some orders. Find out why.
+  expect_trigger: false
+- id: list-orders
+  type: behavior
+  prompt: Customers with long order histories say GET /api/orders is very slow. Fix it.
+  must:
+  - identifies that list_orders loads every order with repository.find_all() and filters by customer in Python
+  - uses the production data sizes from README.md (about 40 million orders) to explain why this is slow
+  - proposes filtering by customer in the data access layer and paginating the response with a maximum page size
+  - keeps behaviour covered by tests and notes that pagination changes the API response for clients
+  must_not:
+  - claims a measured speed-up without having measured it
+  - adds caching as the main fix while the full table is still loaded
+  fixture: eval-python-shop

@@ -1,0 +1,63 @@
+evaluator: runner:claude
+model: tool default
+skill: planning
+version: 1.0.1
+types:
+- behavior
+results:
+- id: vertical
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: lists the existing files it inspected'
+    pass: true
+    reason: The plan starts with a 'What I read' section listing the files it inspected, such as shop/api.py,
+      routes.py, models.py, repository.py, the migrations and the tests, and these match the Read calls
+      in the activity log.
+  - id: must-2
+    criterion: 'MUST: orders steps so each ends in a verifiable state'
+    pass: true
+    reason: Steps 1–4 are ordered (domain rule, API function, route, regression check) and each ends with
+      a concrete check, such as a unittest command or a named test.
+  - id: must-3
+    criterion: 'MUST: maps acceptance criteria to tests'
+    pass: true
+    reason: The 'Test strategy' table maps each assumed acceptance criterion (A1, A2, A3, route registration)
+      to a specific test file and test level.
+  - id: must-4
+    criterion: 'MUST: notes risks such as data or API compatibility'
+    pass: true
+    reason: The 'Risks / rollback' section covers downstream consumers seeing the new 'cancelled' status
+      (CSV export, index, admin search), the ownership gap, the concurrency race, and rollback for data
+      that has already changed.
+  - id: must-not-1
+    criterion: 'MUST NOT: references files or functions it has not seen'
+    pass: true
+    reason: Every file and function it relies on was read; the one unread file, test_export.py, appeared
+      in the find listing and the plan openly says it was not opened and should be checked, so nothing
+      was invented.
+  - id: must-not-2
+    criterion: 'MUST NOT: proposes new frameworks without need'
+    pass: true
+    reason: The plan uses only the existing unittest setup and in-house patterns, and it explicitly rejects
+      a general state machine or enum as unnecessary.
+  activity: |-
+    $ Skill planning
+    $ Bash find . -type f -not -path './node_modules/*' | head -100
+    $ Bash ls -la .ai 2>&1; for f in README.md shop/*.py db/migrations/*.sql db/queries/*.sql docs/requirements/export.md tests/*.py; do echo "=== $f"; cat -n "$f"; done
+    > I'll use Read instead.
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-uhy09_j9/shop/api.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-uhy09_j9/shop/routes.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-uhy09_j9/shop/models.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-uhy09_j9/shop/repository.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-uhy09_j9/README.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-uhy09_j9/tests/test_api.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-uhy09_j9/db/migrations/V1__init.sql
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-uhy09_j9/db/migrations/V2__order_status_index.sql
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-uhy09_j9/shop/coupons.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-uhy09_j9/shop/invoices.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-uhy09_j9/shop/export.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-uhy09_j9/db/queries/order_search.sql
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-planning-uhy09_j9/tests/test_invoices.py
+    $ Bash ls -la /home/kali/.ai-skills/cache/ai-skills-eval-planning-uhy09_j9/.ai
+    > # Plan: `POST /api/orders/{id}/cancel` **What I read:** `shop/api.py`, `routes.py`, `models.py`, `repository.py`, `coupons.py`, `invoices.py`, `export.py`, `tests/test_api.py`, `tests/test_invoices.py`, `db/migrations/V1`/`V2`, `db/queries/order_search.sql` and `README.md`. There's no `.ai/knowledge

@@ -1,0 +1,60 @@
+evaluator: runner:claude
+model: tool default
+skill: debugging
+version: 1.0.3
+types:
+- behavior
+results:
+- id: rootcause
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: reproduces the problem before changing code'
+    pass: true
+    reason: Before the Write to shop/invoices.py, the agent ran gross_total over find_all() and printed
+      repr(1.50*1.19), which showed order 1 at 1.78 and order 2 at 8.92.
+  - id: must-2
+    criterion: 'MUST: states hypotheses with predictions'
+    pass: true
+    reason: 'The agent gave two hypotheses with predictions: float rounding, which predicts half-cent
+      totals round down, and a coupon double-discount, which is ruled out because the affected orders
+      have no coupon or discount.'
+  - id: must-3
+    criterion: 'MUST: explains the causal chain with evidence'
+    pass: true
+    reason: The final answer traces the cause from 1.785 having no exact binary float form, to the stored
+      value sitting just below it, to round() going down to 1.78, backed by the repro output and the repr
+      probe.
+  - id: must-4
+    criterion: 'MUST: adds a regression test'
+    pass: true
+    reason: The agent added test_rounds_half_cent_up and test_rounds_half_cent_up_with_quantity to tests/test_invoices.py,
+      covering the 1.785 and 8.925 cases.
+  - id: must-not-1
+    criterion: 'MUST NOT: changes code before identifying a cause'
+    pass: true
+    reason: The log shows the cause was confirmed in the repro step, where the thinking notes that 1.785
+      rounds down under float, before the Write and Edit commands.
+  - id: must-not-2
+    criterion: 'MUST NOT: suppresses the error with try/catch or retries'
+    pass: true
+    reason: The fix switches to Decimal arithmetic with ROUND_HALF_UP quantization and adds no try/except
+      blocks or retries.
+  activity: |-
+    $ Skill debugging
+    $ Bash find . -path ./.claude -prune -o -type f -print | grep -v '/\.git/' | head -50; ls .ai/knowledge/issues 2>/dev/null
+    $ Bash cat shop/invoices.py shop/coupons.py shop/models.py shop/repository.py tests/test_invoices.py
+    ~ (thinking) I've laid out two hypotheses to test: either a float rounding issue causing 1.785 to round down to 1.78, or a double-discount bug tied to coupons—since order 1 has no coupon, it points toward the rounding explanation. Next I'll probe further to confirm which one holds.
+    $ Bash python3 -c "
+    from shop.invoices import gross_total; from shop.repository import find_all
+    for o in find_all(): print(o.id, o.discount, gross_total(o))
+    print(repr(1.50*1.19))"; grep -rn "round\|float\|gross_total\|net_total" shop | grep -v "^shop/invoices.py"
+    ~ (thinking) I confirmed the bug: 1.785 can't be represented exactly in binary float, so Python's round() rounds it down instead of up, which also rules out H2 (coupons) since neither order had one.
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-debugging-6j8hf4ck/shop/invoices.py
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-debugging-6j8hf4ck/tests/test_invoices.py
+    > The fix is written. Now I'm running the full test suite to check it.
+    $ Bash python3 -m unittest discover -s tests -t . 2>&1 | tail -15; python3 -c "
+    from shop.invoices import gross_total; from shop.repository import find_all
+    for o in find_all(): print(o.id, gross_total(o))"
+    $ Bash python3 -m unittest tests/test_*.py 2>&1 | tail -15
+    > I fixed the off-by-one-cent totals. Order 1 now comes to 1.79 instead of 1.78, and all 8 tests pass. **Repro:** before the fix, `gross_total` gave 1.78 for order 1 (should be 1.79) and 8.92 for order 2 (should be 8.93). Orders 3 and 4 were correct. **Hypotheses:** - **Float rounding (confirmed):** i

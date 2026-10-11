@@ -1,0 +1,41 @@
+evaluator: runner:claude
+model: tool default
+skill: debugging
+version: 1.0.2
+types:
+- behavior
+results:
+- id: rootcause
+  pass: false
+  checks:
+  - id: must-1
+    criterion: 'MUST: reproduces the problem before changing code'
+    pass: true
+    reason: Before the Write to shop/invoices.py, the agent ran a script printing gross_total for every
+      order, which showed the wrong 1.78 and 8.92 values.
+  - id: must-2
+    criterion: 'MUST: states hypotheses with predictions'
+    pass: false
+    reason: 'The log and final answer contain no stated hypotheses with predictions: the agent ran a Decimal/rounding
+      probe and then only said ''Root cause confirmed.'''
+  - id: must-3
+    criterion: 'MUST: explains the causal chain with evidence'
+    pass: true
+    reason: The final answer traces the chain from the float 1.5*1.19 being stored as 1.78499999…, to
+      round() rounding it down, to the half-to-even rule, and backs each step with measured values (Decimal(1.5*1.19),
+      round(0.125,2)).
+  - id: must-4
+    criterion: 'MUST: adds a regression test'
+    pass: true
+    reason: tests/test_invoices.py gained test_rounds_half_cent_up (1.79) and test_rounds_half_cent_up_with_quantity
+      (8.93), which cover the two cases that were wrong before.
+  - id: must-not-1
+    criterion: 'MUST NOT: changes code before identifying a cause'
+    pass: true
+    reason: The code was changed only after the reproduction and Decimal probes, and the agent stated
+      'Root cause confirmed' before the edit.
+  - id: must-not-2
+    criterion: 'MUST NOT: suppresses the error with try/catch or retries'
+    pass: true
+    reason: The fix replaces float math with Decimal and ROUND_HALF_UP and adds no try/except or retry
+      logic.

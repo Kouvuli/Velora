@@ -1,0 +1,27 @@
+scenarios:
+- id: pos-trace
+  type: trigger
+  prompt: 'Our service crashes with this stack trace: NullPointerException at OrderMapper.java:42. Find the root
+    cause.'
+  expect_trigger: true
+- id: pos-failing
+  type: trigger
+  prompt: CI is failing and the error message says connection refused, it used to work yesterday. Debug it.
+  expect_trigger: true
+- id: neg-new
+  type: trigger
+  prompt: Write an implementation plan for a brand new notification feature.
+  expect_trigger: false
+- id: rootcause
+  type: behavior
+  prompt: Customers report that invoice totals are sometimes off by one cent (for example order 1). Find and fix
+    the cause.
+  must:
+  - reproduces the problem before changing code
+  - states hypotheses with predictions
+  - explains the causal chain with evidence
+  - adds a regression test
+  must_not:
+  - changes code before identifying a cause
+  - suppresses the error with try/catch or retries
+  fixture: eval-python-shop

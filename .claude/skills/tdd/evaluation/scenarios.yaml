@@ -1,0 +1,25 @@
+scenarios:
+- id: pos-tdd
+  type: trigger
+  prompt: Use TDD to add a rule that coupons expire after their end date - red, green, refactor.
+  expect_trigger: true
+- id: pos-test-first
+  type: trigger
+  prompt: Build the shipping fee calculation test-first, one failing test at a time.
+  expect_trigger: true
+- id: neg-flaky
+  type: trigger
+  prompt: Our integration tests are flaky and coverage is low. Improve the test suite strategy.
+  expect_trigger: false
+- id: coupon-limit
+  type: behavior
+  prompt: Using TDD, add a rule that an order can have at most two coupons. Show each red-green-refactor step.
+  must:
+  - writes a failing test for the new rule before changing shop/coupons.py
+  - runs the test and shows it failing for the expected reason before implementing
+  - implements only what the test requires and then runs the whole test suite green
+  - reports the actual test commands and results
+  must_not:
+  - writes the implementation before the test
+  - claims a test failed or passed without running it
+  fixture: eval-python-shop

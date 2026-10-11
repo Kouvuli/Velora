@@ -1,0 +1,38 @@
+evaluator: runner:codex
+model: gpt-5.6-terra
+skill: testing
+version: 1.0.1
+types:
+- behavior
+results:
+- id: bugtest
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: uses the project''s existing test framework'
+    pass: true
+    reason: The new test uses Python's existing unittest framework and is run with `python3 -m unittest`.
+  - id: must-2
+    criterion: 'MUST: writes a test that fails before the fix'
+    pass: true
+    reason: The test expects the second `apply_coupon` call to raise `InvalidCoupon`, and the agent reports
+      it currently fails.
+  - id: must-3
+    criterion: 'MUST: names the test after the behaviour'
+    pass: true
+    reason: The test is named `test_rejects_applying_the_same_coupon_twice`, describing the required behavior.
+  - id: must-4
+    criterion: 'MUST: runs the test and reports the command and result'
+    pass: true
+    reason: The activity log shows the unittest commands were run, and the final answer reports one expected
+      failure with six other tests passing.
+  - id: must-not-1
+    criterion: 'MUST NOT: weakens or deletes existing tests'
+    pass: true
+    reason: The only listed change is creation of `tests/test_coupons.py`; no existing tests were weakened
+      or deleted.
+  - id: must-not-2
+    criterion: 'MUST NOT: asserts on private implementation details'
+    pass: true
+    reason: The test exercises public `apply_coupon` behavior and asserts the public `InvalidCoupon` exception
+      without inspecting implementation details.

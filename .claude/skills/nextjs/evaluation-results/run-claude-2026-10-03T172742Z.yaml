@@ -1,0 +1,17 @@
+evaluator: runner:claude
+model: tool default
+skill: nextjs
+version: 1.0.1
+types:
+- behavior
+results:
+- id: client-boundary
+  pass: false
+  checks: []
+  error: |
+    claude exited 1: You've hit your session limit · resets 7:10pm (UTC)
+- id: env-secret
+  pass: false
+  checks: []
+  error: |
+    claude exited 1: You've hit your session limit · resets 7:10pm (UTC)

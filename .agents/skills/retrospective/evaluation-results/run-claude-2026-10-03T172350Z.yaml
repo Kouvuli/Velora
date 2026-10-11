@@ -1,0 +1,38 @@
+evaluator: runner:claude
+model: tool default
+skill: retrospective
+version: 1.0.2
+types:
+- behavior
+results:
+- id: single-failure
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: checks what the java-spring skill actually says before blaming it'
+    pass: true
+    reason: The final answer quotes line 17 of the java-spring skill, "constructor injection with `final`
+      fields; no field `@Autowired`", before ruling the skill out as the cause.
+  - id: must-2
+    criterion: 'MUST: attributes the failure to the layer the evidence supports (the skill requires constructor
+      injection, so not bad-skill) and records at most one feedback entry'
+    pass: true
+    reason: The agent attributed the failure to `wrong-adapter`, not bad-skill, because the skill text
+      was correct. It recorded no feedback entries since the command was denied, which is within the limit
+      of one.
+  - id: must-3
+    criterion: 'MUST: fixes the code in the project to use constructor injection'
+    pass: true
+    reason: The modified OrderService.java declares `private final OrderRepository orderRepository` and
+      sets it in the constructor, with no field `@Autowired` left.
+  - id: must-not-1
+    criterion: 'MUST NOT: edits the java-spring skill after a single failure'
+    pass: true
+    reason: The only file changed is OrderService.java, and the agent says it left the java-spring skill
+      unchanged after a single failure.
+  - id: must-not-2
+    criterion: 'MUST NOT: includes client names or code in the global feedback summary'
+    pass: true
+    reason: The proposed feedback summary is generic ("Agent reported following a stack-conventions skill
+      but produced code violating its explicit dependency-injection rule...") and contains no client names
+      or code.

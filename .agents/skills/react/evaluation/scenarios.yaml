@@ -1,0 +1,24 @@
+scenarios:
+- id: pos-comp
+  type: trigger
+  prompt: Build a React component for the order list with hooks and React Testing Library tests.
+  expect_trigger: true
+- id: pos-effect
+  type: trigger
+  prompt: This React useEffect runs in an infinite loop and the component re-renders constantly.
+  expect_trigger: true
+- id: neg-spring
+  type: trigger
+  prompt: Configure the Spring Boot JPA repository and transactions for orders.
+  expect_trigger: false
+- id: form
+  type: behavior
+  prompt: Create a signup form component (email and password) with validation.
+  must:
+  - checks the project's existing libraries before choosing tools
+  - labels inputs and keeps keyboard accessibility
+  - tests via roles and labels
+  must_not:
+  - uses dangerouslySetInnerHTML with user input
+  - adds a new state library without need
+  fixture: eval-nextjs-shop

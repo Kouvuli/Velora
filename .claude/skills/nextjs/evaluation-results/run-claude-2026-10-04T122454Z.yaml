@@ -1,0 +1,84 @@
+evaluator: runner:claude
+model: tool default
+skill: nextjs
+version: 1.0.1
+types:
+- behavior
+results:
+- id: client-boundary
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: checks App Router vs Pages Router and the Next.js version first'
+    pass: true
+    reason: 'Before writing any code, the agent''s first command listed the project files, which shows
+      the app/ directory structure, and printed package.json, which shows the Next.js version. It then
+      wrote the page with the newer async `params: Promise<...>` signature.'
+  - id: must-2
+    criterion: 'MUST: keeps "use client" on the smallest interactive component'
+    pass: true
+    reason: Only the new LikeButton.tsx carries "use client". The actions file uses "use server", and
+      the product page stays a server component.
+  - id: must-not-1
+    criterion: 'MUST NOT: marks the whole page as a client component'
+    pass: true
+    reason: The modified app/products/[id]/page.tsx has no "use client" directive and remains an async
+      server component that calls getProduct.
+  - id: must-not-2
+    criterion: 'MUST NOT: imports server-only code into a client component'
+    pass: true
+    reason: LikeButton.tsx imports only React hooks, the shared Button component and the likeProduct server
+      action from a "use server" file. lib/db and lib/session are imported only in actions.ts and page.tsx,
+      which run on the server.
+  activity: |-
+    $ Bash find . -path ./node_modules -prune -o -path ./.next -prune -o -type f -print | head -100 && cat package.json
+    $ Bash for f in components/Button.tsx app/layout.tsx lib/session.ts lib/db.ts app/checkout/page.tsx "app/products/[id]/page.tsx" README.md .env.example; do echo "=== $f"; cat "$f"; done; ls .ai 2>&1; ls node_modules 2>&1 | head
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-am69j3nx/app/products/[id]/page.tsx
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-am69j3nx/components/Button.tsx
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-am69j3nx/lib/db.ts
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-am69j3nx/app/checkout/page.tsx
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-am69j3nx/.claude/skills/react/SKILL.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-am69j3nx/.claude/skills/nextjs/SKILL.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-am69j3nx/lib/session.ts
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-am69j3nx/README.md
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-am69j3nx/app/products/[id]/actions.ts
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-am69j3nx/app/products/[id]/LikeButton.tsx
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-am69j3nx/app/products/[id]/page.tsx
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-am69j3nx/app/products/[id]/page.tsx
+    > I added a like button with a live counter to the product page. **It hasn't been built or tested:** the README says dependencies aren't installed here, so `next build` and `vitest` can't run. **What changed** - **`app/products/[id]/actions.ts`**: a new server action, `likeProduct`, that runs on the s
+- id: env-secret
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: keeps the secret key server-side'
+    pass: true
+    reason: The provider call happens only in `lib/payments.ts`, which imports "server-only" and reads
+      `process.env.PAYMENT_SECRET_KEY`; the server action `pay` in `actions.ts` is its only caller, and
+      the client `CheckoutForm` never sees the key.
+  - id: must-2
+    criterion: 'MUST: validates input and checks authorization in the server action or route handler'
+    pass: true
+    reason: The `pay` server action rejects requests when `currentUser()` returns no user and checks `cartId`
+      with a zod schema (trimmed, min 1, max 100) before calling the provider; it does not confirm that
+      the cart belongs to the user, but the repo has no cart lookup to check against.
+  - id: must-not-1
+    criterion: 'MUST NOT: puts the secret in a NEXT_PUBLIC_ variable'
+    pass: true
+    reason: The secret is read as `PAYMENT_SECRET_KEY` with no `NEXT_PUBLIC_` prefix, and no `NEXT_PUBLIC_`
+      variable appears in any changed file.
+  activity: |-
+    $ Bash find . -path ./node_modules -prune -o -path ./.next -prune -o -type f -print | grep -v '^./.claude/skills' | head -100; cat package.json 2>/dev/null
+    $ Bash for f in app/checkout/page.tsx app/products/\[id\]/page.tsx app/layout.tsx lib/*.ts components/Button.tsx .env.example README.md .ai-skills-eval; do echo "=== $f"; cat "$f"; done; ls -la .ai 2>/dev/null; ls .claude/skills
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-d5883imh/app/checkout/page.tsx
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-d5883imh/.env.example
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-d5883imh/lib/session.ts
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-d5883imh/lib/db.ts
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-d5883imh/README.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-d5883imh/.claude/skills/nextjs/SKILL.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-d5883imh/app/products/[id]/page.tsx
+    $ Bash ls -la /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-d5883imh/.ai/knowledge /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-d5883imh/node_modules 2>&1 | head
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-d5883imh/lib/payments.ts
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-d5883imh/app/checkout/actions.ts
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-d5883imh/app/checkout/CheckoutForm.tsx
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-nextjs-d5883imh/app/checkout/page.tsx
+    > The checkout page now calls the payment provider, but nothing has been built or tested: dependencies aren't installed and the sandbox has no network. The provider's secret key (`PAYMENT_SECRET_KEY`) never reaches the browser. The call happens on the server, inside a server action (a server function

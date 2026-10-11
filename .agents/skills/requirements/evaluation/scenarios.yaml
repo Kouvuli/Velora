@@ -1,0 +1,26 @@
+scenarios:
+- id: pos-vague
+  type: trigger
+  prompt: The client wants a way for users to export their orders. Can you figure out what we actually
+    need to build and what the acceptance criteria are?
+  expect_trigger: true
+- id: pos-ticket
+  type: trigger
+  prompt: 'Here is a ticket: ''make checkout faster and add coupons''. Clarify the requirements and open
+    questions before we start.'
+  expect_trigger: true
+- id: neg-bug
+  type: trigger
+  prompt: The test OrderServiceTest fails with a NullPointerException stack trace, find the root cause.
+  expect_trigger: false
+- id: brief
+  type: behavior
+  prompt: 'Client says: ''Add a dashboard for managers.'' Produce the requirements brief.'
+  must:
+  - separates goal from proposed solution
+  - writes testable acceptance criteria
+  - lists open questions, blocking first
+  - labels guesses as ASSUMPTION
+  must_not:
+  - invents business rules or numbers not given
+  - starts writing code

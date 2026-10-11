@@ -1,0 +1,104 @@
+schema: ai-skill-os/manifest/v1
+project:
+  name: landing
+mode: portable
+adapters:
+- agents
+- claude
+skills:
+- name: acceptance-criteria
+  reason: core skill (always on)
+- name: accessibility
+  reason: requested
+- name: architecture
+  reason: core skill (always on)
+- name: architecture-diff
+  reason: core skill (always on)
+- name: brainstorm
+  reason: core skill (always on)
+- name: code-review
+  reason: core skill (always on)
+- name: debugging
+  reason: core skill (always on)
+- name: delivery
+  reason: core skill (always on)
+- name: documentation
+  reason: core skill (always on)
+- name: domain-modeling
+  reason: core skill (always on)
+- name: frontend-design
+  reason: requested
+- name: frontend-testing
+  reason: requested
+- name: implementation
+  reason: core skill (always on)
+- name: knowledge-first
+  reason: core skill (always on)
+- name: knowledge-update
+  reason: core skill (always on)
+- name: next-step
+  reason: core skill (always on)
+- name: nextjs
+  reason: requested
+- name: performance
+  reason: core skill (always on)
+- name: planning
+  reason: core skill (always on)
+- name: react
+  reason: requested
+- name: requirements
+  reason: core skill (always on)
+- name: retrospective
+  reason: core skill (always on)
+- name: search-first
+  reason: core skill (always on)
+- name: security
+  reason: core skill (always on)
+- name: simplicity-guard
+  reason: core skill (always on)
+- name: subagent-development
+  reason: core skill (always on)
+- name: tdd
+  reason: core skill (always on)
+- name: testing
+  reason: core skill (always on)
+- name: verification
+  reason: core skill (always on)
+- name: web-design-guidelines
+  reason: requested
+- name: web-motion-3d
+  reason: added by user
+excluded: []
+hooks:
+- config-protection
+- dangerous-commands
+- dependency-lock
+- project-checks
+- secret-scan
+- sensitive-files
+commands:
+  lint:
+    run: npm run lint
+    evidence: package.json scripts.lint
+  typecheck:
+    run: npm run typecheck
+    evidence: package.json scripts.typecheck
+  test:
+    run: npm run test
+    evidence: package.json scripts.test
+requirements:
+  paths:
+  - ../Velora — Strategy & Plan.md
+checks:
+  'on':
+  - pre-delivery
+  timeout: 900
+policy:
+  install_trust:
+  - trusted
+  deny_capabilities: []
+  auto_update: false
+agents:
+- explorer
+- knowledge-curator
+- reviewer

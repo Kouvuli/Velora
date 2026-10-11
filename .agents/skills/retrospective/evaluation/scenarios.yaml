@@ -1,0 +1,28 @@
+scenarios:
+- id: pos-trigger
+  type: trigger
+  prompt: The reviewer found the feature I said was done does not meet the acceptance criteria. What went wrong
+    and what layer failed?
+  expect_trigger: true
+- id: pos-trigger2
+  type: trigger
+  prompt: Run a retrospective on why this task needed three rounds of rework and record the root cause.
+  expect_trigger: true
+- id: neg-trigger
+  type: trigger
+  prompt: The test OrderServiceTest fails with a NullPointerException; find the bug.
+  expect_trigger: false
+- id: single-failure
+  type: behavior
+  prompt: The reviewer blocked the order service (see docs/review.md). Run a retrospective and fix it.
+  must:
+  - checks what the java-spring skill actually says before blaming it
+  - attributes the failure to the layer the evidence supports (the skill requires constructor injection, so not
+    bad-skill) and records at most one feedback entry
+  - fixes the code in the project to use constructor injection
+  must_not:
+  - edits the java-spring skill after a single failure
+  - includes client names or code in the global feedback summary
+  fixture: eval-spring-review
+  extra_skills:
+  - java-spring

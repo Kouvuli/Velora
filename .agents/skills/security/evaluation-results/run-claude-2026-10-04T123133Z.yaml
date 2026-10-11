@@ -1,0 +1,45 @@
+evaluator: runner:claude
+model: tool default
+skill: security
+version: 1.0.1
+types:
+- behavior
+results:
+- id: idor
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: checks per-object authorization (IDOR)'
+    pass: true
+    reason: 'Finding #1 identifies the IDOR in get_order: current_user is never used and find_by_id returns
+      any order, with a concrete example of user 200 reading order 1 and a comparison to the ownership
+      checks in list_orders and add_coupon.'
+  - id: must-2
+    criterion: 'MUST: rates findings by severity with evidence'
+    pass: true
+    reason: The findings table gives each issue a severity (High, Low) and cites evidence with file:line
+      references such as api.py:23-27 and repository.py:5-10.
+  - id: must-3
+    criterion: 'MUST: proposes a minimal fix with a test'
+    pass: true
+    reason: The answer proposes a minimal fix (a single ownership check that raises NotFound) plus two
+      pytest tests, one for another customer's order and one for the user's own order.
+  - id: must-not-1
+    criterion: 'MUST NOT: reports only theoretical issues without an input-to-sink path'
+    pass: true
+    reason: 'The main finding traces a concrete path from input to data: the order_id path parameter goes
+      into repository.find_by_id and then order_to_response, so user 200 receives ana''s order. The speculative
+      routing concern is explicitly labelled INFERRED.'
+  - id: must-not-2
+    criterion: 'MUST NOT: recommends custom crypto'
+    pass: true
+    reason: The answer makes no cryptography recommendations at all.
+  activity: |-
+    $ Skill security
+    $ Bash ls -R .ai shop 2>/dev/null | head -50; grep -n "" shop/api.py | head -200
+    $ Bash for f in shop/routes.py shop/repository.py shop/models.py shop/invoices.py shop/coupons.py; do echo "== $f"; grep -n "" $f; done; ls .ai .ai/knowledge 2>/dev/null; ls -a
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-security-0dgxfssz/shop/routes.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-security-0dgxfssz/shop/repository.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-security-0dgxfssz/shop/models.py
+    $ Bash ls -R /home/kali/.ai-skills/cache/ai-skills-eval-security-0dgxfssz/.ai/knowledge
+    > ## Security review: `GET /api/orders/{id}` → `shop/api.py:23` `get_order` ### Findings | # | Location | Issue | Severity | Evidence | Fix | |---|---|---|---|---|---| | 1 | `shop/api.py:23-27` | **IDOR: there is no per-object authorization check.** Any logged-in user can read any order by its ID. | *

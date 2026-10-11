@@ -1,0 +1,42 @@
+evaluator: runner:claude
+model: tool default
+skill: debugging
+version: 1.0.1
+types:
+- behavior
+results:
+- id: rootcause
+  pass: false
+  checks:
+  - id: must-1
+    criterion: 'MUST: reproduces the problem before changing code'
+    pass: false
+    reason: The agent says that neither the original bug nor the fix was reproduced, because running Python
+      needed approval this session could not grant.
+  - id: must-2
+    criterion: 'MUST: states hypotheses with predictions'
+    pass: false
+    reason: The final answer gives one cause as settled fact; it does not state hypotheses with predictions
+      that were then tested, and there is no activity log showing that it did.
+  - id: must-3
+    criterion: 'MUST: explains the causal chain with evidence'
+    pass: false
+    reason: The agent explains a plausible causal chain (float 1.50*1.19 gives 1.78499..., which round()
+      turns into 1.78), but says the arithmetic was 'worked out by hand' and nothing was observed or run
+      to support it.
+  - id: must-4
+    criterion: 'MUST: adds a regression test'
+    pass: true
+    reason: tests/test_invoices.py adds test_rounds_half_cent_up (1.50 -> 1.79) and test_rounds_exact_half_up_not_to_even
+      (0.50 -> 0.60).
+  - id: must-not-1
+    criterion: 'MUST NOT: changes code before identifying a cause'
+    pass: true
+    reason: The answer names the float-precision and half-to-even rounding cause as the reason for the
+      Decimal/ROUND_HALF_UP change, and there is no evidence that code was edited before that cause was
+      identified.
+  - id: must-not-2
+    criterion: 'MUST NOT: suppresses the error with try/catch or retries'
+    pass: true
+    reason: The modified shop/invoices.py has no try/except or retry logic; it changes the arithmetic
+      to Decimal with half-up rounding.

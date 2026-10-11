@@ -1,0 +1,66 @@
+evaluator: runner:claude
+model: tool default
+skill: debugging
+version: 1.0.3
+types:
+- behavior
+results:
+- id: rootcause
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: reproduces the problem before changing code'
+    pass: true
+    reason: Before any edit, the agent ran a python3 script over find_all() that printed net_total, the
+      raw float product, its Decimal expansion and gross_total for each order, which showed 1.78 and 8.92.
+  - id: must-2
+    criterion: 'MUST: states hypotheses with predictions'
+    pass: true
+    reason: 'The agent''s notes list two hypotheses with predictions: H1, half-cent rounding, predicted
+      order 1 would show 1.78 instead of 1.79; H2, a discount applied twice, was flagged as inconsistent
+      because order 1 has no coupon.'
+  - id: must-3
+    criterion: 'MUST: explains the causal chain with evidence'
+    pass: true
+    reason: The final answer and the knowledge note trace the chain from 1.50 × 1.19 = 1.785, to the float
+      value 1.78499999…, to round() going down to 1.78, citing the Decimal(1.5 * 1.19) output as evidence
+      and ruling out coupons.
+  - id: must-4
+    criterion: 'MUST: adds a regression test'
+    pass: true
+    reason: The agent added test_rounds_half_cent_up and test_rounds_half_cent_up_with_quantity to tests/test_invoices.py
+      and showed they failed before the fix.
+  - id: must-not-1
+    criterion: 'MUST NOT: changes code before identifying a cause'
+    pass: true
+    reason: The Write to shop/invoices.py came only after the reproduction script confirmed H1 and the
+      new tests had been run and failed.
+  - id: must-not-2
+    criterion: 'MUST NOT: suppresses the error with try/catch or retries'
+    pass: true
+    reason: The fix replaces float arithmetic with Decimal and ROUND_HALF_UP, with no try/except or retry
+      logic.
+  activity: |-
+    $ Skill debugging
+    $ Bash find . -type f -not -path './.claude/*' | head -50 && ls .ai/knowledge 2>/dev/null
+    $ Bash cat shop/invoices.py shop/models.py shop/coupons.py tests/test_invoices.py shop/repository.py
+    ~ (thinking) I'll test two hypotheses: H1 that Python's round-half-to-even is under-rounding exact half-cent totals (order 1 should show 1.78 instead of 1.79), and H2 that the discount is applied twice—though H2 seems inconsistent since order 1 has no coupon but still appears in the report.
+    $ Bash python3 -c "
+    from shop.repository import find_all
+    from shop.invoices import gross_total, net_total
+    from decimal import Decimal
+    for o in find_all(): x=net_total(o)*1.19; print(o.id, net_total(o), repr(x), Decimal(x), gross_total(o))
+    "; grep -rn "round\|float\|gross_total\|net_total" shop/ | gr
+    ~ (thinking) H1 is confirmed: floating-point representation causes 1.785 and 8.925 to round down (1.78, 8.92) instead of the expected half-up results (1.79, 8.93), while H2 is ruled out since neither order has a discount. Next I'll add failing regression tests.
+    $ Edit /home/kali/.ai-skills/cache/ai-skills-eval-debugging-cy31ra0u/tests/test_invoices.py
+    $ Bash python3 -m unittest tests.test_invoices 2>&1 | tail -15
+    > Both new tests fail as expected. Now I'll fix the calculation by doing it in `Decimal` with half-up rounding. The float return type stays, so the API and CSV export don't change shape.
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-debugging-cy31ra0u/shop/invoices.py
+    $ Bash grep -rn "VAT_RATE\|net_total" --include=*.py . ; python3 -m unittest discover -s tests -t . 2>&1 | tail -5; python3 -c "
+    from shop.repository import find_all
+    from shop.invoices import gross_total
+    print([(o.id, gross_total(o)) for o in find_all()])"
+    $ Bash (python3 -m pytest -q 2>&1 || python3 -m unittest tests.test_invoices tests.test_api tests.test_export 2>&1) | tail -15
+    $ Bash python3 -m unittest tests.test_invoices tests.test_api tests.test_export
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-debugging-cy31ra0u/.ai/knowledge/issues/invoice-half-cent-rounding.md
+    > I found and fixed the one-cent error: totals whose VAT amount lands exactly on half a cent were being rounded down instead of up. All 8 tests pass, including two new ones for this bug. **What was wrong:** `shop/invoices.py` computed totals with ordinary floating-point numbers and then rounded with `

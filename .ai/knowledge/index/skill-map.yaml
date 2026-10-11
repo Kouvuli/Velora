@@ -1,0 +1,204 @@
+schema: ai-skill-os/skill-map/v1
+generated_by: ai-skills (registry/skill-map.yaml + .ai/skill-map.yaml)
+stages:
+- id: orient
+  title: 1 · Orient
+  summary: Find what already exists before deciding anything.
+  skills:
+  - next-step
+  - knowledge-first
+  - search-first
+- id: shape
+  title: 2 · Shape
+  summary: Turn an idea into an approved spec (requirements items in .ai/knowledge/requirements).
+  skills:
+  - brainstorm
+  - requirements
+  - acceptance-criteria
+  - domain-modeling
+  - architecture
+  - simplicity-guard
+- id: design
+  title: 2b · Design (UI)
+  summary: Visual direction before or during UI work.
+  skills:
+  - frontend-design
+  - web-design-guidelines
+- id: plan
+  title: 3 · Plan
+  summary: An approved spec into small tickets (.ai/knowledge/work).
+  skills:
+  - planning
+  - subagent-development
+- id: build
+  title: 4 · Build
+  summary: One ticket at a time, test-first.
+  skills:
+  - tdd
+  - implementation
+  - testing
+  - frontend-testing
+  - debugging
+  - performance
+  - security
+  - accessibility
+  - nextjs
+  - react
+- id: check
+  title: 5 · Check
+  summary: Prove it is done before saying so.
+  skills:
+  - verification
+  - code-review
+  - architecture-diff
+- id: ship
+  title: 6 · Ship & learn
+  summary: Deliver, keep docs and knowledge true, learn from rework.
+  skills:
+  - delivery
+  - documentation
+  - knowledge-update
+  - retrospective
+situations:
+- need: I don't know what to do next / which skill now
+  skills:
+  - next-step
+  after: the skill it recommends
+- need: I have a rough idea and don't know the best approach
+  skills:
+  - brainstorm
+  after: requirements once a direction is agreed
+- need: Write or change a feature spec
+  skills:
+  - requirements
+  - acceptance-criteria
+  after: approve the exact revision, then planning
+- need: A spec is approved; break it into work
+  skills:
+  - planning
+  after: pick one ready ticket and build it with tdd
+- need: Build a ready ticket
+  skills:
+  - tdd
+  - implementation
+  after: verification, then code-review
+- need: Something is broken, failing or flaky
+  skills:
+  - debugging
+  after: tdd for the regression test, then verification
+- need: It works but it is slow
+  skills:
+  - performance
+  after: verification with before/after numbers
+- need: The code is hard to change
+  skills:
+  - architecture
+  after: code-review
+- need: A term or business rule is unclear
+  skills:
+  - domain-modeling
+  after: record the term; propose an ADR only for a real trade-off
+- need: Design a screen or polish the UI
+  skills:
+  - frontend-design
+  - web-design-guidelines
+  after: accessibility and code-review
+- need: Is it really done?
+  skills:
+  - verification
+  after: code-review
+- need: Review a diff or PR
+  skills:
+  - code-review
+  - security
+  after: delivery when you ask to commit or open a PR
+- need: Commit, open a PR, write release notes (only when you ask)
+  skills:
+  - delivery
+  after: knowledge-update
+- need: That went badly; what should change?
+  skills:
+  - retrospective
+  after: skill-creator or a knowledge/ADR update
+flows:
+- title: Main path · idea to shipped change
+  steps:
+  - - brainstorm
+  - - requirements
+    - acceptance-criteria
+  - - Approve exact revision
+  - - planning
+  - - tdd
+    - implementation
+  - - verification
+  - - code-review
+  - - delivery (only when asked)
+  note: Suggested handoffs, not an automatic chain. Building needs an explicit implementation request.
+- title: Something is wrong
+  steps:
+  - - debugging
+  - - tdd (regression test)
+  - - verification
+  - - retrospective (if it was rework)
+next:
+  next-step:
+  - knowledge-first
+  knowledge-first:
+  - brainstorm
+  - debugging
+  - requirements
+  search-first:
+  - implementation
+  brainstorm:
+  - requirements
+  requirements:
+  - acceptance-criteria
+  - planning
+  acceptance-criteria:
+  - planning
+  domain-modeling:
+  - requirements
+  - architecture
+  architecture:
+  - requirements
+  simplicity-guard:
+  - planning
+  frontend-design:
+  - accessibility
+  - frontend-testing
+  web-design-guidelines:
+  - accessibility
+  planning:
+  - tdd
+  - implementation
+  subagent-development:
+  - verification
+  tdd:
+  - verification
+  implementation:
+  - verification
+  testing:
+  - verification
+  frontend-testing:
+  - verification
+  debugging:
+  - tdd
+  - verification
+  performance:
+  - verification
+  security:
+  - code-review
+  accessibility:
+  - verification
+  verification:
+  - code-review
+  code-review:
+  - delivery
+  architecture-diff:
+  - code-review
+  delivery:
+  - knowledge-update
+  documentation:
+  - delivery
+  knowledge-update:
+  - retrospective

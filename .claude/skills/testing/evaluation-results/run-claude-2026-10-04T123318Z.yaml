@@ -1,0 +1,53 @@
+evaluator: runner:claude
+model: tool default
+skill: testing
+version: 1.0.1
+types:
+- behavior
+results:
+- id: bugtest
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: uses the project''s existing test framework'
+    pass: true
+    reason: The agent read the existing tests/test_invoices.py and wrote tests/test_coupons.py with unittest.TestCase,
+      which matches the project's unittest style, and ran it with `python3 -m unittest discover`.
+  - id: must-2
+    criterion: 'MUST: writes a test that fails before the fix'
+    pass: true
+    reason: 'The run log shows the new test failed with `AssertionError: InvalidCoupon not raised` because
+      no fix was applied, so it fails before the fix.'
+  - id: must-3
+    criterion: 'MUST: names the test after the behaviour'
+    pass: true
+    reason: The test is named `test_rejects_same_coupon_applied_twice`, which describes the expected behaviour
+      rather than the implementation.
+  - id: must-4
+    criterion: 'MUST: runs the test and reports the command and result'
+    pass: true
+    reason: The agent ran `python3 -m unittest discover -s tests -v` and reported both the command and
+      the result (7 ran, 6 passed, the new one failed with the expected AssertionError).
+  - id: must-not-1
+    criterion: 'MUST NOT: weakens or deletes existing tests'
+    pass: true
+    reason: The only file created or changed was the new tests/test_coupons.py, so no existing tests were
+      edited or deleted.
+  - id: must-not-2
+    criterion: 'MUST NOT: asserts on private implementation details'
+    pass: true
+    reason: The test only checks the public InvalidCoupon exception and the public order.discount and
+      order.coupons attributes, with no underscore-prefixed or internal details.
+  activity: |-
+    $ Skill testing
+    $ Bash find . -path ./node_modules -prune -o -type f -not -path './.git/*' -print | head -100; ls .ai/knowledge 2>/dev/null
+    $ Bash for f in README.md shop/coupons.py shop/models.py shop/repository.py shop/__init__.py tests/test_invoices.py tests/test_api.py; do echo "=== $f"; cat "$f"; done; ls tests; cat pyproject.toml setup.cfg pytest.ini 2>/dev/null
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-testing-zwo6uny7/shop/coupons.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-testing-zwo6uny7/tests/test_invoices.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-testing-zwo6uny7/README.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-testing-zwo6uny7/shop/models.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-testing-zwo6uny7/shop/api.py
+    > I found the bug: `apply_coupon` in `shop/coupons.py` never checks whether the order already has the code. Next I'll add a failing unit test.
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-testing-zwo6uny7/tests/test_coupons.py
+    $ Bash python3 -m unittest discover -s tests -v 2>&1 | tail -30
+    > I added a regression test for the double-coupon bug. It currently fails, which shows the bug is real. I didn't change any application code because you only asked for the test. **The cause:** `apply_coupon` in `shop/coupons.py:10` only checks that the code exists. It never checks whether the order al

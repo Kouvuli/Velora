@@ -1,0 +1,12 @@
+evaluator: runner:codex
+model: gpt-5.6-terra
+skill: verification
+version: 1.0.1
+types:
+- behavior
+results:
+- id: report
+  pass: false
+  checks: []
+  error: 'quota: codex: {"type":"error","message":"You''ve hit your usage limit. Upgrade to Plus to continue
+    using Codex (https://chatgpt.com/explore/plus), or try again at Oct 29th, 2026 2:40 PM."}'

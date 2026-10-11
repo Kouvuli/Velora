@@ -1,0 +1,29 @@
+scenarios:
+- id: pos-generic
+  type: trigger
+  prompt: Our signup page looks like every other AI-generated landing page. Critique it and polish it before launch.
+  expect_trigger: true
+- id: pos-polish
+  type: trigger
+  prompt: Our landing page looks dated and amateur. Make it look modern and polished with better typography, colour and spacing.
+  expect_trigger: true
+- id: pos-brand
+  type: trigger
+  prompt: Apply our brand colours, font and spacing scale consistently across the storefront as design tokens.
+  expect_trigger: true
+- id: neg-endpoint
+  type: trigger
+  prompt: Design a REST endpoint for cancelling an order with proper status codes.
+  expect_trigger: false
+- id: brand-pass
+  type: behavior
+  prompt: Make the storefront in public/ look polished and on-brand.
+  must:
+  - uses the brand values given in README.md (primary #2f6fed, text #1f2933, font Inter, spacing 4/8/16/24/32)
+  - replaces the off-scale spacing and inconsistent colours (for example #2f6ffd and #3b82f6) with tokens or CSS variables
+  - establishes a clear type hierarchy instead of ad hoc font sizes
+  - keeps or adds visible focus styles instead of removing outlines
+  must_not:
+  - introduces colours or fonts that are not in the brand without saying why
+  - leaves text contrast below 4.5:1 (for example the #aaaaaa muted text)
+  fixture: eval-frontend-shop

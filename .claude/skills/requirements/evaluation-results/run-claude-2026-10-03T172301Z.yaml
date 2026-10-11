@@ -1,0 +1,43 @@
+evaluator: runner:claude
+model: tool default
+skill: requirements
+version: 1.0.1
+types:
+- behavior
+results:
+- id: brief
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: separates goal from proposed solution'
+    pass: true
+    reason: The brief has separate 'Problem / goal (why)', 'Requirements (what)' and 'Proposed solution
+      (how)' lines, treats 'a dashboard' as only a suggestion, and names alternatives such as a weekly
+      email digest.
+  - id: must-2
+    criterion: 'MUST: writes testable acceptance criteria'
+    pass: true
+    reason: The acceptance criteria are written as Given/When/Then checkboxes with checkable outcomes,
+      such as a 403 for non-managers, a two-team fixture showing no data leakage, and values matching
+      a reference query.
+  - id: must-3
+    criterion: 'MUST: lists open questions, blocking first'
+    pass: true
+    reason: The answer puts five numbered blocking questions first (problem, metrics, manager definition,
+      freshness, scale), and the file lists five non-blocking questions separately after them.
+  - id: must-4
+    criterion: 'MUST: labels guesses as ASSUMPTION'
+    pass: true
+    reason: 'The file''s Assumptions section prefixes every guess with ''ASSUMPTION:'', the 2 s performance
+      target is marked ''(ASSUMPTION: 2 s until the client gives a number)'', and the whole brief is marked
+      INFERRED.'
+  - id: must-not-1
+    criterion: 'MUST NOT: invents business rules or numbers not given'
+    pass: true
+    reason: Specific figures such as 2 s p95 and 15-minute freshness are explicitly labelled as ASSUMPTION
+      or placeholders, and unknown values are left as <angle-bracket> placeholders tied to open questions
+      instead of being stated as rules.
+  - id: must-not-2
+    criterion: 'MUST NOT: starts writing code'
+    pass: true
+    reason: The only file created is a markdown requirements brief, and no code was written.

@@ -1,0 +1,1714 @@
+schema: ai-skill-os/knowledge-graph/v1
+generated_by: ai-skills knowledge discover
+updated_at: '2026-10-11T01:03:09+00:00'
+note: Index for retrieval only. Source files are the truth; follow the evidence.
+sources:
+  .ai/knowledge/requirements/VEL-WEB-landing.md: 749c30e81bf30b4c37bd2c767de885bb5524d11c53fe3212024ea21f3a1d5d52
+  .next/types/root-params.d.ts: f3387dd7800eec3c34273f7a8efad13e864598c7e8f788d321e407390989bb59
+  .next/types/routes.d.ts: e4c50e49c6edbe5d92b275efe5e60998d9650f9809849a5e381757b3e4215078
+  e2e/landing.spec.ts: 2643ee4f9c09ce53ffc8591a23f397ebab70c8b9813c4b7ed46e9112f2223a92
+  e2e/motion.spec.ts: 801b41c6498f08b206f3140f6c0452a1c40ad6296781fe029669bb05cab689a8
+  e2e/theme.spec.ts: 712c2af91a72e6de5dc79b41477d14c717f9edd2e5a1d20419a6fdfe34700166
+  next-env.d.ts: 1862ac4bbbc5192d4bf562161df66ea547ed3e67173100656ab606ae9797db2b
+  package-lock.json: b99083878f5f9942ed34922978a8ffbfd4150e2ba70645b370c6eddafd1d1774
+  package.json: e9c33e3b8da238be863d931dc14410d8a382a80bce201438b66f3b83451717fd
+  playwright.config.ts: ff8f12a888ba3d076fd746fd8c7ae271f0ffe5a5791bb50ddc6b38224ba61529
+  scripts/check-launch.mjs: 6716adab8713c158364e584a306d52bcad827b0b317e67253c0e2c58e50690f8
+  src/app/globals.css: 114d6dce23415abc0d7e75ea1fabd2eefb91e5eb6c90b84d8a83a4b97968dedb
+  src/app/layout.tsx: aa177bf3dd1a5c1bdcbc36f9dd786c816216dfa39b3b42f711426eed5211c54b
+  src/app/opengraph-image.tsx: 3298070eaa981f3d7097b604a1c5761a5cd863c404421de1b1bfdb8f83edce38
+  src/app/page.tsx: e6d62c8d6095908fa984c7d2e595310d6887c832090f649f0786f619c13def35
+  src/app/privacy/page.tsx: 2309bbdd06979e460a207e6b629111caff9911572f37f9b97d783816a7732526
+  src/app/theme.test.ts: 033d3bce57c9e7e95c5d938bceec0edfbe9ddd20264cc30c1e6934da08fa8a6a
+  src/components/ConnectsMarquee.tsx: 1f7d81f73a6599c35b2e16599377a0f96421428ff6b42d1ec6d23a5c22fd3eb7
+  src/components/GraphDemo.tsx: 54040a18e77328e6d1925af0bf21a547228f5470fcf965666be10989e3cfe197
+  src/components/HowItWorks.tsx: 33171a4d1705da522942b21ba1c1da555587e708e8141727336d06e8c1723a98
+  src/components/RevealHeading.tsx: bca2d23ed01feccbe5b9fda25428aada5e9483d6a37e58eb66239c1a455be91d
+  src/components/Section.tsx: 41c6d21e5de40a1885e442ced271f01060307cdd9485f65bec970602c9da2136
+  src/components/SiteChrome.tsx: 5ff3d42a8d202bb2914ce8a06c43954aa86cc208ca51fd3d3b0ae5abd9b3cd75
+  src/components/SmoothScroll.tsx: 8e71c156aa4895dda62a8d21f49479a868adbfc48da0c728eeabb85e4e101fa9
+  src/components/StoryMotion.tsx: 4fc4cec7d6b294805fb52aba6523f0a75c31d04e04bf5e68269ae5549127286c
+  src/components/ThemeToggle.tsx: ac86902b83dc70150a889404ab8107a4e45b06106bf97a3b9e9dce17ef9472f3
+  src/components/ViewPreviews.tsx: 92463ee94fd792377f57c0ed633bd104bb7eed3fd3594625309e09d62be36a20
+  src/components/WaitlistForm.test.tsx: ed2f8553dd3e5c22e5bacafe9ee4019da1c69350530bed5e6f792398f7dc4cb9
+  src/components/WaitlistForm.tsx: be8b90cb2b5c0c7b60f643608a997838651877de594b5e9d0f891a6cd4a0d1a7
+  src/components/hero/HeroCanvas.tsx: 0388b9be03626093dc5c4dcadb629e04d2e1e9549889016d44ad6c43b9950cac
+  src/components/hero/HeroGraphStill.tsx: 6b1bf11d4f1b93dd488418e128d1709168f77d7c7cb0052dbc2f3bf019eae501
+  src/components/hero/HeroScene.tsx: c512a9e5e843a6b76f81af7122ecb1e7bbd4ba59c45d1edcf38236ef72a75861
+  src/config/site.test.ts: 89c419d945200e13fef955715f5221ad4b63040d30b7f359a5c15910c2fdca09
+  src/config/site.ts: 29a362e7ada0866d763058240d1485909ba4f14fa59ec231aedc1a1ddc5da512
+  src/lib/demo.test.ts: 6f0f924e95eb5746409523e1f6d35e19543a0d3042b8d142b6a6a39dc1d59fba
+  src/lib/demo.ts: ad4075d1ee49080abf43f82d099d8cdc796a9fba2e900d6d40e7d82a7b16931b
+  src/lib/format.test.ts: 8d0b2286e791e245f8c540eb60de3e6d0ae844227f6adf8fff74adeac4d858c0
+  src/lib/format.ts: 782f34cccadf945136272edfd38bc3f5ba2f895e3b42d30c54b1939927cb4fbb
+  src/lib/heroGraph.test.ts: 70fd05b4dc56e3535fdebff2654adab4691f0a6e2c7eba0fd4ed52af5ff6b06f
+  src/lib/heroGraph.ts: 8255b98047ac7b8cf7e4a2497e60c6ee784cb965407a9a83fd896655cad9cbe0
+  src/lib/theme.ts: 325e9b05f59a9a230884bdcfe69cc68dbb7a051c8f37d68db0c687b950892b36
+  src/lib/waitlist.test.ts: fb1b11c685a2b1d41592b2d9f4b2c8489326936cea660692524672dcce6cbfff
+  src/lib/waitlist.ts: 6808c90a77ec8e1543de36680b0a9b37614240a1c044696d1ac58bbc6f30c50a
+nodes:
+- id: criterion:VEL-WEB-landing/AC-01
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given a visitor opens `/` at 1440×900 or 375×812, when the page loads, then the H1 "Connect messy
+    data. See how it fits. Send it clean anywhere.", the subhead and a "Get early access" button are visib
+- id: criterion:VEL-WEB-landing/AC-02
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the endpoint is set, when a visitor submits a valid email, a segment and the Readiness Report
+    choice, then exactly one request matching the form contract is sent, the button shows "Joining…" and
+- id: criterion:VEL-WEB-landing/AC-03
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given an invalid or empty email, when the visitor submits, then no request is sent and an inline
+    error linked to the field (`aria-describedby`) is shown.
+- id: criterion:VEL-WEB-landing/AC-04
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the endpoint returns a non-2xx status or the network fails, when the visitor submits, then
+    an error message with a mailto link to the site email is shown and the entered values are kept.
+- id: criterion:VEL-WEB-landing/AC-05
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the endpoint is not set, when the visitor submits a valid form, then no network request
+    is sent and the browser is pointed to a `mailto:` link to the site email whose body contains the email,
+    se
+- id: criterion:VEL-WEB-landing/AC-06
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the demo loads, then it shows an Orders source and a Customers source, the warning "312
+    orders have no matching customer", and an amber suggested link "cust_no → customer_id (94%)".
+- id: criterion:VEL-WEB-landing/AC-07
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the initial demo, when the visitor presses "Accept suggestion", then the link turns green
+    (approved), the warning is replaced by "All 4,812 orders matched to a customer", and the Send destinatio
+- id: criterion:VEL-WEB-landing/AC-08
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the initial demo on a pointer device, when the visitor drags from Orders `cust_no` to Customers
+    `customer_id`, then the same resolved state as AC-07 appears; when they connect any other pair, th
+- id: criterion:VEL-WEB-landing/AC-09
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the demo is resolved, when the visitor presses "Reset demo", then the initial state returns.
+- id: criterion:VEL-WEB-landing/AC-10
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given a keyboard-only visitor, when they Tab to the demo, then "Accept suggestion" and "Reset
+    demo" are reachable and operable, and each state change is announced through a polite live region.
+- id: criterion:VEL-WEB-landing/AC-11
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: 'Given `/`, then these sections exist in order with these ids: `connects`, `demo`, `problem`,
+    `how-it-works`, `views`, `destinations`, `trust`, `who`, `compare`, `pricing`, `security`, `about`,
+    `faq`, '
+- id: criterion:VEL-WEB-landing/AC-12
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the pricing section, then it shows Free Readiness Report, Project pass from $299 and Subscription
+    from $99/month, labelled as early-access pricing.
+- id: criterion:VEL-WEB-landing/AC-13
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the security section, then it states encryption in transit and at rest, deletion on request,
+    metadata-only AI mode and "local engine on request", and the site never claims that data never leaves
+- id: criterion:VEL-WEB-landing/AC-14
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the FAQ, then it includes "Why not just use ChatGPT?" and "Does my data leave my environment?"
+    as expandable items that work without JavaScript.
+- id: criterion:VEL-WEB-landing/AC-15
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given `/privacy`, then it lists what the form collects, the processor (Formspree), retention,
+    how to request deletion (site email), and states there is no analytics or tracking cookies; it is
+    linked f
+- id: criterion:VEL-WEB-landing/AC-16
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the source, then the brand name, domain, contact email and company details are defined only
+    in `src/config/site.ts`, and no component hard-codes them.
+- id: criterion:VEL-WEB-landing/AC-17
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given `site.ts` still contains a `.example` domain or email, when `npm run check:launch` runs,
+    then it exits non-zero and names each placeholder; with real values it exits zero.
+- id: criterion:VEL-WEB-landing/AC-18
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given any page, then its title and description come from site config, and `/opengraph-image` returns
+    a 1200×630 PNG showing the headline.
+- id: criterion:VEL-WEB-landing/AC-19
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given any visitor, when the server HTML for `/` arrives, then the hero (beside the headline on
+    desktop, below it on phones) contains a still image of the clean graph with a text alternative, and
+    no th
+- id: criterion:VEL-WEB-landing/AC-20
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: 'Given a desktop visitor without reduced motion and with WebGL, when the hero scene is visible,
+    then a 3D canvas replaces the still image and points move from scattered positions into the linked
+    graph '
+- id: criterion:VEL-WEB-landing/AC-21
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the 3D scene has played, when the visitor presses "Replay" (a real button, reachable by
+    keyboard), then the assembly plays again.
+- id: criterion:VEL-WEB-landing/AC-22
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: 'Given `prefers-reduced-motion: reduce` or a browser without WebGL, then the still image stays,
+    no canvas mounts and no Replay button is shown.'
+- id: criterion:VEL-WEB-landing/AC-23
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: 'Given a phone-sized viewport (under 768 px) or a coarse pointer, then the scene uses the light
+    tier: at most 24 points, device pixel ratio at most 1.5, and no pointer response.'
+- id: criterion:VEL-WEB-landing/AC-24
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the 3D scene is running, when it scrolls out of view, then it stops rendering, and it resumes
+    when visible again.
+- id: criterion:VEL-WEB-landing/AC-25
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given motion is allowed, when `how-it-works`, `trust` and the dashboard preview in `views` first
+    scroll into view, then the steps appear in sequence, the trust states light up in order, and the dashbo
+- id: criterion:VEL-WEB-landing/AC-26
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given `/`, then each problem item, how-it-works step, destination, trust state, audience, pricing
+    plan and security point shows a Lucide icon that is hidden from screen readers (`aria-hidden`); system
+- id: criterion:VEL-WEB-landing/AC-27
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: 'Given `/`, then the visible words in `problem`, `how-it-works`, `views`, `destinations`, `trust`,
+    `who`, `pricing`, `security`, `about` and `early-access` total at most 680 (revision 1 baseline: 975, '
+- id: criterion:VEL-WEB-landing/AC-28
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given a first-time visitor (no stored choice), whatever their system setting, when `/` or `/privacy`
+    first paints, then the dark theme is applied before any content is shown (no flash), also without
+    J
+- id: criterion:VEL-WEB-landing/AC-29
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: 'Given the header theme toggle (a real button whose label names the theme it switches to), when
+    the visitor presses it, then the theme switches, the choice is remembered on that device across reloads, '
+- id: criterion:VEL-WEB-landing/AC-30
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the colour tokens (pure mono since revision 4), then every text/background pair used on
+    the page meets WCAG AA (4.5:1 text, 3:1 large text and UI) in both themes, and text selection, focus
+    rings
+- id: criterion:VEL-WEB-landing/AC-31
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the 3D hero on a pointer or touch device, when the visitor drags across it, then the graph
+    rotates with the drag (limited range) and eases back when released; page scrolling on phones still
+    work
+- id: criterion:VEL-WEB-landing/AC-32
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the settled 3D hero, when the visitor hovers or taps a hub, then a label shows its name
+    and record count (e.g. "Customers, 1,204 records"); when they hover or tap a record point, then a
+    sample s
+- id: criterion:VEL-WEB-landing/AC-33
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the settled 3D hero, then one hub link stays amber as "Suggested"; when the visitor clicks
+    it, or presses the "Approve suggested link" button below the scene, then it turns green and the caption
+- id: criterion:VEL-WEB-landing/AC-34
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given a desktop visitor (1024 px or wider) with motion allowed, when they scroll through `how-it-works`,
+    then the section stays pinned while Connect, See and Send become active in order, each with its
+- id: criterion:VEL-WEB-landing/AC-35
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the demo, then it lists three issues (312 orders without a customer, a duplicate customer
+    "Acme Inc." / "ACME, Inc.", dates in mixed formats) with a progress count; each is fixed by its own
+    acti
+- id: criterion:VEL-WEB-landing/AC-36
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given all three issues are fixed, when the visitor presses "Run dry run", then a short report
+    animates in (records checked, issues fixed, 0 violations) and only then do the Send destinations become
+    en
+- id: criterion:VEL-WEB-landing/AC-37
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given motion is allowed, then buttons give press feedback, links and cards give hover feedback,
+    FAQ answers open and close with a short height transition, and a successful sign-up shows an animated
+    ch
+- id: criterion:VEL-WEB-landing/AC-38
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: 'Given a desktop visitor with a fine pointer and motion allowed, when the cursor moves over the
+    settled hero graph, then nearby points ease slightly away from it and return when it leaves; there
+    is no '
+- id: criterion:VEL-WEB-landing/AC-39
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given `/` at 640 px or wider, then the hero spans the full width and at least the viewport height
+    below the header, with the 3D graph (or its still image) behind a centred H1, the subhead, both CTAs
+    a
+- id: criterion:VEL-WEB-landing/AC-40
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: 'Given a desktop visitor with a fine pointer and motion allowed, then scrolling (wheel and anchor
+    links) is smooth and inertial, anchor links land below the sticky header, and keyboard scrolling still '
+- id: criterion:VEL-WEB-landing/AC-41
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given motion is allowed, when a section heading first scrolls into view, then its lines slide
+    up out of a mask one after another, once; headings already on screen, and all headings with reduced
+    motion
+- id: criterion:VEL-WEB-landing/AC-42
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given motion is allowed, when the visitor hovers a view preview, pricing plan or destination,
+    then its inner visual or surface responds (preview zooms slightly inside its frame, surfaces lighten)
+    with
+- id: criterion:VEL-WEB-landing/AC-43
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given `/`, then a "Connects to" strip after the hero scrolls an endless row of sources (Excel,
+    CSV, Google Sheets, Postgres, MySQL, SQL Server, REST APIs) and destinations (Odoo, CSV/XLSX/Parquet,
+    clo
+- id: criterion:VEL-WEB-landing/AC-44
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given any page, then text uses Geist and data labels use Geist Mono, self-hosted (no requests
+    to font services from the visitor's browser).
+- id: feature:VEL-WEB-landing
+  kind: feature
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: Landing page
+  lifecycle: approved
+  owner: landing
+  reference: false
+- id: module:.next/types/root-params.d.ts
+  kind: module
+  evidence:
+  - .next/types/root-params.d.ts:1
+- id: module:.next/types/routes.d.ts
+  kind: module
+  evidence:
+  - .next/types/routes.d.ts:1
+- id: module:e2e/landing.spec.ts
+  kind: module
+  evidence:
+  - e2e/landing.spec.ts:1
+- id: module:e2e/motion.spec.ts
+  kind: module
+  evidence:
+  - e2e/motion.spec.ts:1
+- id: module:e2e/theme.spec.ts
+  kind: module
+  evidence:
+  - e2e/theme.spec.ts:1
+- id: module:next-env.d.ts
+  kind: module
+  evidence:
+  - next-env.d.ts:1
+- id: module:playwright.config.ts
+  kind: module
+  evidence:
+  - playwright.config.ts:1
+- id: module:scripts/check-launch.mjs
+  kind: module
+  evidence:
+  - scripts/check-launch.mjs:1
+- id: module:src/app/globals.css
+  kind: module
+  evidence:
+  - src/app/globals.css:1
+- id: module:src/app/layout.tsx
+  kind: module
+  evidence:
+  - src/app/layout.tsx:1
+- id: module:src/app/opengraph-image.tsx
+  kind: module
+  evidence:
+  - src/app/opengraph-image.tsx:1
+- id: module:src/app/page.tsx
+  kind: module
+  evidence:
+  - src/app/page.tsx:1
+- id: module:src/app/privacy/page.tsx
+  kind: module
+  evidence:
+  - src/app/privacy/page.tsx:1
+- id: module:src/app/theme.test.ts
+  kind: module
+  evidence:
+  - src/app/theme.test.ts:1
+- id: module:src/components/ConnectsMarquee.tsx
+  kind: module
+  evidence:
+  - src/components/ConnectsMarquee.tsx:1
+- id: module:src/components/GraphDemo.tsx
+  kind: module
+  evidence:
+  - src/components/GraphDemo.tsx:1
+- id: module:src/components/HowItWorks.tsx
+  kind: module
+  evidence:
+  - src/components/HowItWorks.tsx:1
+- id: module:src/components/RevealHeading.tsx
+  kind: module
+  evidence:
+  - src/components/RevealHeading.tsx:1
+- id: module:src/components/Section.tsx
+  kind: module
+  evidence:
+  - src/components/Section.tsx:1
+- id: module:src/components/SiteChrome.tsx
+  kind: module
+  evidence:
+  - src/components/SiteChrome.tsx:1
+- id: module:src/components/SmoothScroll.tsx
+  kind: module
+  evidence:
+  - src/components/SmoothScroll.tsx:1
+- id: module:src/components/StoryMotion.tsx
+  kind: module
+  evidence:
+  - src/components/StoryMotion.tsx:1
+- id: module:src/components/ThemeToggle.tsx
+  kind: module
+  evidence:
+  - src/components/ThemeToggle.tsx:1
+- id: module:src/components/ViewPreviews.tsx
+  kind: module
+  evidence:
+  - src/components/ViewPreviews.tsx:1
+- id: module:src/components/WaitlistForm.test.tsx
+  kind: module
+  evidence:
+  - src/components/WaitlistForm.test.tsx:1
+- id: module:src/components/WaitlistForm.tsx
+  kind: module
+  evidence:
+  - src/components/WaitlistForm.tsx:1
+- id: module:src/components/hero/HeroCanvas.tsx
+  kind: module
+  evidence:
+  - src/components/hero/HeroCanvas.tsx:1
+- id: module:src/components/hero/HeroGraphStill.tsx
+  kind: module
+  evidence:
+  - src/components/hero/HeroGraphStill.tsx:1
+- id: module:src/components/hero/HeroScene.tsx
+  kind: module
+  evidence:
+  - src/components/hero/HeroScene.tsx:1
+- id: module:src/config/site.test.ts
+  kind: module
+  evidence:
+  - src/config/site.test.ts:1
+- id: module:src/config/site.ts
+  kind: module
+  evidence:
+  - src/config/site.ts:1
+- id: module:src/lib/demo.test.ts
+  kind: module
+  evidence:
+  - src/lib/demo.test.ts:1
+- id: module:src/lib/demo.ts
+  kind: module
+  evidence:
+  - src/lib/demo.ts:1
+- id: module:src/lib/format.test.ts
+  kind: module
+  evidence:
+  - src/lib/format.test.ts:1
+- id: module:src/lib/format.ts
+  kind: module
+  evidence:
+  - src/lib/format.ts:1
+- id: module:src/lib/heroGraph.test.ts
+  kind: module
+  evidence:
+  - src/lib/heroGraph.test.ts:1
+- id: module:src/lib/heroGraph.ts
+  kind: module
+  evidence:
+  - src/lib/heroGraph.ts:1
+- id: module:src/lib/theme.ts
+  kind: module
+  evidence:
+  - src/lib/theme.ts:1
+- id: module:src/lib/waitlist.test.ts
+  kind: module
+  evidence:
+  - src/lib/waitlist.test.ts:1
+- id: module:src/lib/waitlist.ts
+  kind: module
+  evidence:
+  - src/lib/waitlist.ts:1
+- id: project
+  kind: project
+  evidence: []
+- id: story:VEL-WEB-landing/US-01
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: Understand Velora in seconds
+- id: story:VEL-WEB-landing/US-02
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: Join early access
+- id: story:VEL-WEB-landing/US-03
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: Try the graph demo
+- id: story:VEL-WEB-landing/US-04
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: Learn how it works, what it costs and whether to trust it
+- id: story:VEL-WEB-landing/US-05
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: Read the privacy policy
+- id: story:VEL-WEB-landing/US-06
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: Founders change brand details in one place and never launch with placeholders
+- id: story:VEL-WEB-landing/US-07
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: Shared links look right
+- id: story:VEL-WEB-landing/US-08
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: 'See the product story in the hero: messy records pulling together into a clean graph'
+- id: story:VEL-WEB-landing/US-09
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: Sections that show a sequence or a change animate once, so the story is easier to follow
+- id: story:VEL-WEB-landing/US-10
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: Scan the page quickly through icons and shorter text
+- id: story:VEL-WEB-landing/US-11
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: Read the page in a light or dark theme with a distinctive Velora palette
+- id: story:VEL-WEB-landing/US-12
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: 'Play with the hero graph: rotate it, inspect records, approve the last suggested link'
+- id: story:VEL-WEB-landing/US-13
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: Follow Connect → See → Send step by step while scrolling
+- id: story:VEL-WEB-landing/US-14
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: 'Fix a realistic mess in the demo: a missing link, a duplicate and a date format, then run a
+    dry run'
+- id: story:VEL-WEB-landing/US-15
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: 'Feel that controls respond: press, hover, open and success feedback'
+- id: story:VEL-WEB-landing/US-16
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: See the hero graph react to the cursor
+- id: story:VEL-WEB-landing/US-17
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: 'Feel a calm, premium page: full-bleed hero, smooth scrolling, headings that reveal, cards that
+    respond'
+- id: story:VEL-WEB-landing/US-18
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: See at a glance which systems Velora connects
+- id: tech:animation:motion
+  kind: technology
+  evidence:
+  - package.json
+- id: tech:framework:nextjs
+  kind: technology
+  evidence:
+  - package.json
+- id: tech:framework:react
+  kind: technology
+  evidence:
+  - package.json
+- id: tech:graphics:three
+  kind: technology
+  evidence:
+  - package.json
+- id: tech:language:javascript
+  kind: technology
+  evidence:
+  - package.json
+- id: tech:language:typescript
+  kind: technology
+  evidence:
+  - next-env.d.ts
+- id: tech:pm:npm
+  kind: technology
+  evidence:
+  - package-lock.json
+- id: tech:styling:tailwind
+  kind: technology
+  evidence:
+  - package.json
+- id: tech:testing:playwright
+  kind: technology
+  evidence:
+  - package.json
+- id: tech:testing:vitest
+  kind: technology
+  evidence:
+  - package.json
+edges:
+- from: criterion:VEL-WEB-landing/AC-01
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-01
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-02
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-02
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-03
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-02
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-04
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-02
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-05
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-02
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-06
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-03
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-07
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-03
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-08
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-03
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-09
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-03
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-10
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-03
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-11
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-04
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-12
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-04
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-13
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-04
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-14
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-04
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-15
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-05
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-16
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-06
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-17
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-06
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-18
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-07
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-19
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-08
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-20
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-08
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-21
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-08
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-22
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-08
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-23
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-08
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-24
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-08
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-25
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-09
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-26
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-10
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-27
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-10
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-28
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-11
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-29
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-11
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-30
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-11
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-31
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-12
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-32
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-12
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-33
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-12
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-34
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-13
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-35
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-14
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-36
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-14
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-37
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-15
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-38
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-16
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-39
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-17
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-40
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-17
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-41
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-17
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-42
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-17
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-43
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-18
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-44
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-17
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-01
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-02
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-03
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-04
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-05
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-06
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-07
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-08
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-09
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-10
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-11
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-12
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-13
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-14
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-15
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-16
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-17
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-18
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: module:e2e/landing.spec.ts
+  rel: imports
+  to: module:playwright.config.ts
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:2
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-01
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:6
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-02
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:122
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-06
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:36
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-07
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:36
+  - e2e/landing.spec.ts:108
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-08
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:107
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-09
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:36
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-10
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:36
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-11
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:13
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-12
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:24
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-13
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:24
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-14
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:138
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-15
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:149
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-18
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:160
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-35
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:58
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-36
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:58
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-19
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:12
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-20
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:48
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-21
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:48
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-22
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:12
+  - e2e/motion.spec.ts:33
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-23
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:65
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-24
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:80
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-25
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:24
+  - e2e/motion.spec.ts:89
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-26
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:111
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-27
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:123
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-31
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:149
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-32
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:161
+  - e2e/motion.spec.ts:173
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-33
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:182
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-34
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:92
+  - e2e/motion.spec.ts:202
+  - e2e/motion.spec.ts:229
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-37
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:236
+  - e2e/motion.spec.ts:254
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-38
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:263
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-39
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:270
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-40
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:295
+  - e2e/motion.spec.ts:313
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-41
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:313
+  - e2e/motion.spec.ts:324
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-42
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:337
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-43
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:313
+  - e2e/motion.spec.ts:350
+- from: module:e2e/theme.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-28
+  status: CONFIRMED
+  evidence:
+  - e2e/theme.spec.ts:8
+  - e2e/theme.spec.ts:23
+- from: module:e2e/theme.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-29
+  status: CONFIRMED
+  evidence:
+  - e2e/theme.spec.ts:37
+- from: module:e2e/theme.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-44
+  status: CONFIRMED
+  evidence:
+  - e2e/theme.spec.ts:54
+- from: module:next-env.d.ts
+  rel: imports
+  to: module:.next/types/root-params.d.ts
+  status: CONFIRMED
+  evidence:
+  - next-env.d.ts:4
+- from: module:next-env.d.ts
+  rel: imports
+  to: module:.next/types/routes.d.ts
+  status: CONFIRMED
+  evidence:
+  - next-env.d.ts:3
+- from: module:scripts/check-launch.mjs
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-17
+  status: CONFIRMED
+  evidence:
+  - scripts/check-launch.mjs:1
+- from: module:src/app/globals.css
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-28
+  status: CONFIRMED
+  evidence:
+  - src/app/globals.css:4
+- from: module:src/app/globals.css
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-36
+  status: CONFIRMED
+  evidence:
+  - src/app/globals.css:94
+- from: module:src/app/globals.css
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-37
+  status: CONFIRMED
+  evidence:
+  - src/app/globals.css:110
+- from: module:src/app/globals.css
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-43
+  status: CONFIRMED
+  evidence:
+  - src/app/globals.css:158
+- from: module:src/app/layout.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-44
+  status: CONFIRMED
+  evidence:
+  - src/app/layout.tsx:8
+- from: module:src/app/layout.tsx
+  rel: imports
+  to: module:src/app/globals.css
+  status: CONFIRMED
+  evidence:
+  - src/app/layout.tsx:6
+- from: module:src/app/opengraph-image.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-18
+  status: CONFIRMED
+  evidence:
+  - src/app/opengraph-image.tsx:1
+- from: module:src/app/page.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-11
+  status: INFERRED
+  evidence:
+  - src/app/page.tsx:1
+  note: bare AC-11; the file names only VEL-WEB-landing
+- from: module:src/app/page.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-26
+  status: INFERRED
+  evidence:
+  - src/app/page.tsx:1
+  note: bare AC-26; the file names only VEL-WEB-landing
+- from: module:src/app/page.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-27
+  status: INFERRED
+  evidence:
+  - src/app/page.tsx:1
+  note: bare AC-27; the file names only VEL-WEB-landing
+- from: module:src/app/page.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-39
+  status: CONFIRMED
+  evidence:
+  - src/app/page.tsx:129
+- from: module:src/app/privacy/page.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-15
+  status: CONFIRMED
+  evidence:
+  - src/app/privacy/page.tsx:1
+- from: module:src/app/theme.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-30
+  status: CONFIRMED
+  evidence:
+  - src/app/theme.test.ts:6
+  - src/app/theme.test.ts:43
+- from: module:src/components/ConnectsMarquee.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-43
+  status: CONFIRMED
+  evidence:
+  - src/components/ConnectsMarquee.tsx:3
+- from: module:src/components/GraphDemo.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-06
+  status: CONFIRMED
+  evidence:
+  - src/components/GraphDemo.tsx:3
+- from: module:src/components/HowItWorks.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-25
+  status: CONFIRMED
+  evidence:
+  - src/components/HowItWorks.tsx:3
+- from: module:src/components/HowItWorks.tsx
+  rel: imports
+  to: module:src/components/StoryMotion.tsx
+  status: CONFIRMED
+  evidence:
+  - src/components/HowItWorks.tsx:22
+- from: module:src/components/RevealHeading.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-41
+  status: CONFIRMED
+  evidence:
+  - src/components/RevealHeading.tsx:4
+- from: module:src/components/Section.tsx
+  rel: imports
+  to: module:src/components/RevealHeading.tsx
+  status: CONFIRMED
+  evidence:
+  - src/components/Section.tsx:1
+- from: module:src/components/SiteChrome.tsx
+  rel: imports
+  to: module:src/components/ThemeToggle.tsx
+  status: CONFIRMED
+  evidence:
+  - src/components/SiteChrome.tsx:3
+- from: module:src/components/SmoothScroll.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-40
+  status: CONFIRMED
+  evidence:
+  - src/components/SmoothScroll.tsx:3
+- from: module:src/components/StoryMotion.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-25
+  status: CONFIRMED
+  evidence:
+  - src/components/StoryMotion.tsx:3
+- from: module:src/components/ThemeToggle.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-29
+  status: CONFIRMED
+  evidence:
+  - src/components/ThemeToggle.tsx:7
+- from: module:src/components/WaitlistForm.test.tsx
+  rel: imports
+  to: module:src/components/WaitlistForm.tsx
+  status: CONFIRMED
+  evidence:
+  - src/components/WaitlistForm.test.tsx:4
+- from: module:src/components/WaitlistForm.test.tsx
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-02
+  status: CONFIRMED
+  evidence:
+  - src/components/WaitlistForm.test.tsx:19
+- from: module:src/components/WaitlistForm.test.tsx
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-03
+  status: CONFIRMED
+  evidence:
+  - src/components/WaitlistForm.test.tsx:41
+- from: module:src/components/WaitlistForm.test.tsx
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-04
+  status: CONFIRMED
+  evidence:
+  - src/components/WaitlistForm.test.tsx:55
+- from: module:src/components/WaitlistForm.test.tsx
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-05
+  status: CONFIRMED
+  evidence:
+  - src/components/WaitlistForm.test.tsx:68
+- from: module:src/components/hero/HeroCanvas.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-20
+  status: CONFIRMED
+  evidence:
+  - src/components/hero/HeroCanvas.tsx:3
+- from: module:src/components/hero/HeroGraphStill.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-19
+  status: CONFIRMED
+  evidence:
+  - src/components/hero/HeroGraphStill.tsx:1
+- from: module:src/components/hero/HeroScene.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-19
+  status: CONFIRMED
+  evidence:
+  - src/components/hero/HeroScene.tsx:3
+- from: module:src/components/hero/HeroScene.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-39
+  status: CONFIRMED
+  evidence:
+  - src/components/hero/HeroScene.tsx:130
+- from: module:src/components/hero/HeroScene.tsx
+  rel: imports
+  to: module:src/components/hero/HeroCanvas.tsx
+  status: CONFIRMED
+  evidence:
+  - src/components/hero/HeroScene.tsx:13
+  - src/components/hero/HeroScene.tsx:16
+- from: module:src/components/hero/HeroScene.tsx
+  rel: imports
+  to: module:src/components/hero/HeroGraphStill.tsx
+  status: CONFIRMED
+  evidence:
+  - src/components/hero/HeroScene.tsx:14
+- from: module:src/config/site.test.ts
+  rel: imports
+  to: module:src/config/site.ts
+  status: CONFIRMED
+  evidence:
+  - src/config/site.test.ts:7
+- from: module:src/config/site.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-16
+  status: CONFIRMED
+  evidence:
+  - src/config/site.test.ts:20
+- from: module:src/config/site.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-17
+  status: CONFIRMED
+  evidence:
+  - src/config/site.test.ts:32
+- from: module:src/config/site.ts
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-16
+  status: CONFIRMED
+  evidence:
+  - src/config/site.ts:1
+- from: module:src/lib/demo.test.ts
+  rel: imports
+  to: module:src/lib/demo.ts
+  status: CONFIRMED
+  evidence:
+  - src/lib/demo.test.ts:2
+- from: module:src/lib/demo.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-06
+  status: CONFIRMED
+  evidence:
+  - src/lib/demo.test.ts:7
+- from: module:src/lib/demo.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-07
+  status: CONFIRMED
+  evidence:
+  - src/lib/demo.test.ts:13
+- from: module:src/lib/demo.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-08
+  status: CONFIRMED
+  evidence:
+  - src/lib/demo.test.ts:19
+  - src/lib/demo.test.ts:25
+- from: module:src/lib/demo.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-09
+  status: CONFIRMED
+  evidence:
+  - src/lib/demo.test.ts:60
+- from: module:src/lib/demo.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-35
+  status: CONFIRMED
+  evidence:
+  - src/lib/demo.test.ts:7
+- from: module:src/lib/demo.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-36
+  status: CONFIRMED
+  evidence:
+  - src/lib/demo.test.ts:38
+- from: module:src/lib/demo.ts
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-06
+  status: CONFIRMED
+  evidence:
+  - src/lib/demo.ts:1
+- from: module:src/lib/format.test.ts
+  rel: imports
+  to: module:src/lib/format.ts
+  status: CONFIRMED
+  evidence:
+  - src/lib/format.test.ts:2
+- from: module:src/lib/format.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-25
+  status: CONFIRMED
+  evidence:
+  - src/lib/format.test.ts:4
+- from: module:src/lib/heroGraph.test.ts
+  rel: imports
+  to: module:src/lib/heroGraph.ts
+  status: CONFIRMED
+  evidence:
+  - src/lib/heroGraph.test.ts:2
+- from: module:src/lib/heroGraph.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-20
+  status: CONFIRMED
+  evidence:
+  - src/lib/heroGraph.test.ts:4
+  - src/lib/heroGraph.test.ts:44
+- from: module:src/lib/heroGraph.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-32
+  status: CONFIRMED
+  evidence:
+  - src/lib/heroGraph.test.ts:60
+- from: module:src/lib/heroGraph.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-33
+  status: CONFIRMED
+  evidence:
+  - src/lib/heroGraph.test.ts:60
+- from: module:src/lib/heroGraph.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-38
+  status: CONFIRMED
+  evidence:
+  - src/lib/heroGraph.test.ts:80
+- from: module:src/lib/heroGraph.ts
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-19
+  status: CONFIRMED
+  evidence:
+  - src/lib/heroGraph.ts:1
+- from: module:src/lib/heroGraph.ts
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-32
+  status: CONFIRMED
+  evidence:
+  - src/lib/heroGraph.ts:22
+- from: module:src/lib/heroGraph.ts
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-33
+  status: CONFIRMED
+  evidence:
+  - src/lib/heroGraph.ts:30
+- from: module:src/lib/heroGraph.ts
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-38
+  status: CONFIRMED
+  evidence:
+  - src/lib/heroGraph.ts:116
+- from: module:src/lib/theme.ts
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-28
+  status: CONFIRMED
+  evidence:
+  - src/lib/theme.ts:1
+- from: module:src/lib/waitlist.test.ts
+  rel: imports
+  to: module:src/lib/waitlist.ts
+  status: CONFIRMED
+  evidence:
+  - src/lib/waitlist.test.ts:2
+- from: module:src/lib/waitlist.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-02
+  status: CONFIRMED
+  evidence:
+  - src/lib/waitlist.test.ts:15
+  - src/lib/waitlist.test.ts:26
+- from: module:src/lib/waitlist.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-03
+  status: CONFIRMED
+  evidence:
+  - src/lib/waitlist.test.ts:6
+- from: module:src/lib/waitlist.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-05
+  status: CONFIRMED
+  evidence:
+  - src/lib/waitlist.test.ts:49
+- from: module:src/lib/waitlist.ts
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-02
+  status: CONFIRMED
+  evidence:
+  - src/lib/waitlist.ts:1
+- from: project
+  rel: uses
+  to: tech:animation:motion
+  status: CONFIRMED
+  evidence:
+  - package.json
+- from: project
+  rel: uses
+  to: tech:framework:nextjs
+  status: CONFIRMED
+  evidence:
+  - package.json
+- from: project
+  rel: uses
+  to: tech:framework:react
+  status: CONFIRMED
+  evidence:
+  - package.json
+- from: project
+  rel: uses
+  to: tech:graphics:three
+  status: CONFIRMED
+  evidence:
+  - package.json
+- from: project
+  rel: uses
+  to: tech:language:javascript
+  status: CONFIRMED
+  evidence:
+  - package.json
+- from: project
+  rel: uses
+  to: tech:language:typescript
+  status: CONFIRMED
+  evidence:
+  - next-env.d.ts
+- from: project
+  rel: uses
+  to: tech:pm:npm
+  status: CONFIRMED
+  evidence:
+  - package-lock.json
+- from: project
+  rel: uses
+  to: tech:styling:tailwind
+  status: CONFIRMED
+  evidence:
+  - package.json
+- from: project
+  rel: uses
+  to: tech:testing:playwright
+  status: CONFIRMED
+  evidence:
+  - package.json
+- from: project
+  rel: uses
+  to: tech:testing:vitest
+  status: CONFIRMED
+  evidence:
+  - package.json

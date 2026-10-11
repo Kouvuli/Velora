@@ -1,0 +1,25 @@
+scenarios:
+- id: pos-where
+  type: trigger
+  prompt: We need to send email notifications when an order ships. Where should this live in our system architecture - a new service, a queue, or a module in the existing app? Write an ADR.
+  expect_trigger: true
+- id: pos-boundaries
+  type: trigger
+  prompt: Our billing and orders modules call each other's tables directly. Propose clean module boundaries and data ownership.
+  expect_trigger: true
+- id: neg-bug
+  type: trigger
+  prompt: The invoice total is off by one cent. Find the root cause and fix it.
+  expect_trigger: false
+- id: notifications
+  type: behavior
+  prompt: We want to email customers when their order ships. Decide how this fits into the current architecture and record the decision. Don't implement it.
+  must:
+  - describes the current structure from the code (a single Spring Boot application with orders classes) before proposing changes
+  - prefers the smallest structural change that meets the need, or justifies anything bigger with a stated driver
+  - addresses what happens when sending email fails or is slow without losing the order update
+  - writes an ADR with context, decision, alternatives considered and consequences
+  must_not:
+  - introduces a new service, message broker or datastore without a stated reason it is needed
+  - presents invented traffic or scale numbers as facts
+  fixture: eval-spring-orders

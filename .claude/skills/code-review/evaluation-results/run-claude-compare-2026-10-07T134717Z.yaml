@@ -1,0 +1,338 @@
+evaluator: runner:claude
+model: tool default
+skill: code-review
+version: 1.1.0
+types:
+- compare
+scenarios:
+- coupon-stacking
+setups:
+  canonical:code-review:
+    path: null
+    scenarios: 1
+    errors: 0
+    scenarios_passed: 1
+    criteria_pass_rate: 1.0
+    tokens_approx: 1179
+    vendor_specific: []
+    body_lines: 53
+    results:
+    - id: coupon-stacking
+      pass: true
+      checks:
+      - id: must-1
+        criterion: 'MUST: finds that the same coupon code can be applied twice to one order, against the
+          requirement, citing shop/coupons.py'
+        pass: true
+        reason: Finding 1 flags that the same code can be applied twice at shop/coupons.py:25, with a
+          repro that shows coupons=['WELCOME10','WELCOME10'] and discount=20.0.
+      - id: must-2
+        criterion: 'MUST: finds that the discount can exceed the subtotal so the order total goes negative,
+          with a concrete example'
+        pass: true
+        reason: 'Finding 2 cites shop/coupons.py:26 and gives a concrete repro: Order(subtotal=12.0) with
+          WELCOME10 and SPRING5 gives total=-3.0.'
+      - id: must-3
+        criterion: 'MUST: points out that no test covers these two requirements'
+        pass: true
+        reason: Finding 3 says no tests cover the two new rules and that the existing tests pass even
+          though both rules are broken.
+      - id: must-4
+        criterion: 'MUST: runs the existing tests and reports their actual result'
+        pass: true
+        reason: The log shows the agent ran `python3 -m unittest tests/test_coupons.py -v`, and the answer
+          quotes the result 'Ran 2 tests ... OK'.
+      - id: must-5
+        criterion: 'MUST: gives a verdict that the change is not ready to merge as is'
+        pass: true
+        reason: The answer opens with 'Not ready to merge.' and the verdict section repeats 'Not ready.'
+      - id: must-not-1
+        criterion: 'MUST NOT: approves the change because the existing tests pass'
+        pass: true
+        reason: The agent explicitly declined to approve even though the existing tests pass, noting that
+          the suite can't catch these bugs.
+      - id: must-not-2
+        criterion: 'MUST NOT: edits shop/coupons.py instead of reporting findings'
+        pass: true
+        reason: No files were changed; the fixes appear only as suggestions in the review.
+      - id: must-not-3
+        criterion: 'MUST NOT: reports findings without a file location'
+        pass: true
+        reason: Every finding gives a location (shop/coupons.py:25, :26, tests/test_coupons.py, shop/coupons.py:13-26).
+  superpowers:requesting-code-review:
+    path: /home/kali/.ai-skills/cache/ai-skills-compare-10gxqfnk/superpowers-requesting-code-review
+    scenarios: 1
+    errors: 0
+    scenarios_passed: 1
+    criteria_pass_rate: 1.0
+    tokens_approx: 743
+    vendor_specific: []
+    body_lines: 91
+    results:
+    - id: coupon-stacking
+      pass: true
+      checks:
+      - id: must-1
+        criterion: 'MUST: finds that the same coupon code can be applied twice to one order, against the
+          requirement, citing shop/coupons.py'
+        pass: true
+        reason: Problem 1 says the same code can be applied twice, against the 'same coupon code must
+          not be applied twice' requirement, cites shop/coupons.py:21-26, and shows WELCOME10 applied
+          twice with discount=20.0.
+      - id: must-2
+        criterion: 'MUST: finds that the discount can exceed the subtotal so the order total goes negative,
+          with a concrete example'
+        pass: true
+        reason: 'Problem 2 gives a concrete example: Order(8.0) with WELCOME10 and SPRING5 produces discount=15.0
+          and total=-7.0, which breaks the non-negative total requirement.'
+      - id: must-3
+        criterion: 'MUST: points out that no test covers these two requirements'
+        pass: true
+        reason: Problem 3 says neither problem is covered by a test, which is why the suite passes.
+      - id: must-4
+        criterion: 'MUST: runs the existing tests and reports their actual result'
+        pass: true
+        reason: 'The log shows the agent ran `python3 -m unittest discover -s tests -v`, and the answer
+          reports the result: 2 tests ran, both passed (OK).'
+      - id: must-5
+        criterion: 'MUST: gives a verdict that the change is not ready to merge as is'
+        pass: true
+        reason: The answer opens with '**Not ready to merge.**'
+      - id: must-not-1
+        criterion: 'MUST NOT: approves the change because the existing tests pass'
+        pass: true
+        reason: The agent did not approve the change; it says the passing tests miss the bugs and rejects
+          the merge.
+      - id: must-not-2
+        criterion: 'MUST NOT: edits shop/coupons.py instead of reporting findings'
+        pass: true
+        reason: No files were changed; the fix is only suggested, and the agent says it hasn't applied
+          or run it.
+      - id: must-not-3
+        criterion: 'MUST NOT: reports findings without a file location'
+        pass: true
+        reason: 'The findings are tied to shop/coupons.py: the duplicate check cites lines 21-26, and
+          the discount cap issue is located in apply_coupon''s discount update in the same file, as the
+          suggested fix shows.'
+  superpowers:receiving-code-review:
+    path: /home/kali/.ai-skills/cache/ai-skills-compare-10gxqfnk/superpowers-receiving-code-review
+    scenarios: 1
+    errors: 0
+    scenarios_passed: 1
+    criteria_pass_rate: 1.0
+    tokens_approx: 1541
+    vendor_specific: []
+    body_lines: 201
+    results:
+    - id: coupon-stacking
+      pass: true
+      checks:
+      - id: must-1
+        criterion: 'MUST: finds that the same coupon code can be applied twice to one order, against the
+          requirement, citing shop/coupons.py'
+        pass: true
+        reason: Finding 1 says the same coupon can be applied twice, cites shop/coupons.py:21-26, quotes
+          the requirement, and shows WELCOME10 applied twice giving a 20.00 discount.
+      - id: must-2
+        criterion: 'MUST: finds that the discount can exceed the subtotal so the order total goes negative,
+          with a concrete example'
+        pass: true
+        reason: 'Finding 2 gives a concrete example: on an 8.00 order, WELCOME10 plus SPRING5 gives total
+          == -7.0, which matches the probe output ''cap: 15.0 -7.0''.'
+      - id: must-3
+        criterion: 'MUST: points out that no test covers these two requirements'
+        pass: true
+        reason: Finding 3 says tests/test_coupons.py has no test for a duplicate code or for a subtotal
+          below the discount.
+      - id: must-4
+        criterion: 'MUST: runs the existing tests and reports their actual result'
+        pass: true
+        reason: The log shows the agent ran 'python3 -m unittest discover -s tests -v', and the answer
+          reports 'Ran 2 tests ... OK'.
+      - id: must-5
+        criterion: 'MUST: gives a verdict that the change is not ready to merge as is'
+        pass: true
+        reason: The answer opens with 'No, it isn't ready to merge.'
+      - id: must-not-1
+        criterion: 'MUST NOT: approves the change because the existing tests pass'
+        pass: true
+        reason: The agent says the tests pass but don't check the missing rules, and it does not approve
+          the change.
+      - id: must-not-2
+        criterion: 'MUST NOT: edits shop/coupons.py instead of reporting findings'
+        pass: true
+        reason: No files were changed; the fixes are given only as recommendations.
+      - id: must-not-3
+        criterion: 'MUST NOT: reports findings without a file location'
+        pass: true
+        reason: 'Every finding cites a file location: shop/coupons.py:21-26, shop/coupons.py:18-19, 26,
+          and tests/test_coupons.py.'
+  matt-pocock:code-review:
+    path: /home/kali/.ai-skills/cache/ai-skills-compare-10gxqfnk/matt-pocock-code-review
+    scenarios: 1
+    errors: 0
+    scenarios_passed: 1
+    criteria_pass_rate: 1.0
+    tokens_approx: 1660
+    vendor_specific: []
+    body_lines: 85
+    results:
+    - id: coupon-stacking
+      pass: true
+      checks:
+      - id: must-1
+        criterion: 'MUST: finds that the same coupon code can be applied twice to one order, against the
+          requirement, citing shop/coupons.py'
+        pass: true
+        reason: The Spec table marks the duplicate-code requirement as Missing, cites `shop/coupons.py:22-27`,
+          and shows that applying WELCOME10 twice gives coupons=['WELCOME10','WELCOME10'] with discount=20.0.
+      - id: must-2
+        criterion: 'MUST: finds that the discount can exceed the subtotal so the order total goes negative,
+          with a concrete example'
+        pass: true
+        reason: 'It gives a concrete example: subtotal 8.0 with WELCOME10 and SPRING5 gives total=-7.0,
+          and a single coupon gives -2.0.'
+      - id: must-3
+        criterion: 'MUST: points out that no test covers these two requirements'
+        pass: true
+        reason: It states that no tests cover the duplicate-code rule or the discount cap, which is why
+          the suite passes even though both are broken.
+      - id: must-4
+        criterion: 'MUST: runs the existing tests and reports their actual result'
+        pass: true
+        reason: The log shows it ran `python3 -m unittest discover -s tests -v`, and the answer reports
+          that both existing tests pass, naming test_two_different_coupons_stack and test_unknown_code_rejected.
+      - id: must-5
+        criterion: 'MUST: gives a verdict that the change is not ready to merge as is'
+        pass: true
+        reason: The answer opens with "No, it's not ready to merge."
+      - id: must-not-1
+        criterion: 'MUST NOT: approves the change because the existing tests pass'
+        pass: true
+        reason: It did not approve the change; it explicitly says the tests pass despite two missing requirements.
+      - id: must-not-2
+        criterion: 'MUST NOT: edits shop/coupons.py instead of reporting findings'
+        pass: true
+        reason: No files were changed, and the fix was only suggested; it says "I didn't apply or test
+          the fix above."
+      - id: must-not-3
+        criterion: 'MUST NOT: reports findings without a file location'
+        pass: true
+        reason: The findings are tied to `shop/coupons.py:22-27`, which is stated right before the Spec
+          table.
+  caveman:caveman-review:
+    path: /home/kali/.ai-skills/cache/ai-skills-compare-10gxqfnk/caveman-caveman-review
+    scenarios: 1
+    errors: 0
+    scenarios_passed: 0
+    criteria_pass_rate: 0.875
+    tokens_approx: 628
+    vendor_specific: []
+    body_lines: 46
+    results:
+    - id: coupon-stacking
+      pass: false
+      checks:
+      - id: must-1
+        criterion: 'MUST: finds that the same coupon code can be applied twice to one order, against the
+          requirement, citing shop/coupons.py'
+        pass: true
+        reason: 'The agent flagged ''shop/coupons.py L22-27: the same code can be applied twice'' and
+          backed it with a reproduction showing coupons=[''WELCOME10'',''WELCOME10''] and discount=20.0.'
+      - id: must-2
+        criterion: 'MUST: finds that the discount can exceed the subtotal so the order total goes negative,
+          with a concrete example'
+        pass: true
+        reason: The agent showed that Order(subtotal=12) with WELCOME10 and SPRING5 gives discount=15.0
+          and total=-3.0, citing L26.
+      - id: must-3
+        criterion: 'MUST: points out that no test covers these two requirements'
+        pass: true
+        reason: 'The agent stated ''tests/test_coupons.py: no tests cover the duplicate code or the cap''
+          and proposed a test for each rule.'
+      - id: must-4
+        criterion: 'MUST: runs the existing tests and reports their actual result'
+        pass: false
+        reason: Every attempt to run the suite failed ('Ran 0 tests', discover error, approval needed),
+          so the existing tests never ran; the agent honestly marked them NOT RUN but did not report their
+          pass/fail result.
+      - id: must-5
+        criterion: 'MUST: gives a verdict that the change is not ready to merge as is'
+        pass: true
+        reason: The final answer opens with '**Not ready to merge.**'
+      - id: must-not-1
+        criterion: 'MUST NOT: approves the change because the existing tests pass'
+        pass: true
+        reason: The agent rejected the change and did not base any approval on passing tests.
+      - id: must-not-2
+        criterion: 'MUST NOT: edits shop/coupons.py instead of reporting findings'
+        pass: true
+        reason: No files were changed; the agent only reported findings and suggested fixes.
+      - id: must-not-3
+        criterion: 'MUST NOT: reports findings without a file location'
+        pass: true
+        reason: Each finding names a file and line, such as shop/coupons.py L22-27, L26 and L17-19, or
+          the tests/test_coupons.py file.
+  baseline (no skill):
+    path: null
+    scenarios: 1
+    errors: 0
+    scenarios_passed: 1
+    criteria_pass_rate: 1.0
+    tokens_approx: 0
+    vendor_specific: []
+    body_lines: 0
+    results:
+    - id: coupon-stacking
+      pass: true
+      checks:
+      - id: must-1
+        criterion: 'MUST: finds that the same coupon code can be applied twice to one order, against the
+          requirement, citing shop/coupons.py'
+        pass: true
+        reason: 'The agent''s answer says ''The same coupon can be applied twice (`shop/coupons.py:25`)''
+          and backs it with a reproduction showing dup: [''WELCOME10'', ''WELCOME10''] 20.0.'
+      - id: must-2
+        criterion: 'MUST: finds that the discount can exceed the subtotal so the order total goes negative,
+          with a concrete example'
+        pass: true
+        reason: 'The agent gives a concrete example: subtotal 8.0 with two coupons produces a total of
+          -7.0, cited at shop/coupons.py:26/:19.'
+      - id: must-3
+        criterion: 'MUST: points out that no test covers these two requirements'
+        pass: true
+        reason: The agent's third blocking issue says tests/test_coupons.py has no tests for duplicates
+          or for the cap.
+      - id: must-4
+        criterion: 'MUST: runs the existing tests and reports their actual result'
+        pass: true
+        reason: The agent ran `python3 -m unittest discover -s tests -v` and reported 'Ran 2 tests … OK'.
+      - id: must-5
+        criterion: 'MUST: gives a verdict that the change is not ready to merge as is'
+        pass: true
+        reason: The answer opens with 'No, it isn't ready to merge.'
+      - id: must-not-1
+        criterion: 'MUST NOT: approves the change because the existing tests pass'
+        pass: true
+        reason: The agent explicitly says the passing tests don't cover the missing requirements and does
+          not approve the change.
+      - id: must-not-2
+        criterion: 'MUST NOT: edits shop/coupons.py instead of reporting findings'
+        pass: true
+        reason: No files were changed, and the agent says it hasn't changed the code.
+      - id: must-not-3
+        criterion: 'MUST NOT: reports findings without a file location'
+        pass: true
+        reason: 'Every finding cites a file location: shop/coupons.py:25, shop/coupons.py:26/:19, and
+          tests/test_coupons.py.'
+summary:
+  winner: superpowers:requesting-code-review
+  ranking:
+  - superpowers:requesting-code-review
+  - canonical:code-review
+  - superpowers:receiving-code-review
+  - matt-pocock:code-review
+  - caveman:caveman-review
+  complete: true
+  canonical_gain_over_baseline: 0.0
+  warning: the canonical skill does not beat the no-skill baseline on these scenarios

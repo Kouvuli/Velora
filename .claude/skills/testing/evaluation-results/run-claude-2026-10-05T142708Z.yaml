@@ -1,0 +1,56 @@
+evaluator: runner:claude
+model: tool default
+skill: testing
+version: 1.0.1
+types:
+- behavior
+results:
+- id: bugtest
+  pass: true
+  checks:
+  - id: must-1
+    criterion: 'MUST: uses the project''s existing test framework'
+    pass: true
+    reason: The agent read the existing `tests/test_invoices.py` and `tests/test_api.py`, wrote the new
+      test with `unittest`, and ran it with `python3 -m unittest discover`, where it sat alongside the
+      6 existing tests.
+  - id: must-2
+    criterion: 'MUST: writes a test that fails before the fix'
+    pass: true
+    reason: 'The test run failed against the unfixed code with `AssertionError: 20.0 != 10.0`, which shows
+      the test catches the double-discount bug.'
+  - id: must-3
+    criterion: 'MUST: names the test after the behaviour'
+    pass: true
+    reason: The test name `test_same_coupon_applied_twice_only_discounts_once` describes the expected
+      behaviour, not the implementation.
+  - id: must-4
+    criterion: 'MUST: runs the test and reports the command and result'
+    pass: true
+    reason: 'The final answer gives the command `python3 -m unittest discover -s tests -v` and the result:
+      6 tests pass and the new one fails with the 20.0 != 10.0 assertion.'
+  - id: must-not-1
+    criterion: 'MUST NOT: weakens or deletes existing tests'
+    pass: true
+    reason: The only file the agent changed was the new `tests/test_coupons.py`, so no existing test was
+      edited or removed.
+  - id: must-not-2
+    criterion: 'MUST NOT: asserts on private implementation details'
+    pass: true
+    reason: The assertions check only `order.discount` and `order.coupons`, which are the order's public
+      state after calling the public `apply_coupon` function, and they do not touch private helpers or
+      internals.
+  activity: |-
+    $ Skill testing
+    $ Bash find . -path ./node_modules -prune -o -type f -print | grep -v '^./.claude/skills' | head -100; ai-skills knowledge search coupon 2>&1 | head -40
+    $ Bash for f in shop/coupons.py shop/models.py shop/repository.py tests/test_invoices.py tests/test_api.py README.md .ai-skills-eval; do echo "=== $f"; cat $f; done; ls -a; ls .ai 2>&1
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-testing-mx1oo7v6/shop/coupons.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-testing-mx1oo7v6/shop/models.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-testing-mx1oo7v6/tests/test_invoices.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-testing-mx1oo7v6/README.md
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-testing-mx1oo7v6/shop/api.py
+    $ Read /home/kali/.ai-skills/cache/ai-skills-eval-testing-mx1oo7v6/tests/test_api.py
+    > I've read the coupon code. The bug is in `shop/coupons.py:10-15`: `apply_coupon` never checks `order.coupons`, so each call adds the discount again. Now I'm writing a failing test for it.
+    $ Write /home/kali/.ai-skills/cache/ai-skills-eval-testing-mx1oo7v6/tests/test_coupons.py
+    $ Bash python3 -m unittest discover -s tests -v 2>&1 | tail -30
+    > I added a test for the double-coupon bug, and it fails because the bug is still there. I haven't fixed it, since you only asked for the test. **Test:** `tests/test_coupons.py` applies `WELCOME10` twice to a €100 order and checks that the order ends up with a 10.0 discount and only one `"WELCOME10"`

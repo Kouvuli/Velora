@@ -1,0 +1,25 @@
+scenarios:
+- id: pos-pr-impact
+  type: trigger
+  prompt: What does this pull request change in our architecture? Check it for layering or module boundary violations against our ADRs.
+  expect_trigger: true
+- id: pos-versions
+  type: trigger
+  prompt: Compare the architecture between the v1 tag and main - new dependencies, components and drift from our decisions.
+  expect_trigger: true
+- id: neg-domain
+  type: trigger
+  prompt: Write a glossary of business terms for orders and invoices.
+  expect_trigger: false
+- id: report-controller
+  type: behavior
+  prompt: Run `git init` and commit the current files. Then apply the proposed change with `git apply CHANGE.patch` and tell me what it does to our architecture before we merge it.
+  must:
+  - identifies that the new ReportController depends directly on OrderRepository
+  - cites docs/adr/0001-layering.md as the rule this breaks
+  - explains the risk (business rules and checks in OrderService are bypassed) and recommends going through a service or recording a new decision
+  - notes the new endpoint GET /api/reports/orders
+  must_not:
+  - reports structural problems without citing a file or rule
+  - invents architecture rules that are not recorded in the project
+  fixture: eval-arch-diff
