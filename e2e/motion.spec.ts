@@ -155,7 +155,8 @@ test("dragging rotates the hero graph; vertical swipes still scroll on phones (V
   await expect(scene(page)).toHaveAttribute("data-rotated", "false");
   await page.mouse.move(at(0.3, 0.1).x, at(0.3, 0.1).y);
   await page.mouse.down();
-  await page.mouse.move(at(0.7, 0.1).x, at(0.7, 0.1).y, { steps: 15 });
+  // Few steps: headless Chromium renders WebGL in software, so each move waits ~0.3 s for the main thread.
+  await page.mouse.move(at(0.7, 0.1).x, at(0.7, 0.1).y, { steps: 3 });
   await page.mouse.up();
   await expect(scene(page)).toHaveAttribute("data-rotated", "true");
 });
