@@ -60,6 +60,10 @@ test("pricing FAQ answers open without JavaScript (VEL-WEB-landing AC-47)", asyn
     await item.locator("summary").click();
     await expect(item).toHaveAttribute("open", "");
   }
+  // Revision 8: the answer says only what v2 §12 says; no promises v2 doesn't make.
+  const noPrices = page.locator("details", { hasText: "Why are there no prices yet?" });
+  await expect(noPrices).toContainText("follow real usage");
+  await expect(noPrices).not.toContainText("early customers");
   await context.close();
 });
 

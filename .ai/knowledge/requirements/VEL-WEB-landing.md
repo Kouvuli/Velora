@@ -5,9 +5,9 @@ title: "Landing page"
 summary: "Public company website that tells the Velora product vision (understand, define, build, validate, publish) with a 3D hero, an interactive demo and a separate pricing page, and collects early-access sign-ups"
 owner: landing
 lifecycle: approved
-revision: 7
-approved_revision: 7
-approval_evidence: "user approved revision 7 in chat, 2026-10-11"
+revision: 8
+approved_revision: 8
+approval_evidence: "user approved revision 8 as drafted in chat, 2026-10-11"
 updated: "2026-10-11"
 related: []
 status: CONFIRMED
@@ -21,7 +21,9 @@ Claude Startups program and to start collecting early users. The page must expla
 visitors (small businesses, data teams, consultants) into early-access sign-ups.
 Source of truth for content: `../Velora — Product Vision v2.md` (since 2026-10-11; the retired "Strategy & Plan" was the
 source up to revision 5). Since revision 7 the page follows v2: §1 vision and first wedge, §5 executive understanding,
-§6 trust model, §7 AI, §10 living data products, §11 data processing, §13 packaging, §14–16 website brief.
+§6 trust model, §7 AI, §10 living data products, §11 data processing, §13 packaging, §14–16 website brief. Revision 8
+closes the remaining gaps: §15 hero visual and supporting line, §9 trusted data product, §13 wording on /pricing, and
+§18's first user in "Who it's for".
 
 ## Scope
 In: one-page site (`/`), privacy page (`/privacy`), interactive graph demo, early-access form, Open Graph image,
@@ -32,7 +34,9 @@ cursor effects. Revision 4 restyles it after scale.com's motion patterns (inspir
 a pure black-and-white palette, dark by default, Geist type, a full-bleed hero, smooth scrolling, line-by-line heading
 reveals, hover zoom and a "Connects to" marquee. Revision 7 aligns the content with Product Vision v2 (hero, narrative
 order, trust model, lifecycle, AI & privacy) and moves pricing to a separate `/pricing` page with plan cards, a feature
-comparison table and a FAQ, in the pattern of claude.com/pricing (studied for layout only).
+comparison table and a FAQ, in the pattern of claude.com/pricing (studied for layout only). Revision 8 adds a hero status
+card and v2's supporting line, a Trusted Data Product checklist, v2-only pricing wording and First/Next audiences, and
+removes the "Why not just use ChatGPT?" FAQ.
 
 ## Assumptions
 - ASSUMPTION: English only.
@@ -61,6 +65,7 @@ comparison table and a FAQ, in the pattern of claude.com/pricing (studied for la
 ### US-18 — See at a glance which systems Velora connects
 ### US-19 — Compare plans on a dedicated pricing page
 ### US-20 — Follow the product story from the vision: understand, define, build, validate, publish, keep current
+### US-21 — See in the hero what Velora tells me about my data: documentation, contract coverage, validation and the next action
 
 ## Decisions and Contracts
 Decided with the user in chat, 2026-10-10:
@@ -128,6 +133,23 @@ Added for revision 7, decided with the user in chat, 2026-10-11 (source: Product
   order (first release / coming soon).
 - Project knowledge (glossary, decision records, product brief in the repo): **not added for now**, by the user's choice.
 
+Added for revision 8, decided with the user in chat, 2026-10-11 (closing the gaps between the site and v2):
+- Hero visual (v2 §15): **keep the 3D graph and add a status card** on it, labelled as an example, with v2 signals:
+  connected sources, documentation status, contract coverage, validation status and the next recommended action. It is
+  ordinary HTML (not in the canvas), so it shows with the still image, reduced motion and no WebGL too.
+- Hero text (v2 §15): **v2's supporting line under the subhead**: "Profiling, documentation, contracts, transformation,
+  and validation in one workspace — with Claude assistance you can switch off."
+- FAQ: **"Why not just use ChatGPT?" is removed**: it came from competition notes the user kept out of v2.
+- Pricing wording (v2 §12–13): taglines and price notes are **re-derived from v2's own values**; "Pricing set with early
+  customers" and the audience taglines are dropped. Exact strings:
+  Free / Local: "Manual profiling, a data dictionary and basic contracts" / "Limited data products";
+  Pro: "Scheduled profiling, full contracts and change detection" / "Limits follow real usage";
+  Team: "A shared pool of data products, with collaboration" / "Limits follow real usage";
+  Enterprise: "Policy-driven profiling, advanced governance and deployment controls" / "Custom limits".
+- Trusted data product (v2 §9): **a seven-point checklist in the "Publish & serve" stage**; no principles (§17) section.
+- Who it's for (v2 §18): **businesses moving onto an ERP first, labelled "Starting with"; data analysts and engineers
+  second, labelled "Growing into"**.
+
 Form contract: `POST <endpoint>`, headers `Content-Type: application/json`, `Accept: application/json`, body
 `{ "email": string, "segment": "business" | "data-team" | "consultant", "readinessReport": boolean, "source": "landing" }`.
 
@@ -154,7 +176,7 @@ Decided in planning.
 - AC-11 (US-04, US-20): Given `/`, then these sections exist in order with these ids: `connects`, `problem`, `how-it-works`, `demo`, `trust`, `lifecycle`, `ai-privacy`, `who`, `about`, `faq`, `early-access`; the header links to How it works, Pricing (`/pricing`), AI & privacy, FAQ and the early-access form. (Revision 7.)
 - AC-12 (US-04, US-19): Given `/`, then it has no pricing section and no dollar amounts; pricing lives on `/pricing`, linked from the header and the footer. (Revision 7: was early-access prices on the home page.)
 - AC-13 (US-04): Given the `ai-privacy` section, then it states that Claude assists by default and everything works with AI switched off, metadata-only AI mode, "local engine on request", encryption in transit and at rest, deletion on request, and that consequential AI changes need the user's review; the site never claims that data never leaves the visitor's environment. (Revision 7: was the security section.)
-- AC-14 (US-04): Given the FAQ, then it includes "Why not just use ChatGPT?" and "Does my data leave my environment?" as expandable items that work without JavaScript.
+- AC-14 (US-04): Given the FAQ, then it includes "Does my data leave my environment?" as an expandable item that works without JavaScript, and it has no "Why not just use ChatGPT?" item. (Revision 8: the ChatGPT item is removed.)
 - AC-15 (US-05): Given `/privacy`, then it lists what the form collects, the processor (Formspree), retention, how to request deletion (site email), and states there is no analytics or tracking cookies; it is linked from the footer and from the form.
 - AC-16 (US-06): Given the source, then the brand name, domain, contact email and company details are defined only in `src/config/site.ts`, and no component hard-codes them.
 - AC-17 (US-06): Given `site.ts` still contains a `.example` domain or email, when `npm run check:launch` runs, then it exits non-zero and names each placeholder; with real values it exits zero.
@@ -174,7 +196,7 @@ Decided in planning.
 - AC-31 (US-12): Given the 3D hero on a pointer or touch device, when the visitor drags across it, then the graph rotates with the drag (limited range) and eases back when released; page scrolling on phones still works with vertical swipes.
 - AC-32 (US-12): Given the settled 3D hero, when the visitor hovers or taps a hub, then a label shows its name and record count (e.g. "Customers, 1,204 records"); when they hover or tap a record point, then a sample shows (e.g. "ACME, Inc. → matched to Acme Inc.").
 - AC-33 (US-12): Given the settled 3D hero, then one hub link stays amber as "Suggested"; when the visitor clicks it, or presses the "Approve suggested link" button below the scene, then it turns green and the caption confirms it; Replay resets it.
-- AC-34 (US-13, US-20): Given a desktop visitor (1024 px or wider) with motion allowed, when they scroll through `how-it-works`, then the section stays pinned while Understand, Document & define, Build, Validate and Publish & serve become active in order, each with its own illustration (executive summary; Profile → Dictionary → Contract; a fix saved as a rule; validation results; the four destinations), and releases after the last; on smaller screens or with reduced motion, all five steps show stacked with their illustrations, without pinning. (Revision 7: five v2 stages instead of Connect, See, Send.)
+- AC-34 (US-13, US-20): Given a desktop visitor (1024 px or wider) with motion allowed, when they scroll through `how-it-works`, then the section stays pinned while Understand, Document & define, Build, Validate and Publish & serve become active in order, each with its own illustration (executive summary; Profile → Dictionary → Contract; a fix saved as a rule; validation results; the four destinations plus v2 §9's Trusted Data Product checklist: documented meaning, explicit expectations, traceable transformation logic, passed validation checks, known provenance, stated limitations, a defined downstream purpose), and releases after the last; on smaller screens or with reduced motion, all five steps show stacked with their illustrations, without pinning. (Revision 7: five v2 stages instead of Connect, See, Send. Revision 8: the §9 checklist.)
 - AC-35 (US-14): Given the demo, then it lists three issues (312 orders without a customer, a duplicate customer "Acme Inc." / "ACME, Inc.", dates in mixed formats) with a progress count; each is fixed by its own action (accept or draw the link, Merge, Convert dates), and the count updates.
 - AC-36 (US-14): Given all three issues are fixed, when the visitor presses "Run dry run", then a short report animates in (records checked, issues fixed, 0 violations) and only then do the Send destinations become enabled; "Reset demo" restores every issue. (Supersedes the destination part of AC-07.)
 - AC-37 (US-15): Given motion is allowed, then buttons give press feedback, links and cards give hover feedback, FAQ answers open and close with a short height transition, and a successful sign-up shows an animated check; with reduced motion all of these change instantly.
@@ -185,11 +207,14 @@ Decided in planning.
 - AC-42 (US-17): Given motion is allowed, when the visitor hovers a pricing plan or a lifecycle card, then its surface responds (lightens, border strengthens) within about 300 ms, easing out; with reduced motion there is no movement. (Revision 7: the view previews are gone.)
 - AC-43 (US-18): Given `/`, then a "Connects to" strip after the hero scrolls an endless row of sources (Excel, CSV, Google Sheets, Postgres, MySQL, SQL Server, REST APIs) and destinations (Odoo, CSV/XLSX/Parquet, cloud storage, cloud warehouse) with generic icons; it pauses on hover or keyboard focus, duplicate items are hidden from screen readers, and with reduced motion it shows as a still, wrapped list.
 - AC-44 (US-17): Given any page, then text uses Geist and data labels use Geist Mono, self-hosted (no requests to font services from the visitor's browser).
-- AC-45 (US-19): Given `/pricing`, then it shows four plan cards in order — Free / Local ("Free"), Pro ("Early access"), Team ("Early access"), Enterprise ("Contact us") — each with a one-line tagline, a CTA ("Join early access" → `/#early-access`; Enterprise "Talk to us" → mailto the site email) and what it includes ("Everything in <previous plan>, plus:" from Pro on), plus a note that exact pricing and limits follow real usage; no dollar amounts appear anywhere on the site.
+- AC-45 (US-19): Given `/pricing`, then it shows four plan cards in order — Free / Local ("Free"), Pro ("Early access"), Team ("Early access"), Enterprise ("Contact us") — each with a one-line tagline and a price note taken from v2 §13's values (the exact strings under revision 8's decisions; no "set with early customers" wording), a CTA ("Join early access" → `/#early-access`; Enterprise "Talk to us" → mailto the site email) and what it includes ("Everything in <previous plan>, plus:" from Pro on), plus a note that exact pricing and limits follow real usage; no dollar amounts appear anywhere on the site. (Revision 8: taglines and price notes from v2.)
 - AC-46 (US-19): Given `/pricing`, then a "Compare features across plans" table lists v2 §13's twelve capabilities grouped as Data products, Understanding, Building, Trust & control, and Collaboration & governance, with exactly v2's values per plan (✓ shown as "Included" to screen readers, — as "Not included"); it uses table headers with scope, and on phones only the table container scrolls sideways (no page scroll).
-- AC-47 (US-19): Given `/pricing`, then a FAQ includes "Why are there no prices yet?", "What is a managed data product?", "What is the free Readiness Report?" and "Can I run Velora on my own infrastructure?" as expandable items that work without JavaScript; answers follow v2 (§5, §11, §12).
+- AC-47 (US-19): Given `/pricing`, then a FAQ includes "Why are there no prices yet?", "What is a managed data product?", "What is the free Readiness Report?" and "Can I run Velora on my own infrastructure?" as expandable items that work without JavaScript; answers follow v2 (§5, §11, §12), and the "no prices yet" answer says only that exact pricing and limits will follow real usage. (Revision 8.)
 - AC-48 (US-20): Given `/`, then the `lifecycle` section shows "Changes → Impact → Rebuild → Revalidate → Republish" and the four impact dimensions (knowledge, contract, pipeline, output), and says the first form is scheduled sync with drift alerts; the `trust` section shows v2's states Observed, Inferred, Confirmed, Defined and Validated with v2's customer_id examples.
 - AC-49 (US-19): Given `/pricing`, then its title is "Pricing" with the site name from config, it shares the header, footer, theme and fonts of `/`, and it has no horizontal page scroll at 320 px.
+- AC-50 (US-21): Given `/` (server HTML, still image, 3D scene, reduced motion or no WebGL alike), then the hero contains a status card labelled "Example" with five rows: sources connected, documentation ("58% documented, 11 to confirm"), contract coverage ("9 of 12 rules defined"), validation ("Dry run waiting on 1 approval") and the next action ("Confirm the customer identifier"); it is HTML text readable by screen readers, not part of the canvas. From 640 px it sits over the scene without covering the H1, subhead, CTAs, Replay or the "Approve suggested link" button; under 640 px it sits directly below the graph block. (Revision 8.)
+- AC-51 (US-01, US-21): Given `/`, then v2's supporting line "Profiling, documentation, contracts, transformation, and validation in one workspace — with Claude assistance you can switch off." is shown under the subhead; at 375×812 AC-01 still holds, and if the line would push "Join early access" below the fold, it moves below the CTAs on phones instead. (Revision 8.)
+- AC-52 (US-04): Given the `who` section, then businesses moving onto an ERP come first, labelled "Starting with", and data analysts and engineers second, labelled "Growing into". (Revision 8.)
 
 ## Non-functional
 - No horizontal scroll at 320 px width; body text contrast ≥ 4.5:1; visible focus on every interactive element.
@@ -221,3 +246,4 @@ None blocking.
 - Revision 5: AC-39 on phones (under 640 px): text first, graph in its own block below, after the phone screenshot showed text overlapping the graph and controls; chosen by the user in chat, 2026-10-11.
 - Revision 6: Reference-only change: the source of truth moves from the retired "Velora — Strategy & Plan.md" to "Velora — Product Vision v2.md"; no criteria changed. Approved by the user's "only repoint references" choice in chat, 2026-10-11.
 - Revision 7: Content follows Product Vision v2 (AC-01, AC-11, AC-12, AC-13, AC-25, AC-26, AC-27, AC-34, AC-39, AC-42 changed; US-19, US-20, AC-45..AC-49 added): v2 hero and narrative, five-stage scroll story, trust model and lifecycle sections, AI & privacy, and a separate /pricing page (cards, comparison table, FAQ; no dollar amounts). From the user's answers on 2026-10-11; approved by the user in chat, 2026-10-11.
+- Revision 8: Closes the gaps between the site and v2 (AC-14, AC-34, AC-45, AC-47 changed; US-21, AC-50..AC-52 added): hero status card and supporting line, ChatGPT FAQ removed, v2-only pricing wording, Trusted Data Product checklist, First/Next audiences. From the user's answers on 2026-10-11; approved by the user in chat, 2026-10-11.

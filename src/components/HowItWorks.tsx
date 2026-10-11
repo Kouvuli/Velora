@@ -136,26 +136,49 @@ function ValidateArt() {
   );
 }
 
+// v2 §9: what makes a Trusted Data Product (VEL-WEB-landing AC-34, revision 8).
+const trustedCriteria = [
+  "Documented meaning",
+  "Explicit expectations",
+  "Traceable transformation logic",
+  "Passed validation checks",
+  "Known provenance",
+  "Stated limitations",
+  "A defined downstream purpose",
+];
+
 function PublishArt() {
   const destinations: [LucideIcon, string, string][] = [
     [Building2, "Odoo", "First release"],
-    [FileSpreadsheet, "Files: CSV, XLSX, Parquet", "First release"],
+    [FileSpreadsheet, "CSV, XLSX, Parquet", "First release"],
     [Cloud, "Cloud storage", "Coming soon"],
     [Database, "Cloud warehouse", "Coming soon"],
   ];
   return (
-    <div className="grid grid-cols-1 gap-2 text-sm">
-      {destinations.map(([Icon, name, when]) => (
-        <div key={name} className="flex items-center gap-3 rounded-md border border-line bg-paper px-3 py-2">
-          <Icon aria-hidden="true" className="size-4 shrink-0 text-accent" />
-          {name}
-          <span className="ml-auto text-xs text-muted">{when}</span>
-        </div>
-      ))}
-      <p className="mt-1 flex items-center gap-2 rounded-md bg-approved-soft px-3 py-2 text-approved">
-        <ListChecks aria-hidden="true" className="size-4 shrink-0" />
-        A trusted data product: documented, validated, traceable
-      </p>
+    <div className="grid grid-cols-1 gap-3 text-sm">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+        {destinations.map(([Icon, name, when]) => (
+          <div key={name} className="flex min-w-0 items-center gap-2 rounded-md border border-line bg-paper px-3 py-1.5">
+            <Icon aria-hidden="true" className="size-4 shrink-0 text-accent" />
+            <span className="truncate">{name}</span>
+            <span className="ml-auto shrink-0 text-xs text-muted">{when}</span>
+          </div>
+        ))}
+      </div>
+      <div className="rounded-md bg-approved-soft px-3 py-2.5" data-trusted-checklist>
+        <p className="flex items-center gap-2 font-medium text-approved">
+          <ListChecks aria-hidden="true" className="size-4 shrink-0" />
+          A trusted data product has
+        </p>
+        <ul className="mt-2 grid grid-cols-1 gap-x-4 gap-y-1 text-xs sm:grid-cols-2">
+          {trustedCriteria.map((c) => (
+            <li key={c} className="flex items-center gap-1.5">
+              <Check aria-hidden="true" className="size-3.5 shrink-0 text-approved" />
+              {c}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
@@ -284,7 +307,7 @@ function PinnedStory() {
             </li>
           ))}
         </ol>
-        <div className="relative h-[24rem] rounded-xl border border-line bg-surface p-6">
+        <div className="relative h-[24rem] rounded-xl border border-line bg-surface p-6" data-art-box>
           {stages.map((s, i) => (
             <div
               key={s.id}

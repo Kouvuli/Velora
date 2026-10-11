@@ -161,11 +161,76 @@ test("FAQ answers open without JavaScript (VEL-WEB-landing AC-14)", async ({ bro
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto("/");
-  for (const q of ["Why not just use ChatGPT?", "Does my data leave my environment?"]) {
-    await page.getByText(q).click();
-    await expect(page.locator("details", { hasText: q })).toHaveAttribute("open", "");
-  }
+  const q = "Does my data leave my environment?";
+  await page.getByText(q).click();
+  await expect(page.locator("details", { hasText: q })).toHaveAttribute("open", "");
+  // Revision 8: the ChatGPT item came from competition notes kept out of v2.
+  await expect(page.locator("#faq")).not.toContainText("ChatGPT");
   await context.close();
+});
+
+test("who it's for starts with businesses moving onto an ERP, then data teams (VEL-WEB-landing AC-52)", async ({ page }) => {
+  await page.goto("/");
+  const audiences = page.locator('#who [data-item="audience"]');
+  await expect(audiences.nth(0)).toContainText("Starting with");
+  await expect(audiences.nth(0)).toContainText("Businesses moving onto an ERP");
+  await expect(audiences.nth(1)).toContainText("Growing into");
+  await expect(audiences.nth(1)).toContainText("Data analysts and engineers");
+});
+
+const SUPPORTING_LINE =
+  "Profiling, documentation, contracts, transformation, and validation in one workspace — with Claude assistance you can switch off.";
+
+test("the hero carries v2's supporting line under the subhead (VEL-WEB-landing AC-51, VEL-WEB-landing AC-01)", async ({ page }) => {
+  await page.goto("/");
+  const line = page.getByRole("main").getByText(SUPPORTING_LINE);
+  await expect(line).toBeVisible();
+  const subhead = (await page.locator("[data-hero-subhead]").boundingBox())!;
+  expect((await line.boundingBox())!.y).toBeGreaterThan(subhead.y);
+  await expect(page.getByRole("main").getByRole("link", { name: "Join early access" }).first()).toBeInViewport();
+});
+
+test("the hero shows an example status card, as text, without JavaScript too (VEL-WEB-landing AC-50)", async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto("/");
+  const card = page.locator("[data-hero-status]");
+  await expect(card).toBeVisible();
+  await expect(card).toContainText("Example");
+  for (const text of ["58% documented, 11 to confirm", "9 of 12 rules defined", "Dry run waiting on 1 approval", "Confirm the customer identifier"]) {
+    await expect(card).toContainText(text);
+  }
+  await expect(card.locator("dt")).toHaveCount(5);
+  await context.close();
+});
+
+test("the status card never covers the hero's text or controls (VEL-WEB-landing AC-50)", async ({ page }, info) => {
+  await page.goto("/");
+  const scene = page.locator("[data-hero-scene]");
+  await expect(scene).toHaveAttribute("data-phase", "settled", { timeout: 15_000 });
+  const card = (await page.locator("[data-hero-status]").boundingBox())!;
+  const main = page.getByRole("main");
+  const others = [
+    page.locator("h1"),
+    page.locator("[data-hero-subhead]"),
+    main.getByText(SUPPORTING_LINE),
+    main.getByRole("link", { name: "Join early access" }).first(),
+    main.getByRole("link", { name: "See how it works" }),
+    main.getByText("Early sign-ups get a free Readiness Report"),
+    page.getByRole("button", { name: "Replay" }),
+    page.getByRole("button", { name: "Approve suggested link" }),
+    main.getByRole("link", { name: "Scroll to explore" }),
+  ];
+  for (const other of others) {
+    const b = (await other.boundingBox())!;
+    const overlaps = card.x < b.x + b.width && b.x < card.x + card.width && card.y < b.y + b.height && b.y < card.y + card.height;
+    expect(overlaps, await other.innerText()).toBe(false);
+  }
+  if (info.project.name !== "desktop") {
+    // Phones: below the graph block and its controls, before "Scroll to explore".
+    const replay = (await page.getByRole("button", { name: "Replay" }).boundingBox())!;
+    expect(card.y).toBeGreaterThanOrEqual(replay.y + replay.height - 1);
+  }
 });
 
 test("privacy page explains the form data and is linked from the footer and the form (VEL-WEB-landing AC-15)", async ({ page }) => {

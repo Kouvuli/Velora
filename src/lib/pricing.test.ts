@@ -36,6 +36,17 @@ describe("pricing data (VEL-WEB-landing AC-45, VEL-WEB-landing AC-46)", () => {
     expect(rows).toEqual(v2);
   });
 
+  // Revision 8: taglines and price notes come from v2 §13's own values, not invented audience wording.
+  it("words each plan only from v2's values (VEL-WEB-landing AC-45)", () => {
+    expect(plans.map((p) => [p.tagline, p.priceNote])).toEqual([
+      ["Manual profiling, a data dictionary and basic contracts", "Limited data products"],
+      ["Scheduled profiling, full contracts and change detection", "Limits follow real usage"],
+      ["A shared pool of data products, with collaboration", "Limits follow real usage"],
+      ["Policy-driven profiling, advanced governance and deployment controls", "Custom limits"],
+    ]);
+    expect(JSON.stringify(plans)).not.toMatch(/early customers/i);
+  });
+
   it("builds each paid plan on the previous one", () => {
     expect(plans[0].includesFrom).toBeNull();
     expect(plans.slice(1).map((p) => p.includesFrom)).toEqual(["Free / Local", "Pro", "Team"]);

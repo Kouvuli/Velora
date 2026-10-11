@@ -1,16 +1,16 @@
 schema: ai-skill-os/knowledge-graph/v1
 generated_by: ai-skills knowledge discover
-updated_at: '2026-10-11T13:24:27+00:00'
+updated_at: '2026-10-11T14:12:32+00:00'
 note: Index for retrieval only. Source files are the truth; follow the evidence.
 sources:
-  .ai/knowledge/requirements/VEL-WEB-landing.md: 5897f3849b4e34419cf2afa3af2951c86724797240f0ef02bdd88307a8bc6937
-  .next/types/root-params.d.ts: f3387dd7800eec3c34273f7a8efad13e864598c7e8f788d321e407390989bb59
-  .next/types/routes.d.ts: b1c8b4d0432d67eba94d575514fb637f260cd12f098bb3a5770522b90c044638
-  e2e/landing.spec.ts: 9c58b7618e18c8e288baf605d7c7f3af81de903928f32d7707b2663ae172e10e
-  e2e/motion.spec.ts: 9b30c362819394b128fd5b3060e2d8b3ff7f6d04e26a38b24c46cb41085f3818
-  e2e/pricing.spec.ts: 501680c3ef6bc5f11cddecba01f936acea329c85220d18b0ce1218e6e190fc31
+  .ai/knowledge/requirements/VEL-WEB-landing.md: 15ad7ad2a20d763a7e564b3707cd101d47c886aee569285dd51aae59fbd971dd
+  .next/dev/types/root-params.d.ts: f3387dd7800eec3c34273f7a8efad13e864598c7e8f788d321e407390989bb59
+  .next/dev/types/routes.d.ts: 369017bbbe8130f367bba331a3e3bdfc9ffe9e90b1f370f579d1dd502b693804
+  e2e/landing.spec.ts: ebcf3df8a64a1ef827d4c2aa6570f5093d3264cb7c111a270861115653b5bc75
+  e2e/motion.spec.ts: b06add724058f35b64407cd14cffe7433b19f0ed5114d4a86f1dd4e44d40b98a
+  e2e/pricing.spec.ts: 8c4f24b6c7a3b4f14a2db3f289af2ff58e919a13c5ab3c8b66fb9c8342d05d71
   e2e/theme.spec.ts: 6e4454a1d79cd61bd4349c4a150544f3f55cd6ba4b35cbc58a4e99696d6992f8
-  next-env.d.ts: 1862ac4bbbc5192d4bf562161df66ea547ed3e67173100656ab606ae9797db2b
+  next-env.d.ts: 0f70629890b72a0a82e91972cc032c04b658b26c265373cb711cf576bfbf8fcc
   package-lock.json: b99083878f5f9942ed34922978a8ffbfd4150e2ba70645b370c6eddafd1d1774
   package.json: e9c33e3b8da238be863d931dc14410d8a382a80bce201438b66f3b83451717fd
   playwright.config.ts: ff8f12a888ba3d076fd746fd8c7ae271f0ffe5a5791bb50ddc6b38224ba61529
@@ -18,13 +18,13 @@ sources:
   src/app/globals.css: 114d6dce23415abc0d7e75ea1fabd2eefb91e5eb6c90b84d8a83a4b97968dedb
   src/app/layout.tsx: aa177bf3dd1a5c1bdcbc36f9dd786c816216dfa39b3b42f711426eed5211c54b
   src/app/opengraph-image.tsx: 4f8721ca3c2082907f216a6bd0fdb6520bfe508b3934bfa93fd0815664a53e48
-  src/app/page.tsx: 3b6fed0639dc85ab7a74c17a010d6c420d955f1ba034c6996587de47300deb90
-  src/app/pricing/page.tsx: ea7ce0d092a4b9c5cd1a533bde5e3834be27d79f84d791d8de134e51b9012569
+  src/app/page.tsx: e4f16c88728454bd951e54305846036a503d68f03014de894807e80b9343b4e2
+  src/app/pricing/page.tsx: c837541610358f343c622c60e761650e5015f95e28e9318a1e9c3aee5324175d
   src/app/privacy/page.tsx: 2309bbdd06979e460a207e6b629111caff9911572f37f9b97d783816a7732526
   src/app/theme.test.ts: 033d3bce57c9e7e95c5d938bceec0edfbe9ddd20264cc30c1e6934da08fa8a6a
   src/components/ConnectsMarquee.tsx: 1f7d81f73a6599c35b2e16599377a0f96421428ff6b42d1ec6d23a5c22fd3eb7
   src/components/GraphDemo.tsx: 54040a18e77328e6d1925af0bf21a547228f5470fcf965666be10989e3cfe197
-  src/components/HowItWorks.tsx: 584614855d34c89a3096aa0813e880639c3df7e358a04703d26b3c68f05983d6
+  src/components/HowItWorks.tsx: 2baeee4e85ae4c255b03dc6f2f6fdd1ba125c2812948df0b3d10f199225d9a5d
   src/components/RevealHeading.tsx: bca2d23ed01feccbe5b9fda25428aada5e9483d6a37e58eb66239c1a455be91d
   src/components/Section.tsx: 41c6d21e5de40a1885e442ced271f01060307cdd9485f65bec970602c9da2136
   src/components/SiteChrome.tsx: 841549d4dda825f70309311395055d805af137d3db924bc65aba15d9ebbcd5e2
@@ -35,7 +35,8 @@ sources:
   src/components/WaitlistForm.tsx: 556dc8eecb039d0bebbb4288693da183473190c5944e4fca8fd32dc617467715
   src/components/hero/HeroCanvas.tsx: b5eeacf47c2afe5169554216d03acf1068c9598ce28deaaf504bcb8d32c25785
   src/components/hero/HeroGraphStill.tsx: 6b1bf11d4f1b93dd488418e128d1709168f77d7c7cb0052dbc2f3bf019eae501
-  src/components/hero/HeroScene.tsx: c512a9e5e843a6b76f81af7122ecb1e7bbd4ba59c45d1edcf38236ef72a75861
+  src/components/hero/HeroScene.tsx: c640d1e579eb6434673d9feb49cace130c68a202a69c7ec98aaa340817d48594
+  src/components/hero/HeroStatus.tsx: 34c2176ffe97cc7bc606eb4f2c92762962a1cbc05787cb7766cf326b84e0e1c5
   src/config/site.test.ts: 89c419d945200e13fef955715f5221ad4b63040d30b7f359a5c15910c2fdca09
   src/config/site.ts: 3998aee73c4f07a1bdbac48eaa64e7b99ff49c63ea2906984fcff0f54fbb86ae
   src/lib/demo.test.ts: 6f0f924e95eb5746409523e1f6d35e19543a0d3042b8d142b6a6a39dc1d59fba
@@ -44,8 +45,8 @@ sources:
   src/lib/format.ts: 782f34cccadf945136272edfd38bc3f5ba2f895e3b42d30c54b1939927cb4fbb
   src/lib/heroGraph.test.ts: 70fd05b4dc56e3535fdebff2654adab4691f0a6e2c7eba0fd4ed52af5ff6b06f
   src/lib/heroGraph.ts: 8255b98047ac7b8cf7e4a2497e60c6ee784cb965407a9a83fd896655cad9cbe0
-  src/lib/pricing.test.ts: 41d5184bd3dc68f5a7fe53ab75828fb04b6d82dd4fa11111b861d1c83a359a92
-  src/lib/pricing.ts: 19dc60a7d8f22ab974a22b45a0049a001cf55f77c22d0978b2e0e1e7aefd74e8
+  src/lib/pricing.test.ts: dcc738e1ef5bf9f9a5133879fa7e78c14c879654fcc896f997e64ff9c88a6e8e
+  src/lib/pricing.ts: 87502fb2ecf88b59f7d8dcaae81a8e69425f094025e29413ddd401222bf7fe88
   src/lib/theme.ts: 325e9b05f59a9a230884bdcfe69cc68dbb7a051c8f37d68db0c687b950892b36
   src/lib/waitlist.test.ts: fb1b11c685a2b1d41592b2d9f4b2c8489326936cea660692524672dcce6cbfff
   src/lib/waitlist.ts: 6808c90a77ec8e1543de36680b0a9b37614240a1c044696d1ac58bbc6f30c50a
@@ -121,8 +122,9 @@ nodes:
   kind: criterion
   evidence:
   - .ai/knowledge/requirements/VEL-WEB-landing.md
-  text: Given the FAQ, then it includes "Why not just use ChatGPT?" and "Does my data leave my environment?"
-    as expandable items that work without JavaScript.
+  text: 'Given the FAQ, then it includes "Does my data leave my environment?" as an expandable item that
+    works without JavaScript, and it has no "Why not just use ChatGPT?" item. (Revision 8: the ChatGPT
+    item '
 - id: criterion:VEL-WEB-landing/AC-15
   kind: criterion
   evidence:
@@ -318,8 +320,8 @@ nodes:
   evidence:
   - .ai/knowledge/requirements/VEL-WEB-landing.md
   text: Given `/pricing`, then it shows four plan cards in order — Free / Local ("Free"), Pro ("Early
-    access"), Team ("Early access"), Enterprise ("Contact us") — each with a one-line tagline, a CTA ("Join
-    ea
+    access"), Team ("Early access"), Enterprise ("Contact us") — each with a one-line tagline and a price
+    note
 - id: criterion:VEL-WEB-landing/AC-46
   kind: criterion
   evidence:
@@ -347,6 +349,18 @@ nodes:
   - .ai/knowledge/requirements/VEL-WEB-landing.md
   text: Given `/pricing`, then its title is "Pricing" with the site name from config, it shares the header,
     footer, theme and fonts of `/`, and it has no horizontal page scroll at 320 px.
+- id: criterion:VEL-WEB-landing/AC-50
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: 'Given `/` (server HTML, still image, 3D scene, reduced motion or no WebGL alike), then the hero
+    contains a status card labelled "Example" with five rows: sources connected, documentation ("58% documen'
+- id: criterion:VEL-WEB-landing/AC-52
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given the `who` section, then businesses moving onto an ERP come first, labelled "Starting with",
+    and data analysts and engineers second, labelled "Growing into". (Revision 8.)
 - id: feature:VEL-WEB-landing
   kind: feature
   evidence:
@@ -355,14 +369,14 @@ nodes:
   lifecycle: approved
   owner: landing
   reference: false
-- id: module:.next/types/root-params.d.ts
+- id: module:.next/dev/types/root-params.d.ts
   kind: module
   evidence:
-  - .next/types/root-params.d.ts:1
-- id: module:.next/types/routes.d.ts
+  - .next/dev/types/root-params.d.ts:1
+- id: module:.next/dev/types/routes.d.ts
   kind: module
   evidence:
-  - .next/types/routes.d.ts:1
+  - .next/dev/types/routes.d.ts:1
 - id: module:e2e/landing.spec.ts
   kind: module
   evidence:
@@ -475,6 +489,10 @@ nodes:
   kind: module
   evidence:
   - src/components/hero/HeroScene.tsx:1
+- id: module:src/components/hero/HeroStatus.tsx
+  kind: module
+  evidence:
+  - src/components/hero/HeroStatus.tsx:1
 - id: module:src/config/site.test.ts
   kind: module
   evidence:
@@ -633,6 +651,12 @@ nodes:
   - .ai/knowledge/requirements/VEL-WEB-landing.md
   title: 'Follow the product story from the vision: understand, define, build, validate, publish, keep
     current'
+- id: story:VEL-WEB-landing/US-21
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: 'See in the hero what Velora tells me about my data: documentation, contract coverage, validation
+    and the next action'
 - id: tech:animation:motion
   kind: technology
   evidence:
@@ -950,6 +974,18 @@ edges:
   status: CONFIRMED
   evidence:
   - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-50
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-21
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-52
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-04
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
 - from: feature:VEL-WEB-landing
   rel: has_story
   to: story:VEL-WEB-landing/US-01
@@ -1070,6 +1106,12 @@ edges:
   status: CONFIRMED
   evidence:
   - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-21
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
 - from: module:e2e/landing.spec.ts
   rel: imports
   to: module:playwright.config.ts
@@ -1082,6 +1124,7 @@ edges:
   status: CONFIRMED
   evidence:
   - e2e/landing.spec.ts:6
+  - e2e/landing.spec.ts:184
 - from: module:e2e/landing.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-02
@@ -1136,13 +1179,13 @@ edges:
   to: criterion:VEL-WEB-landing/AC-15
   status: CONFIRMED
   evidence:
-  - e2e/landing.spec.ts:171
+  - e2e/landing.spec.ts:236
 - from: module:e2e/landing.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-18
   status: CONFIRMED
   evidence:
-  - e2e/landing.spec.ts:182
+  - e2e/landing.spec.ts:247
 - from: module:e2e/landing.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-35
@@ -1161,6 +1204,19 @@ edges:
   status: CONFIRMED
   evidence:
   - e2e/landing.spec.ts:44
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-50
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:193
+  - e2e/landing.spec.ts:207
+- from: module:e2e/landing.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-52
+  status: CONFIRMED
+  evidence:
+  - e2e/landing.spec.ts:172
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-19
@@ -1191,97 +1247,97 @@ edges:
   to: criterion:VEL-WEB-landing/AC-23
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:65
+  - e2e/motion.spec.ts:67
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-24
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:80
+  - e2e/motion.spec.ts:82
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-25
   status: CONFIRMED
   evidence:
   - e2e/motion.spec.ts:24
-  - e2e/motion.spec.ts:89
+  - e2e/motion.spec.ts:91
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-26
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:111
+  - e2e/motion.spec.ts:113
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-27
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:123
+  - e2e/motion.spec.ts:125
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-31
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:149
+  - e2e/motion.spec.ts:151
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-32
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:161
-  - e2e/motion.spec.ts:173
+  - e2e/motion.spec.ts:164
+  - e2e/motion.spec.ts:176
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-33
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:182
+  - e2e/motion.spec.ts:185
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-37
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:243
   - e2e/motion.spec.ts:261
+  - e2e/motion.spec.ts:279
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-38
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:270
+  - e2e/motion.spec.ts:288
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-39
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:277
+  - e2e/motion.spec.ts:295
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-40
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:302
-  - e2e/motion.spec.ts:322
+  - e2e/motion.spec.ts:320
+  - e2e/motion.spec.ts:340
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-41
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:322
-  - e2e/motion.spec.ts:333
+  - e2e/motion.spec.ts:340
+  - e2e/motion.spec.ts:351
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-42
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:346
+  - e2e/motion.spec.ts:364
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-43
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:322
-  - e2e/motion.spec.ts:358
+  - e2e/motion.spec.ts:340
+  - e2e/motion.spec.ts:376
 - from: module:e2e/pricing.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-26
@@ -1313,7 +1369,7 @@ edges:
   status: CONFIRMED
   evidence:
   - e2e/pricing.spec.ts:45
-  - e2e/pricing.spec.ts:66
+  - e2e/pricing.spec.ts:70
 - from: module:e2e/theme.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-28
@@ -1335,13 +1391,13 @@ edges:
   - e2e/theme.spec.ts:54
 - from: module:next-env.d.ts
   rel: imports
-  to: module:.next/types/root-params.d.ts
+  to: module:.next/dev/types/root-params.d.ts
   status: CONFIRMED
   evidence:
   - next-env.d.ts:4
 - from: module:next-env.d.ts
   rel: imports
-  to: module:.next/types/routes.d.ts
+  to: module:.next/dev/types/routes.d.ts
   status: CONFIRMED
   evidence:
   - next-env.d.ts:3
@@ -1412,7 +1468,14 @@ edges:
   to: criterion:VEL-WEB-landing/AC-39
   status: CONFIRMED
   evidence:
-  - src/app/page.tsx:111
+  - src/app/page.tsx:109
+- from: module:src/app/page.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-50
+  status: INFERRED
+  evidence:
+  - src/app/page.tsx:109
+  note: bare AC-50; the file names only VEL-WEB-landing
 - from: module:src/app/pricing/page.tsx
   rel: implements
   to: criterion:VEL-WEB-landing/AC-45
@@ -1450,6 +1513,13 @@ edges:
   status: CONFIRMED
   evidence:
   - src/components/HowItWorks.tsx:3
+- from: module:src/components/HowItWorks.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-26
+  status: INFERRED
+  evidence:
+  - src/components/HowItWorks.tsx:3
+  note: bare AC-26; the file names only VEL-WEB-landing
 - from: module:src/components/HowItWorks.tsx
   rel: imports
   to: module:src/components/StoryMotion.tsx
@@ -1559,6 +1629,12 @@ edges:
   status: CONFIRMED
   evidence:
   - src/components/hero/HeroScene.tsx:14
+- from: module:src/components/hero/HeroStatus.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-50
+  status: CONFIRMED
+  evidence:
+  - src/components/hero/HeroStatus.tsx:1
 - from: module:src/config/site.test.ts
   rel: imports
   to: module:src/config/site.ts
@@ -1712,6 +1788,7 @@ edges:
   evidence:
   - src/lib/pricing.test.ts:4
   - src/lib/pricing.test.ts:20
+  - src/lib/pricing.test.ts:40
 - from: module:src/lib/pricing.test.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-46

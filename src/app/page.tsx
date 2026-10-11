@@ -27,6 +27,7 @@ import { ConnectsMarquee } from "@/components/ConnectsMarquee";
 import { GraphDemo } from "@/components/GraphDemo";
 import { HowItWorks } from "@/components/HowItWorks";
 import { HeroScene } from "@/components/hero/HeroScene";
+import { HeroStatus } from "@/components/hero/HeroStatus";
 import { Section } from "@/components/Section";
 import { Footer, Header } from "@/components/SiteChrome";
 import { Reveal } from "@/components/StoryMotion";
@@ -71,16 +72,13 @@ const safeguards: [LucideIcon, string, string][] = [
   [Trash2, "Deleted on request", "With a short default retention period."],
 ];
 
-const audiences: [LucideIcon, string, string][] = [
-  [Store, "Businesses moving onto an ERP", "Bring scattered spreadsheets and databases together and load clean data into Odoo. No SQL needed."],
-  [ChartColumn, "Data analysts and engineers", "Inherited, undocumented data? Profile it, define it and deliver a validated data product."],
+// v2 §18: the first wedge's users come first; data teams are where the workspace grows.
+const audiences: [LucideIcon, string, string, string][] = [
+  [Store, "Starting with", "Businesses moving onto an ERP", "Bring scattered spreadsheets and databases together and load clean data into Odoo. No SQL needed."],
+  [ChartColumn, "Growing into", "Data analysts and engineers", "Inherited, undocumented data? Profile it, define it and deliver a validated data product."],
 ];
 
 const faqs = [
-  {
-    q: "Why not just use ChatGPT?",
-    a: `Chat tools are good for one-off questions, but they can't see millions of rows, their joins are a black box, and they can't put anything into your systems. ${site.name} is repeatable (saved pipelines and rules), traceable (every number traces back to a source row), handles live connections, and delivers into your ERP, cloud or warehouse, with Claude inside and you approving each link.`,
-  },
   {
     q: "Does my data leave my environment?",
     a: "In the cloud version, your data is processed on our servers and encrypted in transit and at rest. In metadata-only mode, Claude sees only column names, statistics and masked samples. With the local engine, available on request, processing runs on your own machine or server and only metadata reaches Claude. We state exactly what leaves your environment in each mode.",
@@ -108,19 +106,27 @@ export default function Home() {
     <>
       <Header />
       <main>
-        {/* Hero (VEL-WEB-landing AC-39): from 640 px the 3D graph is a full-bleed background behind the text; on phones
-            the text comes first and the graph sits in its own block below it, so nothing overlaps. */}
-        <div className="relative isolate flex flex-col overflow-hidden border-b border-line sm:block">
+        {/* Hero (VEL-WEB-landing AC-39, AC-50): from 640 px the 3D graph is a full-bleed background behind the text and the
+            status strip, centred together; on phones the text comes first, then the graph with its controls, then the
+            status card, so nothing overlaps. */}
+        <div className="relative isolate flex flex-col overflow-hidden border-b border-line sm:min-h-[calc(100svh-4rem)] sm:justify-center sm:pb-20">
           <HeroScene />
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 z-10 hidden bg-[radial-gradient(ellipse_55%_45%_at_50%_48%,var(--color-paper)_35%,transparent_100%)] opacity-90 sm:block"
           />
-          <div className="pointer-events-none relative z-10 order-1 mx-auto flex max-w-4xl flex-col items-center justify-center px-4 pt-14 pb-6 text-center sm:min-h-[calc(100svh-4rem)] sm:px-6 sm:py-20">
+          <div className="pointer-events-none relative z-10 order-1 mx-auto flex max-w-4xl flex-col items-center justify-center px-4 pt-14 pb-6 text-center sm:px-6 sm:pt-16 sm:pb-0">
             <h1 className="text-5xl font-semibold tracking-[-0.035em] text-balance sm:text-6xl lg:text-7xl lg:leading-[1.02]">
               Understand your data before you use it.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg text-balance text-muted sm:text-xl">{site.description}</p>
+            <p data-hero-subhead className="mt-6 max-w-2xl text-lg text-balance text-muted sm:text-xl">
+              {site.description}
+            </p>
+            {/* v2 §15's supporting line (VEL-WEB-landing AC-51). */}
+            <p className="mt-4 max-w-xl text-sm text-balance text-muted">
+              Profiling, documentation, contracts, transformation, and validation in one workspace — with Claude assistance
+              you can switch off.
+            </p>
             <div className="mt-9 flex flex-wrap justify-center gap-3 [&>a]:pointer-events-auto">
               <Link
                 href="#early-access"
@@ -137,6 +143,7 @@ export default function Home() {
             </div>
             <p className="mt-6 text-sm text-muted">Early sign-ups get a free Readiness Report on their own data.</p>
           </div>
+          <HeroStatus />
           <Link
             href="#connects"
             className="press relative order-4 z-20 mx-auto mb-4 inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm text-muted hover:text-ink sm:absolute sm:bottom-4 sm:left-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] sm:mb-0"
@@ -257,8 +264,9 @@ export default function Home() {
 
         <Section id="who" title="Who it's for">
           <ul className="grid gap-10 md:grid-cols-2">
-            {audiences.map(([icon, title, text]) => (
+            {audiences.map(([icon, stage, title, text]) => (
               <li key={title} data-item="audience">
+                <p className="mb-3 font-mono text-xs tracking-wide text-muted uppercase">{stage}</p>
                 <h3 className="flex items-center gap-3 text-xl font-semibold">
                   <Icon icon={icon} className="size-6 text-accent" />
                   {title}

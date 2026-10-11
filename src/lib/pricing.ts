@@ -17,9 +17,9 @@ export type Plan = {
 export const plans: Plan[] = [
   {
     name: "Free / Local",
-    tagline: "Understand your own data",
+    tagline: "Manual profiling, a data dictionary and basic contracts",
     price: "Free",
-    priceNote: "For individuals getting started",
+    priceNote: "Limited data products",
     cta: "join",
     includesFrom: null,
     includes: [
@@ -32,9 +32,9 @@ export const plans: Plan[] = [
   },
   {
     name: "Pro",
-    tagline: "For analysts and small teams",
+    tagline: "Scheduled profiling, full contracts and change detection",
     price: "Early access",
-    priceNote: "Pricing set with early customers",
+    priceNote: "Limits follow real usage",
     cta: "join",
     includesFrom: "Free / Local",
     includes: [
@@ -48,18 +48,18 @@ export const plans: Plan[] = [
   },
   {
     name: "Team",
-    tagline: "For teams that share data products",
+    tagline: "A shared pool of data products, with collaboration",
     price: "Early access",
-    priceNote: "Pricing set with early customers",
+    priceNote: "Limits follow real usage",
     cta: "join",
     includesFrom: "Pro",
     includes: ["A shared pool of data products", "Automatic profiling", "Full history", "Collaboration", "Basic governance"],
   },
   {
     name: "Enterprise",
-    tagline: "For policy, governance and deployment needs",
+    tagline: "Policy-driven profiling, advanced governance and deployment controls",
     price: "Contact us",
-    priceNote: "Custom terms",
+    priceNote: "Custom limits",
     cta: "contact",
     includesFrom: "Team",
     includes: [

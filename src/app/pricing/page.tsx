@@ -38,7 +38,7 @@ function Cell({ value }: { value: CapabilityValue }) {
 const faqs = [
   {
     q: "Why are there no prices yet?",
-    a: "We're setting prices together with our early customers, so that they follow real usage rather than guesses. Join early access and we'll agree pricing with you before you pay anything.",
+    a: "Exact pricing and limits will follow real usage, rather than being guessed up front. Join early access to hear first when they're set.",
   },
   {
     q: "What is a managed data product?",
@@ -79,7 +79,7 @@ export default function Pricing() {
                 >
                   <PlanIcon aria-hidden="true" strokeWidth={1.5} className="size-8 text-ink" />
                   <h2 className="mt-5 text-2xl font-semibold">{plan.name}</h2>
-                  <p className="mt-1 min-h-12 text-muted">{plan.tagline}</p>
+                  <p className="mt-1 min-h-18 text-muted">{plan.tagline}</p>
                   <p className="mt-6 text-3xl font-semibold" data-plan-price>
                     {plan.price}
                   </p>

@@ -229,6 +229,15 @@ test("how it works pins and steps through the five stages on desktop (VEL-WEB-la
     expect(Math.abs((await pin.boundingBox())!.y - pinTop)).toBeLessThan(2);
   }
   await expect(story.locator('[aria-current="step"]')).toContainText("Publish & serve");
+  // Revision 8: the destinations and the seven-point checklist fit inside the pinned illustration box.
+  const box = (await story.locator("[data-art-box]").boundingBox())!;
+  const items = story.locator("[data-trusted-checklist] li");
+  await expect(items).toHaveCount(7);
+  for (const item of [items.first(), items.last()]) {
+    const b = (await item.boundingBox())!;
+    expect(b.y).toBeGreaterThanOrEqual(box.y);
+    expect(b.y + b.height).toBeLessThanOrEqual(box.y + box.height);
+  }
 });
 
 test.describe("reduced motion: no pinning", () => {
@@ -240,6 +249,12 @@ test.describe("reduced motion: no pinning", () => {
     await expect(steps).toHaveCount(5);
     for (const step of await steps.all()) await expect(step).toBeVisible();
     await expect(page.locator("#how-it-works [data-exec-summary]")).toBeVisible();
+    // Revision 8: v2 §9's Trusted Data Product checklist sits in "Publish & serve".
+    const trusted = page.locator("#how-it-works [data-trusted-checklist] li");
+    await expect(trusted).toHaveCount(7);
+    for (const text of ["Documented meaning", "Explicit expectations", "Traceable transformation logic", "Passed validation checks", "Known provenance", "Stated limitations", "A defined downstream purpose"]) {
+      await expect(trusted.filter({ hasText: text })).toBeVisible();
+    }
   });
 });
 
