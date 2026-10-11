@@ -54,6 +54,8 @@ test("assembles the 3D graph without shifting the layout, then replays (VEL-WEB-
   await expect(scene(page)).toHaveAttribute("data-phase", "settled", { timeout: 6_000 });
   expect(await threeLoaded(page)).toBe(true);
   expect(await scene(page).boundingBox()).toEqual(before);
+  // The canvas replaces the still image: only one graph is visible once the scene is ready.
+  await expect(page.locator("[data-hero-still]")).toHaveCSS("opacity", "0");
 
   const replay = page.getByRole("button", { name: "Replay" });
   await replay.focus();

@@ -160,7 +160,8 @@ export function HeroScene() {
           if (e.pointerType === "mouse") setHover(null);
         }}
       >
-        <HeroGraphStill className={`absolute inset-0 h-full w-full opacity-60 transition-opacity duration-500 ${ready ? "opacity-0" : ""}`} />
+        {/* One opacity class at a time: with both, opacity-60 wins and the still stays behind the canvas. */}
+        <HeroGraphStill className={`absolute inset-0 h-full w-full transition-opacity duration-500 ${ready ? "opacity-0" : "opacity-60"}`} />
         {showCanvas && (
           <div className="absolute inset-0 opacity-70">
             <HeroCanvas
