@@ -239,7 +239,7 @@ export function GraphDemo() {
                 <button
                   type="button"
                   onClick={issue.onFix}
-                  className="mt-3 min-h-11 rounded-md bg-accent px-4 text-sm font-semibold text-on-accent transition hover:bg-accent-strong active:scale-[0.98] motion-reduce:transition-none"
+                  className="fx mt-3 min-h-11 rounded-md bg-accent px-4 text-sm font-semibold text-on-accent [--fx-fill:var(--color-accent-strong)]"
                 >
                   {issue.action}
                 </button>
@@ -254,7 +254,7 @@ export function GraphDemo() {
               type="button"
               onClick={runDryRun}
               disabled={!canRunDryRun(state)}
-              className="inline-flex min-h-11 items-center gap-2 rounded-md border border-accent px-4 font-semibold text-accent transition enabled:hover:bg-accent enabled:hover:text-on-accent active:scale-[0.98] disabled:cursor-not-allowed disabled:border-line disabled:text-observed motion-reduce:transition-none"
+              className="fx inline-flex min-h-11 items-center gap-2 rounded-md border border-accent px-4 font-semibold text-accent [--fx-fill:var(--color-accent)] enabled:hover:text-on-accent disabled:cursor-not-allowed disabled:border-line disabled:text-observed"
             >
               <ShieldCheck aria-hidden="true" className="size-4" />
               Run dry run
@@ -263,7 +263,7 @@ export function GraphDemo() {
               <button
                 type="button"
                 onClick={reset}
-                className="inline-flex min-h-11 items-center gap-2 rounded-md px-4 font-medium text-muted transition hover:bg-paper hover:text-ink active:scale-[0.98] motion-reduce:transition-none"
+                className="fx inline-flex min-h-11 items-center gap-2 rounded-md px-4 font-medium text-muted [--fx-fill:var(--color-paper)] hover:text-ink"
               >
                 <RotateCcw aria-hidden="true" className="size-4" />
                 Reset demo
@@ -366,7 +366,7 @@ export function GraphDemo() {
                 disabled={!canSend(state)}
                 aria-pressed={sentTo === d}
                 onClick={() => setSentTo(d)}
-                className="min-h-11 rounded-md border border-line bg-surface px-3 text-sm font-medium transition enabled:hover:border-accent active:scale-[0.98] disabled:cursor-not-allowed disabled:text-observed aria-pressed:border-accent aria-pressed:text-accent-strong motion-reduce:transition-none"
+                className="fx min-h-11 rounded-md border border-line bg-surface px-3 text-sm font-medium [--fx-fill:var(--color-accent)] enabled:hover:border-accent enabled:hover:text-on-accent disabled:cursor-not-allowed disabled:text-observed aria-pressed:border-accent aria-pressed:text-accent-strong"
               >
                 {d}
               </button>

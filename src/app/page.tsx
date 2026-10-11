@@ -131,13 +131,13 @@ export default function Home() {
               <Link
                 href="#early-access"
                 data-brand-cta
-                className="press inline-flex h-12 items-center rounded-full bg-brand px-7 font-semibold text-on-brand hover:bg-brand/90"
+                className="fx inline-flex h-12 items-center rounded-full bg-brand px-7 font-semibold text-on-brand [--fx-fill:var(--color-brand-strong)]"
               >
                 Join early access
               </Link>
               <Link
                 href="#how-it-works"
-                className="press inline-flex h-12 items-center rounded-full border border-line bg-paper/60 px-7 font-semibold backdrop-blur-sm hover:border-ink"
+                className="fx inline-flex h-12 items-center rounded-full border border-line bg-paper/60 px-7 font-semibold backdrop-blur-sm [--fx-fill:var(--color-accent)] hover:border-accent hover:text-on-accent"
               >
                 See how it works
               </Link>

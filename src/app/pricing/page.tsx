@@ -88,14 +88,14 @@ export default function Pricing() {
                     <Link
                       href="/#early-access"
                       data-brand-cta
-                      className="press mt-6 inline-flex h-11 items-center justify-center rounded-full bg-brand px-5 font-semibold text-on-brand hover:bg-brand/90"
+                      className="fx mt-6 inline-flex h-11 items-center justify-center rounded-full bg-brand px-5 font-semibold text-on-brand [--fx-fill:var(--color-brand-strong)]"
                     >
                       Join early access
                     </Link>
                   ) : (
                     <a
                       href={`mailto:${site.email}?subject=${encodeURIComponent("Enterprise")}`}
-                      className="press mt-6 inline-flex h-11 items-center justify-center rounded-full border border-line px-5 font-semibold hover:border-ink"
+                      className="fx mt-6 inline-flex h-11 items-center justify-center rounded-full border border-line px-5 font-semibold [--fx-fill:var(--color-accent)] hover:border-accent hover:text-on-accent"
                     >
                       Talk to us
                     </a>

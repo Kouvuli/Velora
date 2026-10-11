@@ -205,7 +205,7 @@ export function HeroScene() {
               <button
                 type="button"
                 onClick={onApprove}
-                className="press inline-flex min-h-11 items-center gap-2 rounded-md px-3 font-medium text-suggested-ink hover:bg-suggested-soft"
+                className="fx inline-flex min-h-11 items-center gap-2 rounded-md px-3 font-medium text-suggested-ink [--fx-fill:var(--color-suggested-soft)]"
               >
                 <Check aria-hidden="true" className="size-4" />
                 Approve suggested link
@@ -214,7 +214,7 @@ export function HeroScene() {
             <button
               type="button"
               onClick={replay}
-              className="press inline-flex min-h-11 items-center gap-2 rounded-md px-3 font-medium text-ink hover:bg-surface"
+              className="fx inline-flex min-h-11 items-center gap-2 rounded-md px-3 font-medium text-ink [--fx-fill:var(--color-surface)]"
             >
               <RotateCcw aria-hidden="true" className="size-4" />
               Replay

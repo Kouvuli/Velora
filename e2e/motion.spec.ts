@@ -285,6 +285,75 @@ test.describe("reduced motion: instant feedback", () => {
   });
 });
 
+// Revision 10: fill-sweep hover and press + ripple click on every button-style control.
+
+const sweepScale = (el: import("@playwright/test").Locator) =>
+  el.evaluate((e) => {
+    const m = getComputedStyle(e, "::before").transform;
+    return m === "none" ? 1 : Number(m.slice(7).split(",")[0]);
+  });
+
+test("button-style controls sweep a fill across on hover (VEL-WEB-landing AC-54)", async ({ page }, info) => {
+  test.skip(info.project.name !== "desktop", "Hover is the pointer path.");
+  await page.goto("/");
+  const main = page.getByRole("main");
+  const controls = [
+    main.getByRole("link", { name: "Join early access" }).first(),
+    main.getByRole("link", { name: "See how it works" }),
+    page.getByRole("banner").getByRole("link", { name: "Join early access" }),
+  ];
+  for (const el of controls) {
+    expect(await el.evaluate((e) => e.classList.contains("fx"))).toBe(true);
+    expect(await sweepScale(el)).toBe(0);
+    await el.hover();
+    await expect.poll(() => sweepScale(el)).toBe(1);
+  }
+  // The hero's orange button sweeps to a deeper orange (#F96D10 in dark), keeping black text.
+  const hero = controls[0];
+  expect(await hero.evaluate((e) => getComputedStyle(e, "::before").backgroundColor)).toBe("rgb(249, 109, 16)");
+  expect(await hero.evaluate((e) => getComputedStyle(e).color)).toBe("rgb(0, 0, 0)");
+  for (const name of ["Accept suggestion", "Run dry run"]) {
+    expect(await page.locator("#demo").getByRole("button", { name }).evaluate((e) => e.classList.contains("fx")), name).toBe(true);
+  }
+});
+
+test("clicking a button presses it in and spreads a ripple from the click point (VEL-WEB-landing AC-55)", async ({ page }) => {
+  await page.goto("/pricing");
+  const talk = page.getByRole("link", { name: "Talk to us" });
+  await talk.evaluate((e) => e.addEventListener("click", (ev) => ev.preventDefault()));
+  await talk.scrollIntoViewIfNeeded();
+  expect(await talk.evaluate((e) => e.classList.contains("fx"))).toBe(true);
+  const box = (await talk.boundingBox())!;
+  await page.mouse.move(box.x + 12, box.y + box.height / 2);
+  await page.mouse.down();
+  await expect(talk.locator("[data-ripple]")).toHaveCount(1);
+  const ripple = (await talk.locator("[data-ripple]").boundingBox())!;
+  // The ripple is centred on the click point, near the left edge, measured on the button (which is scaling in).
+  const pressed = (await talk.boundingBox())!;
+  expect(Math.abs((ripple.x + ripple.width / 2 - pressed.x) / pressed.width - 12 / box.width)).toBeLessThan(0.02);
+  expect(await talk.evaluate((e) => getComputedStyle(e).transform)).not.toBe("none");
+  await page.mouse.up();
+  await expect(talk.locator("[data-ripple]")).toHaveCount(0, { timeout: 2_000 });
+});
+
+test.describe("reduced motion: no sweep or ripple", () => {
+  test.use({ reducedMotion: "reduce" });
+  test("hover and click feedback change instantly, without a ripple (VEL-WEB-landing AC-54, VEL-WEB-landing AC-55)", async ({ page }) => {
+    await page.goto("/pricing");
+    const talk = page.getByRole("link", { name: "Talk to us" });
+    await talk.evaluate((e) => e.addEventListener("click", (ev) => ev.preventDefault()));
+  await talk.scrollIntoViewIfNeeded();
+    expect(await talk.evaluate((e) => getComputedStyle(e, "::before").transitionDuration)).toBe("0s");
+    const box = (await talk.boundingBox())!;
+    await page.mouse.move(box.x + 12, box.y + box.height / 2);
+    await page.mouse.down();
+    await page.waitForTimeout(100);
+    await expect(talk.locator("[data-ripple]")).toHaveCount(0);
+    expect(await talk.evaluate((e) => getComputedStyle(e).transform)).toBe("none");
+    await page.mouse.up();
+  });
+});
+
 test("the cursor effect is on for desktop pointers and off for touch (VEL-WEB-landing AC-38)", async ({ page }, info) => {
   await settledHero(page);
   await expect(scene(page)).toHaveAttribute("data-cursor-effect", info.project.name === "desktop" ? "on" : "off");

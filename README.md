@@ -2,7 +2,7 @@
 
 The public company website: explains the product, runs an interactive graph demo and collects early-access sign-ups.
 
-- **Requirements:** [.ai/knowledge/requirements/VEL-WEB-landing.md](.ai/knowledge/requirements/VEL-WEB-landing.md) (approved, revision 9)
+- **Requirements:** [.ai/knowledge/requirements/VEL-WEB-landing.md](.ai/knowledge/requirements/VEL-WEB-landing.md) (approved, revision 10)
 - **Product source of truth:** `../Velora — Product Vision v2.md`; the site follows its §14–16 website brief and §13 packaging
 - **Pages:** `/` (vision narrative), `/pricing` (plans, comparison, FAQ), `/privacy`
 - **Stack:** Next.js 16.4 (App Router), React 19.3, Tailwind CSS 4, React Flow 12 (demo), React Three Fiber 9 + three.js
@@ -58,7 +58,7 @@ src/components/     GraphDemo (3 issues + dry run), HowItWorks (pinned scroll st
                     SiteChrome (header/footer), ThemeToggle, StoryMotion,
                     ConnectsMarquee, RevealHeading, SmoothScroll, HowItWorks (five-stage story)
 src/components/hero HeroScene (still vs 3D), HeroCanvas (three.js, own chunk), HeroGraphStill (SVG fallback),
-                    HeroStatus (example status card)
+                    HeroStatus (example status card); src/components/ButtonRipple (click ripple for `fx` buttons)
 src/lib/            demo.ts, waitlist.ts, heroGraph.ts, format.ts, theme.ts, pricing.ts: pure logic, unit-tested
 src/config/site.ts  brand and company details
 e2e/                Playwright: landing.spec.ts (journey, demo, narrative), motion.spec.ts (3D, interaction, motion,

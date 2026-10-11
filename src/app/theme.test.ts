@@ -35,6 +35,7 @@ const pairs: [string, string, number][] = [
   ["accent-strong", "paper", 4.5],
   ["accent-strong", "surface", 4.5],
   ["on-brand", "brand", 4.5],
+  ["on-brand", "brand-strong", 4.5],
   ["brand-ink", "paper", 4.5],
   ["brand-ink", "surface", 3],
   ["suggested-ink", "suggested-soft", 4.5],
@@ -68,10 +69,10 @@ describe("revision 9 palette (VEL-WEB-landing AC-53)", () => {
   const pick = (theme: "light" | "dark", names: string[]) => names.map((n) => tokens[theme][n]?.toLowerCase());
 
   it("uses only orange, black and white: mono controls, orange brand, neutral cards", () => {
-    const changed = ["accent", "accent-strong", "on-accent", "surface", "brand", "on-brand", "brand-ink"];
-    // Light orange is a little dimmer and darker than dark's, at the user's request.
-    expect(pick("light", changed)).toEqual(["#0a0a0a", "#2a2a2a", "#ffffff", "#f4f4f5", "#e77123", "#000000", "#c2500a"]);
-    expect(pick("dark", changed)).toEqual(["#ffffff", "#e0e0e0", "#000000", "#18181b", "#fe7f2d", "#000000", "#fe7f2d"]);
+    const changed = ["accent", "accent-strong", "on-accent", "surface", "brand", "brand-strong", "on-brand", "brand-ink"];
+    // Light orange is a little dimmer and darker than dark's, at the user's request; brand-strong is the hover sweep.
+    expect(pick("light", changed)).toEqual(["#0a0a0a", "#2a2a2a", "#ffffff", "#f4f4f5", "#e77123", "#d36317", "#000000", "#c2500a"]);
+    expect(pick("dark", changed)).toEqual(["#ffffff", "#e0e0e0", "#000000", "#18181b", "#fe7f2d", "#f96d10", "#000000", "#fe7f2d"]);
     const base = ["paper", "ink", "muted", "line", "danger"];
     expect(pick("light", base)).toEqual(["#ffffff", "#0a0a0a", "#5c5c5c", "#e5e5e5", "#b42318"]);
     expect(pick("dark", base)).toEqual(["#000000", "#ffffff", "#a3a3a3", "#262626", "#f97066"]);

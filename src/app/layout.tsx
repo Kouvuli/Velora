@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ButtonRipple } from "@/components/ButtonRipple";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { site } from "@/config/site";
 import { themeScript } from "@/lib/theme";
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className="min-h-screen antialiased">
         <SmoothScroll />
+        <ButtonRipple />
         {children}
       </body>
     </html>

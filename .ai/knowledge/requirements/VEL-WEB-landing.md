@@ -5,9 +5,9 @@ title: "Landing page"
 summary: "Public company website that tells the Velora product vision (understand, define, build, validate, publish) with a 3D hero, an interactive demo and a separate pricing page, and collects early-access sign-ups"
 owner: landing
 lifecycle: approved
-revision: 9
-approved_revision: 9
-approval_evidence: "user chose orange, black and white (orange hero/pricing/form Join buttons, black/white header button, mono controls, neutral cards) in chat, 2026-10-11"
+revision: 10
+approved_revision: 10
+approval_evidence: "user chose fill-sweep hover, press + ripple click on all button-style controls, and a black/white header Join button in chat, 2026-10-11 (revision 10)"
 updated: "2026-10-11"
 related: []
 status: CONFIRMED
@@ -37,7 +37,8 @@ order, trust model, lifecycle, AI & privacy) and moves pricing to a separate `/p
 comparison table and a FAQ, in the pattern of claude.com/pricing (studied for layout only). Revision 8 adds a hero status
 card and v2's supporting line, a Trusted Data Product checklist, v2-only pricing wording and First/Next audiences, and
 removes the "Why not just use ChatGPT?" FAQ. Revision 9 makes the site orange, black and white:
-orange Join buttons and highlights, mono controls, grey/graphite cards.
+orange Join buttons and highlights, mono controls, grey/graphite cards. Revision 10
+adds a fill-sweep hover and a press + ripple click to every button-style control.
 
 ## Assumptions
 - ASSUMPTION: English only.
@@ -68,6 +69,7 @@ orange Join buttons and highlights, mono controls, grey/graphite cards.
 ### US-20 — Follow the product story from the vision: understand, define, build, validate, publish, keep current
 ### US-21 — See in the hero what Velora tells me about my data: documentation, contract coverage, validation and the next action
 ### US-22 — Recognise Velora by its orange, black and white, without confusing orange with the trust colours
+### US-23 — Feel buttons respond: a fill sweeps in on hover and the button presses in with a ripple when clicked
 
 ## Decisions and Contracts
 Decided with the user in chat, 2026-10-10:
@@ -167,6 +169,18 @@ shipped, see `../design-mocks/rev9-*.png`):
   #000000, separated by their top border), so cards stand out in both themes.
 - Paper, ink, muted, line and the trust colours keep revision 4's values; graphs stay neutral; dark by default stays.
 
+Added for revision 10, decided with the user in chat, 2026-10-11:
+- **Hover: fill sweep.** A layer sweeps across each button-style control from the left in about 350 ms: orange buttons
+  to a deeper orange (brand-strong: #D36317 light, #F96D10 dark; black text stays AA), black/white buttons to their hover
+  shade, outline and ghost buttons fill with black/white (their text flips) or with their own soft colour (the hero's
+  amber "Approve suggested link" keeps amber, Replay uses the card grey). Keyboard focus shows the same fill.
+- **Click: press + ripple.** The control presses in (scale 0.96) and a soft ripple spreads from the click point and
+  fades (about 650 ms). One page-wide listener draws it, so no control needs its own wiring.
+- **Scope:** every Join button, See how it works, Talk to us, the demo's buttons, and the hero's Approve and Replay.
+  Not plain text links, the theme toggle, "Scroll to explore", the marquee's pause or FAQ rows.
+- **Reduced motion:** the fill appears instantly, no press, no ripple (as AC-37).
+- The header's "Join early access" becomes black (light) / white (dark), recorded under revision 9's colours.
+
 Form contract: `POST <endpoint>`, headers `Content-Type: application/json`, `Accept: application/json`, body
 `{ "email": string, "segment": "business" | "data-team" | "consultant", "readinessReport": boolean, "source": "landing" }`.
 
@@ -233,6 +247,8 @@ Decided in planning.
 - AC-51 (US-01, US-21): Given `/`, then v2's supporting line "Profiling, documentation, contracts, transformation, and validation in one workspace — with Claude assistance you can switch off." is shown under the subhead; at 375×812 AC-01 still holds, and if the line would push "Join early access" below the fold, it moves below the CTAs on phones instead. (Revision 8.)
 - AC-52 (US-04): Given the `who` section, then businesses moving onto an ERP come first, labelled "Starting with", and data analysts and engineers second, labelled "Growing into". (Revision 8.)
 - AC-53 (US-22): Given the colour tokens, then accent, accent-strong and on-accent keep revision 4's mono values (light #0a0a0a, #2a2a2a, #ffffff; dark #ffffff, #e0e0e0, #000000); surface is #F4F4F5 (light) and #18181B (dark); brand is #E77123 (light) and #FE7F2D (dark) with #000000 text, and brand-ink is #C2500A (light) and #FE7F2D (dark); sections have no background of their own; the hero's, pricing's and form's "Join early access" buttons are orange and the header's is black/white; orange also appears on the wordmark's dot, the favicon, the share image's bar, the active how-it-works step, the audience labels, link underlines, the FAQ "+" and focus rings, and on no other button or link; no indigo or other hue is used; the 3D hero's colours and the demo graph's edges never use orange. (Revision 9.)
+- AC-54 (US-23): Given motion is allowed and a fine pointer, when the visitor hovers (or keyboard-focuses) a button-style control (every Join button, See how it works, Talk to us, the demo's buttons, the hero's Approve and Replay), then a fill sweeps across it from the left within about 350 ms (orange buttons to brand-strong, keeping black text); with reduced motion the fill appears instantly. (Revision 10.)
+- AC-55 (US-23): Given motion is allowed, when the visitor presses one of those controls, then it scales in (0.96) and a ripple centred on the press point spreads and fades, and is removed afterwards; disabled controls get neither; with reduced motion there is no press and no ripple. (Revision 10.)
 
 ## Non-functional
 - No horizontal scroll at 320 px width; body text contrast ≥ 4.5:1; visible focus on every interactive element.
@@ -266,3 +282,4 @@ None blocking.
 - Revision 7: Content follows Product Vision v2 (AC-01, AC-11, AC-12, AC-13, AC-25, AC-26, AC-27, AC-34, AC-39, AC-42 changed; US-19, US-20, AC-45..AC-49 added): v2 hero and narrative, five-stage scroll story, trust model and lifecycle sections, AI & privacy, and a separate /pricing page (cards, comparison table, FAQ; no dollar amounts). From the user's answers on 2026-10-11; approved by the user in chat, 2026-10-11.
 - Revision 8: Closes the gaps between the site and v2 (AC-14, AC-34, AC-45, AC-47 changed; US-21, AC-50..AC-52 added): hero status card and supporting line, ChatGPT FAQ removed, v2-only pricing wording, Trusted Data Product checklist, First/Next audiences. From the user's answers on 2026-10-11; approved by the user in chat, 2026-10-11.
 - Revision 9: Orange, black and white: orange #FE7F2D (from Color Hunt palette 000000-233d4d-fe7f2d-eaecf0; a little dimmer and darker #E77123 in light) with black text on every Join button and the highlights, mono controls, neutral grey/graphite cards on untinted sections (US-22, AC-53 added; AC-30 extended); graphs neutral, dark by default unchanged. A sky accent, the palette's slate and an indigo accent were tried and reviewed the same day but never shipped. From the user's answers on 2026-10-11; approved by the user in chat, 2026-10-11.
+- Revision 10: Fill-sweep hover and press + ripple click on every button-style control (US-23, AC-54, AC-55 added); the header's Join button becomes black/white (AC-53 adjusted). From the user's answers on 2026-10-11; approved by the user in chat, 2026-10-11.

@@ -33,7 +33,7 @@ export function Header() {
           <ThemeToggle />
           <Link
             href="/#early-access"
-            className="inline-flex h-10 items-center press rounded-md bg-accent px-4 text-sm font-semibold text-on-accent hover:bg-accent-strong"
+            className="fx inline-flex h-10 items-center rounded-md bg-accent px-4 text-sm font-semibold text-on-accent [--fx-fill:var(--color-accent-strong)]"
           >
             Join early access
           </Link>

@@ -1,13 +1,13 @@
 schema: ai-skill-os/knowledge-graph/v1
 generated_by: ai-skills knowledge discover
-updated_at: '2026-10-11T16:05:39+00:00'
+updated_at: '2026-10-11T16:09:53+00:00'
 note: Index for retrieval only. Source files are the truth; follow the evidence.
 sources:
-  .ai/knowledge/requirements/VEL-WEB-landing.md: af75d85ffdce8c97050c17cee71e5e694f31595fb8cd3a5087b260d96d50e270
+  .ai/knowledge/requirements/VEL-WEB-landing.md: 3094021472001168afec0deb0f675aa89c4e9d8dbedfb1bc24191451758ce7ad
   .next/types/root-params.d.ts: f3387dd7800eec3c34273f7a8efad13e864598c7e8f788d321e407390989bb59
   .next/types/routes.d.ts: b1c8b4d0432d67eba94d575514fb637f260cd12f098bb3a5770522b90c044638
   e2e/landing.spec.ts: ebcf3df8a64a1ef827d4c2aa6570f5093d3264cb7c111a270861115653b5bc75
-  e2e/motion.spec.ts: b06add724058f35b64407cd14cffe7433b19f0ed5114d4a86f1dd4e44d40b98a
+  e2e/motion.spec.ts: c01a0e25d4699ac3cb58aaf950b44beb928a6e2ffce3ac0ebb180b1e45835675
   e2e/pricing.spec.ts: 8c4f24b6c7a3b4f14a2db3f289af2ff58e919a13c5ab3c8b66fb9c8342d05d71
   e2e/theme.spec.ts: e61a976680b90cec336e0bd30fe6e3fd805d5fd6839bbb91b7fddeace1e3af11
   next-env.d.ts: 1862ac4bbbc5192d4bf562161df66ea547ed3e67173100656ab606ae9797db2b
@@ -15,27 +15,28 @@ sources:
   package.json: e9c33e3b8da238be863d931dc14410d8a382a80bce201438b66f3b83451717fd
   playwright.config.ts: ff8f12a888ba3d076fd746fd8c7ae271f0ffe5a5791bb50ddc6b38224ba61529
   scripts/check-launch.mjs: 6716adab8713c158364e584a306d52bcad827b0b317e67253c0e2c58e50690f8
-  src/app/globals.css: 7a0fb5ddabd300cf5a5cbe3b5bd2736adca0d9d34da384ac6d05a39fb913d058
-  src/app/layout.tsx: aa177bf3dd1a5c1bdcbc36f9dd786c816216dfa39b3b42f711426eed5211c54b
+  src/app/globals.css: 204abd908d823cc3a00e37e4131a9d8afaedc9d5a3d9981b05b04917743f8415
+  src/app/layout.tsx: 5cf1a3fd2c437415fe760c35ed7e5b69145f366380cbbf1c0f8f853455b28786
   src/app/opengraph-image.tsx: 9bc7ea6ae2e98cecd2d5dedf714ecdfca38a7f16f97738c5b1050ef7a047027e
-  src/app/page.tsx: 41aa42476f9900accbf6d8084ac063ded0a448469c9a8a60407c80b736983d2f
-  src/app/pricing/page.tsx: fe6a7e73d1f28db9968576f4a498a0d4660e6c5a821d7a5dad93414945a3bc37
+  src/app/page.tsx: bab80391b5d4b18b73a96c5b35fd8dc1c80349ead68faaa21ebd4b775bcbe9ff
+  src/app/pricing/page.tsx: 05f9290cd8fa9f1cf3684110324443c867a4f79af80ecad910b23c1062cc72ea
   src/app/privacy/page.tsx: b12c9630baab7f5ac03cce2c2eee153b1f75ef90ec57a6919a27fec7b523ab73
-  src/app/theme.test.ts: dcebcc12ee7dd9e65283d6aaa61356ca3b111e71c27c99defddef88a3cc296c2
+  src/app/theme.test.ts: 47280be0c1075301440d2c703273536f3adef1a1b90263725cc8aa2cdeb62447
+  src/components/ButtonRipple.tsx: f0f1adaf5b9a441c8e9b6d541bda38d608711d04dd9dd111a24e5a38851f6da7
   src/components/ConnectsMarquee.tsx: 1f7d81f73a6599c35b2e16599377a0f96421428ff6b42d1ec6d23a5c22fd3eb7
-  src/components/GraphDemo.tsx: 54040a18e77328e6d1925af0bf21a547228f5470fcf965666be10989e3cfe197
+  src/components/GraphDemo.tsx: 6b02826f401bfb5ee38aa473f9a855679e64d9f39867ea4047340083d657aeff
   src/components/HowItWorks.tsx: ff665f57a85c7cb10faa260f16a7f5262810d27326d49ca98e10fee522b9083b
   src/components/RevealHeading.tsx: bca2d23ed01feccbe5b9fda25428aada5e9483d6a37e58eb66239c1a455be91d
   src/components/Section.tsx: 836db691aa6011d091b345449799c8038863d88eead00d697ce12b4d564c4110
-  src/components/SiteChrome.tsx: 0b84f19c014eac46497e941df941d70f7c406f3f270d953c48a8be8d5f295cf9
+  src/components/SiteChrome.tsx: 1a5e1911d24e523d5d82a9e0a9c457d1be20b842e4b0a64b03e5ecc7044395de
   src/components/SmoothScroll.tsx: 8e71c156aa4895dda62a8d21f49479a868adbfc48da0c728eeabb85e4e101fa9
   src/components/StoryMotion.tsx: 4fc4cec7d6b294805fb52aba6523f0a75c31d04e04bf5e68269ae5549127286c
   src/components/ThemeToggle.tsx: ac86902b83dc70150a889404ab8107a4e45b06106bf97a3b9e9dce17ef9472f3
   src/components/WaitlistForm.test.tsx: 0d39b27ca6b239d2c1b0ae6965330a91b8cbbd373e6753dfad790162bed5c87c
-  src/components/WaitlistForm.tsx: d2022ac9a58daa07c796fdea8bdf094b50400dcf692d889a7c8ce16dfd7c3412
+  src/components/WaitlistForm.tsx: 7ea8c1afa7521d432d3b1e9dc1e173315c33116aaec0d634eb9c710feaae5b7e
   src/components/hero/HeroCanvas.tsx: b5eeacf47c2afe5169554216d03acf1068c9598ce28deaaf504bcb8d32c25785
   src/components/hero/HeroGraphStill.tsx: 6b1bf11d4f1b93dd488418e128d1709168f77d7c7cb0052dbc2f3bf019eae501
-  src/components/hero/HeroScene.tsx: c640d1e579eb6434673d9feb49cace130c68a202a69c7ec98aaa340817d48594
+  src/components/hero/HeroScene.tsx: 8bb303a73a723e16e0c0aae84b39c9dce0119529f914571b9a32a2e0d5f794bf
   src/components/hero/HeroStatus.tsx: 34c2176ffe97cc7bc606eb4f2c92762962a1cbc05787cb7766cf326b84e0e1c5
   src/config/site.test.ts: 89c419d945200e13fef955715f5221ad4b63040d30b7f359a5c15910c2fdca09
   src/config/site.ts: 3998aee73c4f07a1bdbac48eaa64e7b99ff49c63ea2906984fcff0f54fbb86ae
@@ -368,6 +369,18 @@ nodes:
   text: 'Given the colour tokens, then accent, accent-strong and on-accent keep revision 4''s mono values
     (light #0a0a0a, #2a2a2a, #ffffff; dark #ffffff, #e0e0e0, #000000); surface is #F4F4F5 (light) and
     #18181'
+- id: criterion:VEL-WEB-landing/AC-54
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given motion is allowed and a fine pointer, when the visitor hovers (or keyboard-focuses) a button-style
+    control (every Join button, See how it works, Talk to us, the demo's buttons, the hero's Approv
+- id: criterion:VEL-WEB-landing/AC-55
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: Given motion is allowed, when the visitor presses one of those controls, then it scales in (0.96)
+    and a ripple centred on the press point spreads and fades, and is removed afterwards; disabled control
 - id: feature:VEL-WEB-landing
   kind: feature
   evidence:
@@ -440,6 +453,10 @@ nodes:
   kind: module
   evidence:
   - src/app/theme.test.ts:1
+- id: module:src/components/ButtonRipple.tsx
+  kind: module
+  evidence:
+  - src/components/ButtonRipple.tsx:1
 - id: module:src/components/ConnectsMarquee.tsx
   kind: module
   evidence:
@@ -669,6 +686,12 @@ nodes:
   evidence:
   - .ai/knowledge/requirements/VEL-WEB-landing.md
   title: Recognise Velora by its orange, black and white, without confusing orange with the trust colours
+- id: story:VEL-WEB-landing/US-23
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: 'Feel buttons respond: a fill sweeps in on hover and the button presses in with a ripple when
+    clicked'
 - id: tech:animation:motion
   kind: technology
   evidence:
@@ -1004,6 +1027,18 @@ edges:
   status: CONFIRMED
   evidence:
   - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-54
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-23
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-55
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-23
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
 - from: feature:VEL-WEB-landing
   rel: has_story
   to: story:VEL-WEB-landing/US-01
@@ -1133,6 +1168,12 @@ edges:
 - from: feature:VEL-WEB-landing
   rel: has_story
   to: story:VEL-WEB-landing/US-22
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-23
   status: CONFIRMED
   evidence:
   - .ai/knowledge/requirements/VEL-WEB-landing.md
@@ -1328,40 +1369,54 @@ edges:
   to: criterion:VEL-WEB-landing/AC-38
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:288
+  - e2e/motion.spec.ts:357
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-39
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:295
+  - e2e/motion.spec.ts:364
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-40
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:320
-  - e2e/motion.spec.ts:340
+  - e2e/motion.spec.ts:389
+  - e2e/motion.spec.ts:409
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-41
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:340
-  - e2e/motion.spec.ts:351
+  - e2e/motion.spec.ts:409
+  - e2e/motion.spec.ts:420
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-42
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:364
+  - e2e/motion.spec.ts:433
 - from: module:e2e/motion.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-43
   status: CONFIRMED
   evidence:
-  - e2e/motion.spec.ts:340
-  - e2e/motion.spec.ts:376
+  - e2e/motion.spec.ts:409
+  - e2e/motion.spec.ts:445
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-54
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:296
+  - e2e/motion.spec.ts:341
+- from: module:e2e/motion.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-55
+  status: CONFIRMED
+  evidence:
+  - e2e/motion.spec.ts:320
+  - e2e/motion.spec.ts:341
 - from: module:e2e/pricing.spec.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-26
@@ -1449,31 +1504,37 @@ edges:
   to: criterion:VEL-WEB-landing/AC-36
   status: CONFIRMED
   evidence:
-  - src/app/globals.css:101
+  - src/app/globals.css:102
 - from: module:src/app/globals.css
   rel: implements
   to: criterion:VEL-WEB-landing/AC-37
   status: CONFIRMED
   evidence:
-  - src/app/globals.css:117
+  - src/app/globals.css:118
 - from: module:src/app/globals.css
   rel: implements
   to: criterion:VEL-WEB-landing/AC-43
   status: CONFIRMED
   evidence:
-  - src/app/globals.css:165
+  - src/app/globals.css:228
+- from: module:src/app/globals.css
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-54
+  status: CONFIRMED
+  evidence:
+  - src/app/globals.css:141
 - from: module:src/app/layout.tsx
   rel: implements
   to: criterion:VEL-WEB-landing/AC-44
   status: CONFIRMED
   evidence:
-  - src/app/layout.tsx:8
+  - src/app/layout.tsx:9
 - from: module:src/app/layout.tsx
   rel: imports
   to: module:src/app/globals.css
   status: CONFIRMED
   evidence:
-  - src/app/layout.tsx:6
+  - src/app/layout.tsx:7
 - from: module:src/app/opengraph-image.tsx
   rel: implements
   to: criterion:VEL-WEB-landing/AC-18
@@ -1525,14 +1586,20 @@ edges:
   status: CONFIRMED
   evidence:
   - src/app/theme.test.ts:6
-  - src/app/theme.test.ts:48
+  - src/app/theme.test.ts:49
 - from: module:src/app/theme.test.ts
   rel: verifies
   to: criterion:VEL-WEB-landing/AC-53
   status: CONFIRMED
   evidence:
-  - src/app/theme.test.ts:64
-  - src/app/theme.test.ts:67
+  - src/app/theme.test.ts:65
+  - src/app/theme.test.ts:68
+- from: module:src/components/ButtonRipple.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-55
+  status: CONFIRMED
+  evidence:
+  - src/components/ButtonRipple.tsx:3
 - from: module:src/components/ConnectsMarquee.tsx
   rel: implements
   to: criterion:VEL-WEB-landing/AC-43

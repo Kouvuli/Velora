@@ -147,7 +147,7 @@ export function WaitlistForm({ endpoint, contactEmail, openMailto = (href) => wi
           type="submit"
           disabled={status === "sending"}
           data-brand-cta
-          className="press h-12 rounded-md bg-brand px-6 font-semibold text-on-brand hover:bg-brand/90 disabled:cursor-wait disabled:opacity-70"
+          className="fx h-12 rounded-md bg-brand px-6 font-semibold text-on-brand [--fx-fill:var(--color-brand-strong)] disabled:cursor-wait disabled:opacity-70"
         >
           {status === "sending" ? "Joining…" : "Join early access"}
         </button>
