@@ -12,7 +12,7 @@ async function fillAndSubmit(email: string) {
   if (email) await user.type(screen.getByLabelText("Work email"), email);
   await user.click(screen.getByLabelText("Data team or analyst"));
   await user.click(screen.getByLabelText(/free Readiness Report/));
-  await user.click(screen.getByRole("button", { name: "Get early access" }));
+  await user.click(screen.getByRole("button", { name: "Join early access" }));
 }
 
 describe("WaitlistForm", () => {

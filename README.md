@@ -2,8 +2,9 @@
 
 The public company website: explains the product, runs an interactive graph demo and collects early-access sign-ups.
 
-- **Requirements:** [.ai/knowledge/requirements/VEL-WEB-landing.md](.ai/knowledge/requirements/VEL-WEB-landing.md) (approved, revision 5)
-- **Strategy (source of truth):** `../Velora — Strategy & Plan.md`, §19 is the landing page brief
+- **Requirements:** [.ai/knowledge/requirements/VEL-WEB-landing.md](.ai/knowledge/requirements/VEL-WEB-landing.md) (approved, revision 7)
+- **Product source of truth:** `../Velora — Product Vision v2.md`; the site follows its §14–16 website brief and §13 packaging
+- **Pages:** `/` (vision narrative), `/pricing` (plans, comparison, FAQ), `/privacy`
 - **Stack:** Next.js 16.4 (App Router), React 19.3, Tailwind CSS 4, React Flow 12 (demo), React Three Fiber 9 + three.js
   (hero, lazy-loaded), Motion 14 (story moments), Lucide icons
 - **Motion rules:** the `web-motion-3d` skill (`.claude/skills/web-motion-3d/`): still fallback first, 3D only after load
@@ -52,15 +53,15 @@ Playwright needs Chromium once: `npx playwright install chromium`. To use a brow
 ## Layout
 
 ```text
-src/app/            page.tsx (all sections), privacy/, opengraph-image.tsx, icon.svg, layout.tsx, globals.css (design tokens)
+src/app/            page.tsx (home), pricing/, privacy/, opengraph-image.tsx, icon.svg, layout.tsx, globals.css (tokens)
 src/components/     GraphDemo (3 issues + dry run), HowItWorks (pinned scroll story), WaitlistForm, Section,
-                    SiteChrome (header/footer), ThemeToggle, ViewPreviews, StoryMotion,
-                    ConnectsMarquee, RevealHeading, SmoothScroll
+                    SiteChrome (header/footer), ThemeToggle, StoryMotion,
+                    ConnectsMarquee, RevealHeading, SmoothScroll, HowItWorks (five-stage story)
 src/components/hero HeroScene (still vs 3D), HeroCanvas (three.js, own chunk), HeroGraphStill (SVG fallback)
-src/lib/            demo.ts, waitlist.ts, heroGraph.ts, format.ts, theme.ts: pure logic, unit-tested
+src/lib/            demo.ts, waitlist.ts, heroGraph.ts, format.ts, theme.ts, pricing.ts: pure logic, unit-tested
 src/config/site.ts  brand and company details
-e2e/                Playwright: landing.spec.ts (journey, demo), motion.spec.ts (3D, interaction, motion, icons,
-                    word budget), theme.spec.ts (light/dark, toggle, no flash)
+e2e/                Playwright: landing.spec.ts (journey, demo, narrative), motion.spec.ts (3D, interaction, motion,
+                    icons, word budget), theme.spec.ts (theme, fonts), pricing.spec.ts (plans, comparison, FAQ)
 scripts/            check-launch.mjs
 .ai/                AI Skill OS: manifest, lock, knowledge (requirements live here)
 ```

@@ -7,7 +7,7 @@ export const site = {
   url: "https://velora.example",
   email: "hello@velora.example",
   operator: "Velora (company registration in progress)",
-  title: "Velora: connect messy data, see how it fits, send it clean anywhere",
+  title: "Velora: understand your data before you use it",
   description:
-    "Bring in spreadsheets, databases and APIs. Claude proposes how your records connect; you approve them on a visual graph. Then send clean, validated data to Odoo, the cloud, a warehouse or files.",
+    "Connect spreadsheets, databases and APIs. See what you have and how your records connect, fix the gaps with Claude's help, then publish validated data into your ERP, cloud or warehouse.",
 };

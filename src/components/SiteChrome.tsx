@@ -4,8 +4,8 @@ import { ThemeToggle } from "./ThemeToggle";
 
 const nav = [
   { href: "/#how-it-works", label: "How it works" },
-  { href: "/#pricing", label: "Pricing" },
-  { href: "/#security", label: "Security" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/#ai-privacy", label: "AI & privacy" },
   { href: "/#faq", label: "FAQ" },
 ];
 
@@ -33,7 +33,7 @@ export function Header() {
             href="/#early-access"
           className="inline-flex h-10 items-center press rounded-md bg-accent px-4 text-sm font-semibold text-on-accent hover:bg-accent-strong"
         >
-            Get early access
+            Join early access
           </Link>
         </div>
       </div>

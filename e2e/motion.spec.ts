@@ -25,8 +25,8 @@ test.describe("reduced motion", () => {
     await page.goto("/");
     const steps = page.locator("#how-it-works [data-reveal]");
     for (const el of await steps.all()) await expect(el).toHaveCSS("opacity", "1");
-    await expect(page.locator("[data-dashboard]")).toContainText("4,812");
-    await expect(page.locator("[data-dashboard]")).toContainText("$1.28M");
+    const summary = page.locator("[data-exec-summary]").first();
+    for (const value of ["14", "186", "2.4M", "3"]) await expect(summary).toContainText(value);
   });
 });
 
@@ -101,16 +101,16 @@ test("plays the story moments once when they scroll into view (VEL-WEB-landing A
   await page.locator("#trust").scrollIntoViewIfNeeded();
   for (const el of await trust.all()) await expect(el).toHaveCSS("opacity", "1");
 
-  const dashboard = page.locator("[data-dashboard]");
-  await dashboard.scrollIntoViewIfNeeded();
-  await expect(dashboard).toContainText("4,812");
-  await expect(dashboard).toContainText("100%");
-  await expect(dashboard).toContainText("$1.28M");
+  // The executive summary (Understand stage) counts up once it scrolls into view.
+  await page.locator("#how-it-works").scrollIntoViewIfNeeded();
+  const summary = page.locator("[data-exec-summary]").first();
+  await summary.scrollIntoViewIfNeeded();
+  for (const value of ["14", "186", "2.4M"]) await expect(summary).toContainText(value);
 });
 
 test("every listed item has a decorative icon (VEL-WEB-landing AC-26)", async ({ page }) => {
   await page.goto("/");
-  const expected = { problem: 3, step: 3, destination: 4, trust: 6, audience: 3, plan: 3, security: 5 };
+  const expected = { problem: 3, step: 5, trust: 5, impact: 4, audience: 2, privacy: 6 };
   for (const [kind, count] of Object.entries(expected)) {
     const items = page.locator(`[data-item="${kind}"]`);
     await expect(items, kind).toHaveCount(count);
@@ -123,11 +123,11 @@ test("every listed item has a decorative icon (VEL-WEB-landing AC-26)", async ({
 test("keeps the main sections within the word budget (VEL-WEB-landing AC-27)", async ({ page }) => {
   await page.goto("/");
   const words = await page.evaluate(() =>
-    ["problem", "how-it-works", "views", "destinations", "trust", "who", "pricing", "security", "about", "early-access"]
+    ["problem", "how-it-works", "trust", "lifecycle", "ai-privacy", "who", "about", "early-access"]
       .map((id) => document.getElementById(id)!.innerText.split(/\s+/).filter(Boolean).length)
       .reduce((a, b) => a + b, 0),
   );
-  expect(words).toBeLessThanOrEqual(680);
+  expect(words).toBeLessThanOrEqual(850);
 });
 
 // Revision 3: interactive hero, scroll story, micro-interactions, cursor effect.
@@ -199,43 +199,50 @@ test("the last suggested link is approved by clicking it or with the button; Rep
   await expect(scene(page)).toHaveAttribute("data-suggested", "approved");
 });
 
-test("how it works pins and steps through Connect, See, Send on desktop (VEL-WEB-landing AC-34)", async ({ page }, info) => {
+test("how it works pins and steps through the five stages on desktop (VEL-WEB-landing AC-34)", async ({ page }, info) => {
   await page.goto("/");
   const story = page.locator("#how-it-works [data-pinned]");
+  const stages = ["understand", "define", "build", "validate", "publish"];
   if (info.project.name !== "desktop") {
     await expect(story).toHaveCount(0);
-    await expect(page.locator('#how-it-works [data-item="step"]')).toHaveCount(3);
+    await expect(page.locator('#how-it-works [data-item="step"]')).toHaveCount(5);
     return;
   }
   await expect(story).toHaveAttribute("data-pinned", "true");
-  const top = async () => (await story.boundingBox())!.y;
-  await page.evaluate(async () => {
-    const el = document.querySelector("#how-it-works [data-pinned]") as HTMLElement;
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: "instant" });
-  });
-  await expect(story).toHaveAttribute("data-active-step", "connect");
+  const scrollToStage = (k: number) =>
+    page.evaluate((k) => {
+      const el = document.querySelector("#how-it-works [data-pinned]") as HTMLElement;
+      const top = el.getBoundingClientRect().top + window.scrollY;
+      const range = el.offsetHeight - window.innerHeight;
+      window.scrollTo({ top: top + (range * (k + 0.5)) / 5, behavior: "instant" });
+    }, k);
+  await scrollToStage(0);
+  await expect(story).toHaveAttribute("data-active-step", "understand");
   const pin = page.locator("#how-it-works [data-pin]");
   const pinTop = (await pin.boundingBox())!.y;
-  for (const step of ["see", "send"]) {
-    await page.mouse.wheel(0, 650);
-    await expect(story).toHaveAttribute("data-active-step", step);
+  for (let k = 1; k < stages.length; k++) {
+    await scrollToStage(k);
+    await expect(story).toHaveAttribute("data-active-step", stages[k]);
     expect(Math.abs((await pin.boundingBox())!.y - pinTop)).toBeLessThan(2);
   }
-  expect(await top()).toBeLessThan(0);
+  await expect(story.locator('[aria-current="step"]')).toContainText("Publish & serve");
 });
 
 test.describe("reduced motion: no pinning", () => {
   test.use({ reducedMotion: "reduce" });
-  test("shows all three steps without pinning (VEL-WEB-landing AC-34)", async ({ page }) => {
+  test("shows all five stages with their illustrations, without pinning (VEL-WEB-landing AC-34)", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator("#how-it-works [data-pinned]")).toHaveCount(0);
-    for (const step of await page.locator('#how-it-works [data-item="step"]').all()) await expect(step).toBeVisible();
+    const steps = page.locator('#how-it-works [data-item="step"]');
+    await expect(steps).toHaveCount(5);
+    for (const step of await steps.all()) await expect(step).toBeVisible();
+    await expect(page.locator("#how-it-works [data-exec-summary]")).toBeVisible();
   });
 });
 
 test("controls give quiet press, hover, open and success feedback (VEL-WEB-landing AC-37)", async ({ page }) => {
   await page.goto("/");
-  const cta = page.getByRole("main").getByRole("link", { name: "Get early access" });
+  const cta = page.getByRole("main").getByRole("link", { name: "Join early access" });
   expect(await cta.evaluate((el) => getComputedStyle(el).transitionProperty)).toContain("transform");
   const faq = page.locator("details").first();
   expect(await faq.evaluate((el) => getComputedStyle(el, "::details-content").transitionProperty)).toContain("block-size");
@@ -243,7 +250,7 @@ test("controls give quiet press, hover, open and success feedback (VEL-WEB-landi
   await page.route("https://forms.test/f/e2e", (route) => route.fulfill({ status: 200, body: "{}" }));
   await page.goto("/#early-access");
   await page.getByLabel("Work email").fill("sam@shop.com");
-  await page.getByRole("button", { name: "Get early access" }).click();
+  await page.getByRole("button", { name: "Join early access" }).click();
   const check = page.locator("[data-success-check] path");
   await expect(check).toBeVisible();
   expect(await check.evaluate((el) => getComputedStyle(el).animationName)).toBe("draw");
@@ -253,7 +260,7 @@ test.describe("reduced motion: instant feedback", () => {
   test.use({ reducedMotion: "reduce" });
   test("press and open feedback are instant (VEL-WEB-landing AC-37)", async ({ page }) => {
     await page.goto("/");
-    const cta = page.getByRole("main").getByRole("link", { name: "Get early access" });
+    const cta = page.getByRole("main").getByRole("link", { name: "Join early access" });
     expect(await cta.evaluate((el) => getComputedStyle(el).transitionDuration)).toBe("0s");
     const faq = page.locator("details").first();
     expect(await faq.evaluate((el) => getComputedStyle(el, "::details-content").transitionDuration)).toMatch(/^0s/);
@@ -297,9 +304,11 @@ test("scrolling is smooth on desktop pointers and native on touch (VEL-WEB-landi
   const lenis = page.locator("html.lenis");
   if (info.project.name === "desktop") {
     await expect(lenis).toHaveCount(1);
-    await page.getByRole("banner").getByRole("link", { name: "Pricing" }).click();
-    await expect.poll(async () => (await page.locator("#pricing").boundingBox())!.y, { timeout: 5_000 }).toBeLessThan(140);
-    expect((await page.locator("#pricing").boundingBox())!.y).toBeGreaterThan(40);
+    // Wait until hydration has swapped in the pinned story, which changes the page height.
+    await expect(page.locator("#how-it-works [data-pinned]")).toHaveCount(1);
+    await page.getByRole("banner").getByRole("link", { name: "FAQ" }).click();
+    await expect.poll(async () => (await page.locator("#faq").boundingBox())!.y, { timeout: 5_000 }).toBeLessThan(140);
+    expect((await page.locator("#faq").boundingBox())!.y).toBeGreaterThan(40);
     const before = await page.evaluate(() => scrollY);
     await page.keyboard.press("PageDown");
     await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(before);
@@ -313,7 +322,7 @@ test.describe("reduced motion: native scroll, still headings and marquee", () =>
   test("no smooth scroll, headings shown at once, marquee still and wrapped (VEL-WEB-landing AC-40, VEL-WEB-landing AC-41, VEL-WEB-landing AC-43)", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator("html.lenis")).toHaveCount(0);
-    const heading = page.locator("#pricing-title");
+    const heading = page.locator("#lifecycle-title");
     await expect(heading).not.toHaveAttribute("data-heading-reveal", "armed");
     expect(await heading.locator("[data-word] > span").first().evaluate((el) => getComputedStyle(el).transform)).toBe("none");
     expect(await page.locator("[data-marquee-track]").evaluate((el) => getComputedStyle(el).animationName)).toBe("none");
@@ -323,10 +332,10 @@ test.describe("reduced motion: native scroll, still headings and marquee", () =>
 
 test("section headings reveal line by line, once, and stay whole for screen readers (VEL-WEB-landing AC-41)", async ({ page }) => {
   await page.goto("/");
-  const heading = page.locator("#pricing-title");
+  const heading = page.locator("#lifecycle-title");
   await expect(heading).toHaveAttribute("data-heading-reveal", "armed");
-  await expect(heading).toHaveText("Early-access pricing");
-  await expect(page.getByRole("heading", { level: 2, name: "Early-access pricing" })).toHaveCount(1);
+  await expect(heading).toHaveText("Data changes. Your data products keep up.");
+  await expect(page.getByRole("heading", { level: 2, name: "Data changes. Your data products keep up." })).toHaveCount(1);
   const inner = heading.locator("[data-word] > span").first();
   expect(await inner.evaluate((el) => getComputedStyle(el).transform)).not.toBe("none");
   await heading.scrollIntoViewIfNeeded();
@@ -334,17 +343,16 @@ test("section headings reveal line by line, once, and stay whole for screen read
   await expect.poll(() => inner.evaluate((el) => new DOMMatrix(getComputedStyle(el).transform).m42)).toBe(0);
 });
 
-test("cards respond to hover; previews zoom inside their frame (VEL-WEB-landing AC-42)", async ({ page }, info) => {
+test("cards respond to hover (VEL-WEB-landing AC-42)", async ({ page }, info) => {
   test.skip(info.project.name !== "desktop", "Hover is a pointer interaction.");
-  await page.goto("/");
-  const card = page.locator("#views [data-hover-card]").first();
-  await card.scrollIntoViewIfNeeded();
-  await card.hover();
-  await expect.poll(() => card.locator("[data-zoom]").evaluate((el) => Number(getComputedStyle(el).scale))).toBeCloseTo(1.04, 2);
-  const plan = page.locator('[data-item="plan"]').first();
-  const before = await plan.evaluate((el) => getComputedStyle(el).backgroundColor);
-  await plan.hover();
-  await expect.poll(() => plan.evaluate((el) => getComputedStyle(el).backgroundColor)).not.toBe(before);
+  for (const [path, selector] of [["/", "#lifecycle [data-hover-card]"], ["/pricing", '[data-item="plan"]']]) {
+    await page.goto(path);
+    const card = page.locator(selector).first();
+    await card.scrollIntoViewIfNeeded();
+    const before = await card.evaluate((el) => getComputedStyle(el).backgroundColor);
+    await card.hover();
+    await expect.poll(() => card.evaluate((el) => getComputedStyle(el).backgroundColor)).not.toBe(before);
+  }
 });
 
 test("the Connects to marquee moves, pauses, and hides its duplicate row (VEL-WEB-landing AC-43)", async ({ page }) => {

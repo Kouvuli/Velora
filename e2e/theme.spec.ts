@@ -58,7 +58,10 @@ test("text uses Geist, labels Geist Mono, both self-hosted (VEL-WEB-landing AC-4
   });
   await page.goto("/");
   expect(await page.locator("h1").evaluate((el) => getComputedStyle(el).fontFamily)).toMatch(/Geist/);
-  expect(await page.locator(".font-mono").first().evaluate((el) => getComputedStyle(el).fontFamily)).toMatch(/Geist Mono/);
+  // A stable element (the pinned story replaces the static one after hydration).
+  const mono = page.locator("#demo .font-mono").first();
+  await mono.scrollIntoViewIfNeeded();
+  expect(await mono.evaluate((el) => getComputedStyle(el).fontFamily)).toMatch(/Geist Mono/);
   expect(await page.evaluate(() => document.fonts.check('16px "Geist"') || [...document.fonts].some((f) => /Geist/.test(f.family)))).toBe(true);
   expect(fontHosts).toEqual([]);
 });

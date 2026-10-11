@@ -1,5 +1,5 @@
 schema: ai-skill-os/knowledge-facts/v1
-updated_at: '2026-10-11T01:03:09+00:00'
+updated_at: '2026-10-11T13:24:26+00:00'
 facts:
 - id: animation:motion
   status: CONFIRMED
@@ -7,67 +7,73 @@ facts:
   detail: dependency 'motion'
   sha256: e9c33e3b8da238be863d931dc14410d8a382a80bce201438b66f3b83451717fd
   source: detector
+- id: cloud:aws
+  status: INFERRED
+  source: requirements
+  evidence: ../Velora — Product Vision v2.md
+  line: 868
+  detail: 'mentioned: [image1]: <data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAwAAAAH+CAYAAAArhmnOAACAAElEQVR4Xux9B3hU1fZ9gNB7B7E923uWZ0dFQBR'
+  sha256: 2f5d8268fe83f46d14a321a719a5bc0f2ef0d939bf526ac24f76f7535728ab57
 - id: cloud:azure
   status: INFERRED
   source: requirements
-  evidence: ../Velora — Strategy & Plan.md
-  line: 327
-  detail: 'mentioned: | First cloud storage provider (S3 vs. GCS vs. Azure Blob) | Before B3, from design-partner
-    demand |'
-  sha256: c8c2b9e27c968e0202c5a6d17a0e6c055ec3dc80f32046c2a37bcc73cb839ca9
-- id: cloud:gcp
-  status: UNKNOWN
-  source: requirements
-  evidence: ../Velora — Strategy & Plan.md
-  line: 79
-  detail: 'mentioned: | 6 | **Send** | **Odoo** (JSON-RPC with external IDs: re-runs update instead of
-    duplicating; batch rollback), **files**'
-  note: mentioned with a negation; confirm with the client whether it is in scope
-  sha256: c8c2b9e27c968e0202c5a6d17a0e6c055ec3dc80f32046c2a37bcc73cb839ca9
+  evidence: ../Velora — Product Vision v2.md
+  line: 722
+  detail: 'mentioned: | **First warehouse and cloud storage** | Which ones first (e.g. BigQuery or Snowflake;
+    S3, GCS or Azure Blob)? |'
+  sha256: 2f5d8268fe83f46d14a321a719a5bc0f2ef0d939bf526ac24f76f7535728ab57
 - id: database:mysql
   status: INFERRED
   source: requirements
-  evidence: ../Velora — Strategy & Plan.md
-  line: 74
-  detail: 'mentioned: | 1 | **Connect** | Excel, CSV, Google Sheets, SQL databases (Postgres, MySQL, SQL
-    Server), REST APIs. Later QuickBooks,'
-  sha256: c8c2b9e27c968e0202c5a6d17a0e6c055ec3dc80f32046c2a37bcc73cb839ca9
+  evidence: ../Velora — Product Vision v2.md
+  line: 116
+  detail: 'mentioned: | **1\. Connect** | Excel, CSV, Google Sheets, SQL databases (Postgres, MySQL, SQL
+    Server), REST APIs; QuickBooks later.'
+  sha256: 2f5d8268fe83f46d14a321a719a5bc0f2ef0d939bf526ac24f76f7535728ab57
 - id: database:postgres
   status: INFERRED
   source: requirements
-  evidence: ../Velora — Strategy & Plan.md
-  line: 74
-  detail: 'mentioned: | 1 | **Connect** | Excel, CSV, Google Sheets, SQL databases (Postgres, MySQL, SQL
-    Server), REST APIs. Later QuickBooks,'
-  sha256: c8c2b9e27c968e0202c5a6d17a0e6c055ec3dc80f32046c2a37bcc73cb839ca9
+  evidence: ../Velora — Product Vision v2.md
+  line: 116
+  detail: 'mentioned: | **1\. Connect** | Excel, CSV, Google Sheets, SQL databases (Postgres, MySQL, SQL
+    Server), REST APIs; QuickBooks later.'
+  sha256: 2f5d8268fe83f46d14a321a719a5bc0f2ef0d939bf526ac24f76f7535728ab57
 - id: framework:fastapi
   status: INFERRED
   source: requirements
-  evidence: ../Velora — Strategy & Plan.md
-  line: 266
-  detail: 'mentioned: - **Backend:** Python FastAPI; DuckDB + Polars for transformations; Splink + rapidfuzz
-    for matching; Claude with structu'
-  sha256: c8c2b9e27c968e0202c5a6d17a0e6c055ec3dc80f32046c2a37bcc73cb839ca9
+  evidence: ../Velora — Product Vision v2.md
+  line: 841
+  detail: 'mentioned: * **Backend:** Python FastAPI; DuckDB and Polars for transformations; Splink and
+    rapidfuzz for record matching; Claude w'
+  sha256: 2f5d8268fe83f46d14a321a719a5bc0f2ef0d939bf526ac24f76f7535728ab57
 - id: framework:nextjs
   status: CONFIRMED
   evidence: package.json
   detail: dependency 'next'
   sha256: e9c33e3b8da238be863d931dc14410d8a382a80bce201438b66f3b83451717fd
   source: detector
-  planned_in: ../Velora — Strategy & Plan.md:265
+  planned_in: ../Velora — Product Vision v2.md:840
 - id: framework:react
   status: CONFIRMED
   evidence: package.json
   detail: dependency 'react'
   sha256: e9c33e3b8da238be863d931dc14410d8a382a80bce201438b66f3b83451717fd
   source: detector
-  planned_in: ../Velora — Strategy & Plan.md:189
+  planned_in: ../Velora — Product Vision v2.md:840
 - id: graphics:three
   status: CONFIRMED
   evidence: package.json
   detail: dependency 'three'
   sha256: e9c33e3b8da238be863d931dc14410d8a382a80bce201438b66f3b83451717fd
   source: detector
+- id: infra:kubernetes
+  status: UNKNOWN
+  source: requirements
+  evidence: ../Velora — Product Vision v2.md
+  line: 868
+  detail: 'mentioned: [image1]: <data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAwAAAAH+CAYAAAArhmnOAACAAElEQVR4Xux9B3hU1fZ9gNB7B7E923uWZ0dFQBR'
+  note: mentioned with a negation; confirm with the client whether it is in scope
+  sha256: 2f5d8268fe83f46d14a321a719a5bc0f2ef0d939bf526ac24f76f7535728ab57
 - id: language:javascript
   status: CONFIRMED
   evidence: package.json
@@ -76,17 +82,17 @@ facts:
 - id: language:python
   status: INFERRED
   source: requirements
-  evidence: ../Velora — Strategy & Plan.md
-  line: 62
-  detail: 'mentioned: | **Data teams / analysts** | Make sense of inherited data; join sources; deliver
-    a clean dataset to the warehouse or a '
-  sha256: c8c2b9e27c968e0202c5a6d17a0e6c055ec3dc80f32046c2a37bcc73cb839ca9
+  evidence: ../Velora — Product Vision v2.md
+  line: 841
+  detail: 'mentioned: * **Backend:** Python FastAPI; DuckDB and Polars for transformations; Splink and
+    rapidfuzz for record matching; Claude w'
+  sha256: 2f5d8268fe83f46d14a321a719a5bc0f2ef0d939bf526ac24f76f7535728ab57
 - id: language:typescript
   status: CONFIRMED
   evidence: next-env.d.ts
   sha256: 1862ac4bbbc5192d4bf562161df66ea547ed3e67173100656ab606ae9797db2b
   source: detector
-  planned_in: ../Velora — Strategy & Plan.md:265
+  planned_in: ../Velora — Product Vision v2.md:840
 - id: pm:npm
   status: CONFIRMED
   evidence: package-lock.json
@@ -95,11 +101,11 @@ facts:
 - id: service:stripe
   status: INFERRED
   source: requirements
-  evidence: ../Velora — Strategy & Plan.md
-  line: 221
-  detail: 'mentioned: | **B4. Warehouse → v1 launch** | Mar – Apr 2027 | Send to **one cloud warehouse**;
-    billing (Stripe), login (Clerk); pub'
-  sha256: c8c2b9e27c968e0202c5a6d17a0e6c055ec3dc80f32046c2a37bcc73cb839ca9
+  evidence: ../Velora — Product Vision v2.md
+  line: 843
+  detail: 'mentioned: * **Later:** Celery, then Dagster or Temporal for scheduled syncs; Clerk for login;
+    Stripe for billing.'
+  sha256: 2f5d8268fe83f46d14a321a719a5bc0f2ef0d939bf526ac24f76f7535728ab57
 - id: styling:tailwind
   status: CONFIRMED
   evidence: package.json
@@ -118,15 +124,7 @@ facts:
   detail: dependency 'vitest'
   sha256: e9c33e3b8da238be863d931dc14410d8a382a80bce201438b66f3b83451717fd
   source: detector
-- id: tool:docker
-  status: INFERRED
-  source: requirements
-  evidence: ../Velora — Strategy & Plan.md
-  line: 130
-  detail: 'mentioned: | **Local engine** | Customer''s machine or server (Docker) | Metadata only; full
-    rows never leave | Designed now; **ship'
-  sha256: c8c2b9e27c968e0202c5a6d17a0e6c055ec3dc80f32046c2a37bcc73cb839ca9
 requirements:
-- path: ../Velora — Strategy & Plan.md
-  sha256: c8c2b9e27c968e0202c5a6d17a0e6c055ec3dc80f32046c2a37bcc73cb839ca9
+- path: ../Velora — Product Vision v2.md
+  sha256: 2f5d8268fe83f46d14a321a719a5bc0f2ef0d939bf526ac24f76f7535728ab57
   readable: true

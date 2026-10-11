@@ -2,12 +2,12 @@
 id: VEL-WEB-landing
 kind: feature
 title: "Landing page"
-summary: "Public company website that explains Velora with a minimal 3D hero and an interactive graph demo, and collects early-access sign-ups"
+summary: "Public company website that tells the Velora product vision (understand, define, build, validate, publish) with a 3D hero, an interactive demo and a separate pricing page, and collects early-access sign-ups"
 owner: landing
 lifecycle: approved
-revision: 6
-approved_revision: 6
-approval_evidence: "user chose 'only repoint references' in chat, 2026-10-11 (revision 6)"
+revision: 7
+approved_revision: 7
+approval_evidence: "user approved revision 7 in chat, 2026-10-11"
 updated: "2026-10-11"
 related: []
 status: CONFIRMED
@@ -20,7 +20,8 @@ Velora needs a live company website on its own domain, with a same-domain contac
 Claude Startups program and to start collecting early users. The page must explain the product in seconds and turn
 visitors (small businesses, data teams, consultants) into early-access sign-ups.
 Source of truth for content: `../Velora — Product Vision v2.md` (since 2026-10-11; the retired "Strategy & Plan" was the
-source up to revision 5).
+source up to revision 5). Since revision 7 the page follows v2: §1 vision and first wedge, §5 executive understanding,
+§6 trust model, §7 AI, §10 living data products, §11 data processing, §13 packaging, §14–16 website brief.
 
 ## Scope
 In: one-page site (`/`), privacy page (`/privacy`), interactive graph demo, early-access form, Open Graph image,
@@ -29,7 +30,9 @@ story-moment animations in three sections, Lucide icons, and shorter copy. Revis
 and dark themes with a toggle, an interactive hero, a scroll-driven how-it-works, a richer demo, micro-interactions and
 cursor effects. Revision 4 restyles it after scale.com's motion patterns (inspiration only, no code or assets copied):
 a pure black-and-white palette, dark by default, Geist type, a full-bleed hero, smooth scrolling, line-by-line heading
-reveals, hover zoom and a "Connects to" marquee.
+reveals, hover zoom and a "Connects to" marquee. Revision 7 aligns the content with Product Vision v2 (hero, narrative
+order, trust model, lifecycle, AI & privacy) and moves pricing to a separate `/pricing` page with plan cards, a feature
+comparison table and a FAQ, in the pattern of claude.com/pricing (studied for layout only).
 
 ## Assumptions
 - ASSUMPTION: English only.
@@ -56,6 +59,8 @@ reveals, hover zoom and a "Connects to" marquee.
 ### US-16 — See the hero graph react to the cursor
 ### US-17 — Feel a calm, premium page: full-bleed hero, smooth scrolling, headings that reveal, cards that respond
 ### US-18 — See at a glance which systems Velora connects
+### US-19 — Compare plans on a dedicated pricing page
+### US-20 — Follow the product story from the vision: understand, define, build, validate, publish, keep current
 
 ## Decisions and Contracts
 Decided with the user in chat, 2026-10-10:
@@ -107,6 +112,22 @@ infinite marquee; no code, copy or assets are taken from it):
 - Effects: **smooth inertial scroll**, **line-by-line heading reveals**, **hover zoom on cards and visuals**, and an
   **infinite "Connects to" marquee of sources and destinations** with generic icons (no customer logos: there are none).
 
+Added for revision 7, decided with the user in chat, 2026-10-11 (source: Product Vision v2):
+- Hero: **v2 headline** "Understand your data before you use it." with a **wedge subhead** (spreadsheets, databases and
+  APIs → see how records connect → fix gaps with Claude → publish into an ERP, cloud or warehouse). CTAs follow v2:
+  "Join early access" and "See how it works".
+- Structure: **follow v2 §16's narrative**, shown through the existing demo, marquee, 3D, pinned scroll story and mono
+  look. The five build stages (Understand, Document & define, Build, Validate, Publish & serve) become the pinned story;
+  then the demo, trust model, continuous lifecycle and AI & privacy. Kept from the current page: the "Connects to"
+  marquee, the interactive demo, Who it's for + About, the FAQ and the early-access form. Removed: views, destinations
+  (now inside "Publish & serve" and the marquee), the competitor comparison and the home pricing section.
+- Pricing: **a separate `/pricing` page** (pattern of claude.com/pricing): v2 §13's four tiers as cards with **"Free" /
+  "Early access" / "Early access" / "Contact us"** price lines and **no dollar amounts**, a **"Compare features across
+  plans"** table of v2's twelve capabilities, and a **pricing FAQ**.
+- The landing page still shows **all four destinations** (Odoo, files, cloud storage, cloud warehouse) with their build
+  order (first release / coming soon).
+- Project knowledge (glossary, decision records, product brief in the repo): **not added for now**, by the user's choice.
+
 Form contract: `POST <endpoint>`, headers `Content-Type: application/json`, `Accept: application/json`, body
 `{ "email": string, "segment": "business" | "data-team" | "consultant", "readinessReport": boolean, "source": "landing" }`.
 
@@ -120,7 +141,7 @@ usable and the hero scene is visible; the server HTML always contains the still 
 Decided in planning.
 
 ## Acceptance Criteria
-- AC-01 (US-01): Given a visitor opens `/` at 1440×900 or 375×812, when the page loads, then the H1 "Connect messy data. See how it fits. Send it clean anywhere.", the subhead and a "Get early access" button are visible without scrolling.
+- AC-01 (US-01): Given a visitor opens `/` at 1440×900 or 375×812, when the page loads, then the H1 "Understand your data before you use it.", the subhead and a "Join early access" button are visible without scrolling. (Revision 7: v2 headline.)
 - AC-02 (US-02): Given the endpoint is set, when a visitor submits a valid email, a segment and the Readiness Report choice, then exactly one request matching the form contract is sent, the button shows "Joining…" and is disabled while pending, and on a 2xx response "You're on the list" is shown.
 - AC-03 (US-02): Given an invalid or empty email, when the visitor submits, then no request is sent and an inline error linked to the field (`aria-describedby`) is shown.
 - AC-04 (US-02): Given the endpoint returns a non-2xx status or the network fails, when the visitor submits, then an error message with a mailto link to the site email is shown and the entered values are kept.
@@ -130,9 +151,9 @@ Decided in planning.
 - AC-08 (US-03): Given the initial demo on a pointer device, when the visitor drags from Orders `cust_no` to Customers `customer_id`, then the same resolved state as AC-07 appears; when they connect any other pair, then a hint to try `cust_no → customer_id` is shown and the state stays unresolved.
 - AC-09 (US-03): Given the demo is resolved, when the visitor presses "Reset demo", then the initial state returns.
 - AC-10 (US-03): Given a keyboard-only visitor, when they Tab to the demo, then "Accept suggestion" and "Reset demo" are reachable and operable, and each state change is announced through a polite live region.
-- AC-11 (US-04): Given `/`, then these sections exist in order with these ids: `connects`, `demo`, `problem`, `how-it-works`, `views`, `destinations`, `trust`, `who`, `compare`, `pricing`, `security`, `about`, `faq`, `early-access`; the header links to How it works, Pricing, Security, FAQ and the early-access form.
-- AC-12 (US-04): Given the pricing section, then it shows Free Readiness Report, Project pass from $299 and Subscription from $99/month, labelled as early-access pricing.
-- AC-13 (US-04): Given the security section, then it states encryption in transit and at rest, deletion on request, metadata-only AI mode and "local engine on request", and the site never claims that data never leaves the visitor's environment.
+- AC-11 (US-04, US-20): Given `/`, then these sections exist in order with these ids: `connects`, `problem`, `how-it-works`, `demo`, `trust`, `lifecycle`, `ai-privacy`, `who`, `about`, `faq`, `early-access`; the header links to How it works, Pricing (`/pricing`), AI & privacy, FAQ and the early-access form. (Revision 7.)
+- AC-12 (US-04, US-19): Given `/`, then it has no pricing section and no dollar amounts; pricing lives on `/pricing`, linked from the header and the footer. (Revision 7: was early-access prices on the home page.)
+- AC-13 (US-04): Given the `ai-privacy` section, then it states that Claude assists by default and everything works with AI switched off, metadata-only AI mode, "local engine on request", encryption in transit and at rest, deletion on request, and that consequential AI changes need the user's review; the site never claims that data never leaves the visitor's environment. (Revision 7: was the security section.)
 - AC-14 (US-04): Given the FAQ, then it includes "Why not just use ChatGPT?" and "Does my data leave my environment?" as expandable items that work without JavaScript.
 - AC-15 (US-05): Given `/privacy`, then it lists what the form collects, the processor (Formspree), retention, how to request deletion (site email), and states there is no analytics or tracking cookies; it is linked from the footer and from the form.
 - AC-16 (US-06): Given the source, then the brand name, domain, contact email and company details are defined only in `src/config/site.ts`, and no component hard-codes them.
@@ -144,26 +165,31 @@ Decided in planning.
 - AC-22 (US-08): Given `prefers-reduced-motion: reduce` or a browser without WebGL, then the still image stays, no canvas mounts and no Replay button is shown.
 - AC-23 (US-08): Given a phone-sized viewport (under 768 px) or a coarse pointer, then the scene uses the light tier: at most 24 points, device pixel ratio at most 1.5, and no pointer response.
 - AC-24 (US-08): Given the 3D scene is running, when it scrolls out of view, then it stops rendering, and it resumes when visible again.
-- AC-25 (US-09): Given motion is allowed, when `how-it-works`, `trust` and the dashboard preview in `views` first scroll into view, then the steps appear in sequence, the trust states light up in order, and the dashboard numbers count up to their final values, each once; with reduced motion, all of them show their final state immediately.
-- AC-26 (US-10): Given `/`, then each problem item, how-it-works step, destination, trust state, audience, pricing plan and security point shows a Lucide icon that is hidden from screen readers (`aria-hidden`); systems use generic icons, never brand logos.
-- AC-27 (US-10): Given `/`, then the visible words in `problem`, `how-it-works`, `views`, `destinations`, `trust`, `who`, `pricing`, `security`, `about` and `early-access` total at most 680 (revision 1 baseline: 975, measured 2026-10-10).
+- AC-25 (US-09): Given motion is allowed, when the trust states and the executive-summary numbers in `how-it-works` first scroll into view, then the trust states light up in order and the numbers count up to their final values, each once; on phones the how-it-works steps also appear in sequence; with reduced motion, all of them show their final state immediately. (Revision 7: the dashboard preview is gone.)
+- AC-26 (US-10): Given `/` and `/pricing`, then each problem item, how-it-works step, trust state, lifecycle dimension, audience, AI & privacy point and pricing plan shows a Lucide icon that is hidden from screen readers (`aria-hidden`); systems use generic icons, never brand logos. (Revision 7.)
+- AC-27 (US-10): Given `/`, then the visible words in `problem`, `how-it-works`, `trust`, `lifecycle`, `ai-privacy`, `who`, `about` and `early-access` total at most 850. (Revision 7: new sections; was 680 over the old ones.)
 - AC-28 (US-11): Given a first-time visitor (no stored choice), whatever their system setting, when `/` or `/privacy` first paints, then the dark theme is applied before any content is shown (no flash), also without JavaScript, and form controls and scrollbars follow it (`color-scheme`). (Revision 4: was "follows the system".)
 - AC-29 (US-11): Given the header theme toggle (a real button whose label names the theme it switches to), when the visitor presses it, then the theme switches, the choice is remembered on that device across reloads, and the 3D hero and demo pick up the new colours.
 - AC-30 (US-11): Given the colour tokens (pure mono since revision 4), then every text/background pair used on the page meets WCAG AA (4.5:1 text, 3:1 large text and UI) in both themes, and text selection, focus rings, scrollbars and link underlines are themed from the tokens.
 - AC-31 (US-12): Given the 3D hero on a pointer or touch device, when the visitor drags across it, then the graph rotates with the drag (limited range) and eases back when released; page scrolling on phones still works with vertical swipes.
 - AC-32 (US-12): Given the settled 3D hero, when the visitor hovers or taps a hub, then a label shows its name and record count (e.g. "Customers, 1,204 records"); when they hover or tap a record point, then a sample shows (e.g. "ACME, Inc. → matched to Acme Inc.").
 - AC-33 (US-12): Given the settled 3D hero, then one hub link stays amber as "Suggested"; when the visitor clicks it, or presses the "Approve suggested link" button below the scene, then it turns green and the caption confirms it; Replay resets it.
-- AC-34 (US-13): Given a desktop visitor (1024 px or wider) with motion allowed, when they scroll through `how-it-works`, then the section stays pinned while Connect, See and Send become active in order, each with its own small illustration, and releases after Send; on smaller screens or with reduced motion, all three steps show at once without pinning.
+- AC-34 (US-13, US-20): Given a desktop visitor (1024 px or wider) with motion allowed, when they scroll through `how-it-works`, then the section stays pinned while Understand, Document & define, Build, Validate and Publish & serve become active in order, each with its own illustration (executive summary; Profile → Dictionary → Contract; a fix saved as a rule; validation results; the four destinations), and releases after the last; on smaller screens or with reduced motion, all five steps show stacked with their illustrations, without pinning. (Revision 7: five v2 stages instead of Connect, See, Send.)
 - AC-35 (US-14): Given the demo, then it lists three issues (312 orders without a customer, a duplicate customer "Acme Inc." / "ACME, Inc.", dates in mixed formats) with a progress count; each is fixed by its own action (accept or draw the link, Merge, Convert dates), and the count updates.
 - AC-36 (US-14): Given all three issues are fixed, when the visitor presses "Run dry run", then a short report animates in (records checked, issues fixed, 0 violations) and only then do the Send destinations become enabled; "Reset demo" restores every issue. (Supersedes the destination part of AC-07.)
 - AC-37 (US-15): Given motion is allowed, then buttons give press feedback, links and cards give hover feedback, FAQ answers open and close with a short height transition, and a successful sign-up shows an animated check; with reduced motion all of these change instantly.
 - AC-38 (US-16): Given a desktop visitor with a fine pointer and motion allowed, when the cursor moves over the settled hero graph, then nearby points ease slightly away from it and return when it leaves; there is no effect on touch devices or with reduced motion.
-- AC-39 (US-17): Given `/` at 640 px or wider, then the hero spans the full width and at least the viewport height below the header, with the 3D graph (or its still image) behind a centred H1, the subhead, both CTAs and a "Scroll to explore" link to `#demo`; text stays legible over the scene (a scrim behind the text block), and drag, hover and approve still work on desktop outside the text and buttons. Under 640 px, the text, subhead and CTAs come first and the graph sits full-width in its own block below them with its controls, then "Scroll to explore"; nothing overlaps. (Revision 5.)
+- AC-39 (US-17): Given `/` at 640 px or wider, then the hero spans the full width and at least the viewport height below the header, with the 3D graph (or its still image) behind a centred H1, the subhead, the "Join early access" and "See how it works" CTAs and a "Scroll to explore" link to `#connects`; text stays legible over the scene (a scrim behind the text block), and drag, hover and approve still work on desktop outside the text and buttons. Under 640 px, the text, subhead and CTAs come first and the graph sits full-width in its own block below them with its controls, then "Scroll to explore"; nothing overlaps. (Revisions 5 and 7.)
 - AC-40 (US-17): Given a desktop visitor with a fine pointer and motion allowed, then scrolling (wheel and anchor links) is smooth and inertial, anchor links land below the sticky header, and keyboard scrolling still works; on touch devices or with reduced motion, native scrolling is used.
 - AC-41 (US-17): Given motion is allowed, when a section heading first scrolls into view, then its lines slide up out of a mask one after another, once; headings already on screen, and all headings with reduced motion, show immediately; the heading text stays whole for screen readers and search.
-- AC-42 (US-17): Given motion is allowed, when the visitor hovers a view preview, pricing plan or destination, then its inner visual or surface responds (preview zooms slightly inside its frame, surfaces lighten) within about 300 ms, easing out; with reduced motion there is no zoom.
+- AC-42 (US-17): Given motion is allowed, when the visitor hovers a pricing plan or a lifecycle card, then its surface responds (lightens, border strengthens) within about 300 ms, easing out; with reduced motion there is no movement. (Revision 7: the view previews are gone.)
 - AC-43 (US-18): Given `/`, then a "Connects to" strip after the hero scrolls an endless row of sources (Excel, CSV, Google Sheets, Postgres, MySQL, SQL Server, REST APIs) and destinations (Odoo, CSV/XLSX/Parquet, cloud storage, cloud warehouse) with generic icons; it pauses on hover or keyboard focus, duplicate items are hidden from screen readers, and with reduced motion it shows as a still, wrapped list.
 - AC-44 (US-17): Given any page, then text uses Geist and data labels use Geist Mono, self-hosted (no requests to font services from the visitor's browser).
+- AC-45 (US-19): Given `/pricing`, then it shows four plan cards in order — Free / Local ("Free"), Pro ("Early access"), Team ("Early access"), Enterprise ("Contact us") — each with a one-line tagline, a CTA ("Join early access" → `/#early-access`; Enterprise "Talk to us" → mailto the site email) and what it includes ("Everything in <previous plan>, plus:" from Pro on), plus a note that exact pricing and limits follow real usage; no dollar amounts appear anywhere on the site.
+- AC-46 (US-19): Given `/pricing`, then a "Compare features across plans" table lists v2 §13's twelve capabilities grouped as Data products, Understanding, Building, Trust & control, and Collaboration & governance, with exactly v2's values per plan (✓ shown as "Included" to screen readers, — as "Not included"); it uses table headers with scope, and on phones only the table container scrolls sideways (no page scroll).
+- AC-47 (US-19): Given `/pricing`, then a FAQ includes "Why are there no prices yet?", "What is a managed data product?", "What is the free Readiness Report?" and "Can I run Velora on my own infrastructure?" as expandable items that work without JavaScript; answers follow v2 (§5, §11, §12).
+- AC-48 (US-20): Given `/`, then the `lifecycle` section shows "Changes → Impact → Rebuild → Revalidate → Republish" and the four impact dimensions (knowledge, contract, pipeline, output), and says the first form is scheduled sync with drift alerts; the `trust` section shows v2's states Observed, Inferred, Confirmed, Defined and Validated with v2's customer_id examples.
+- AC-49 (US-19): Given `/pricing`, then its title is "Pricing" with the site name from config, it shares the header, footer, theme and fonts of `/`, and it has no horizontal page scroll at 320 px.
 
 ## Non-functional
 - No horizontal scroll at 320 px width; body text contrast ≥ 4.5:1; visible focus on every interactive element.
@@ -194,3 +220,4 @@ None blocking.
 - Revision 4: Pure mono palette, dark by default (AC-28 changed), Geist type, full-bleed hero, smooth scroll, heading reveals, hover zoom and a "Connects to" marquee (US-17, US-18, AC-39..AC-44; AC-11 gains `connects`), from the user's answers on 2026-10-11 after studying scale.com; approved by the user in chat, 2026-10-11.
 - Revision 5: AC-39 on phones (under 640 px): text first, graph in its own block below, after the phone screenshot showed text overlapping the graph and controls; chosen by the user in chat, 2026-10-11.
 - Revision 6: Reference-only change: the source of truth moves from the retired "Velora — Strategy & Plan.md" to "Velora — Product Vision v2.md"; no criteria changed. Approved by the user's "only repoint references" choice in chat, 2026-10-11.
+- Revision 7: Content follows Product Vision v2 (AC-01, AC-11, AC-12, AC-13, AC-25, AC-26, AC-27, AC-34, AC-39, AC-42 changed; US-19, US-20, AC-45..AC-49 added): v2 hero and narrative, five-stage scroll story, trust model and lifecycle sections, AI & privacy, and a separate /pricing page (cards, comparison table, FAQ; no dollar amounts). From the user's answers on 2026-10-11; approved by the user in chat, 2026-10-11.

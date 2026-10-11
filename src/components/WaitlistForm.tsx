@@ -148,7 +148,7 @@ export function WaitlistForm({ endpoint, contactEmail, openMailto = (href) => wi
           disabled={status === "sending"}
           className="press h-12 rounded-md bg-accent px-6 font-semibold text-on-accent hover:bg-accent-strong disabled:cursor-wait disabled:opacity-70"
         >
-          {status === "sending" ? "Joining…" : "Get early access"}
+          {status === "sending" ? "Joining…" : "Join early access"}
         </button>
         <p className="text-sm text-muted">
           See our{" "}
