@@ -130,7 +130,8 @@ export default function Home() {
             <div className="mt-9 flex flex-wrap justify-center gap-3 [&>a]:pointer-events-auto">
               <Link
                 href="#early-access"
-                className="press inline-flex h-12 items-center rounded-full bg-accent px-7 font-semibold text-on-accent hover:bg-accent-strong"
+                data-brand-cta
+                className="press inline-flex h-12 items-center rounded-full bg-brand px-7 font-semibold text-on-brand hover:bg-brand/90"
               >
                 Join early access
               </Link>
@@ -177,7 +178,6 @@ export default function Home() {
           id="how-it-works"
           title="From raw data to a trusted data product"
           intro="Understanding is the entry point. Validated delivery is the outcome."
-          tone="surface"
         >
           <HowItWorks />
         </Section>
@@ -194,7 +194,6 @@ export default function Home() {
           id="trust"
           title="Inference never silently becomes truth"
           intro="Every fact moves through visible states, and nothing is labelled trusted without validation evidence."
-          tone="surface"
         >
           <Reveal
             from={{ opacity: 0.25, scale: 0.97 }}
@@ -240,7 +239,6 @@ export default function Home() {
           id="ai-privacy"
           title="AI assists. You approve. Boundaries stay explicit."
           intro="We state exactly what leaves your environment in each mode."
-          tone="surface"
         >
           <ul className="grid gap-x-10 gap-y-6 md:grid-cols-2">
             {safeguards.map(([icon, title, text]) => (
@@ -255,7 +253,7 @@ export default function Home() {
           </ul>
           <p className="mt-8">
             Read our{" "}
-            <Link href="/privacy" className="font-medium text-accent underline decoration-accent/40 transition-colors hover:decoration-accent">
+            <Link href="/privacy" className="font-medium text-accent underline decoration-brand/60 transition-colors hover:decoration-brand">
               privacy policy
             </Link>
             .
@@ -266,7 +264,7 @@ export default function Home() {
           <ul className="grid gap-10 md:grid-cols-2">
             {audiences.map(([icon, stage, title, text]) => (
               <li key={title} data-item="audience">
-                <p className="mb-3 font-mono text-xs tracking-wide text-muted uppercase">{stage}</p>
+                <p className="mb-3 font-mono text-xs tracking-wide text-brand-ink uppercase">{stage}</p>
                 <h3 className="flex items-center gap-3 text-xl font-semibold">
                   <Icon icon={icon} className="size-6 text-accent" />
                   {title}
@@ -281,11 +279,11 @@ export default function Home() {
           </p>
         </Section>
 
-        <Section id="about" title="Who's building this" tone="surface">
+        <Section id="about" title="Who's building this">
           <p className="max-w-2xl text-lg text-muted">
             Three engineers (data, AI and software) who have mapped messy data into ERP imports by hand, building the tool we
             wanted. Questions? Email{" "}
-            <a href={`mailto:${site.email}`} className="font-medium text-accent underline decoration-accent/40 transition-colors hover:decoration-accent">
+            <a href={`mailto:${site.email}`} className="font-medium text-accent underline decoration-brand/60 transition-colors hover:decoration-brand">
               {site.email}
             </a>
             .
@@ -298,7 +296,7 @@ export default function Home() {
               <details key={f.q} className="group py-4">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold">
                   {f.q}
-                  <span aria-hidden="true" className="text-xl text-muted transition-transform group-open:rotate-45">
+                  <span aria-hidden="true" className="text-xl text-brand transition-transform group-open:rotate-45">
                     +
                   </span>
                 </summary>
@@ -308,7 +306,7 @@ export default function Home() {
           </div>
         </Section>
 
-        <Section id="early-access" title="Join early access" intro="We onboard early users in small groups." tone="surface">
+        <Section id="early-access" title="Join early access" intro="We onboard early users in small groups.">
           <div className="max-w-2xl">
             <WaitlistForm endpoint={process.env.NEXT_PUBLIC_WAITLIST_ENDPOINT} contactEmail={site.email} />
           </div>

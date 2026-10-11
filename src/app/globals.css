@@ -1,14 +1,18 @@
 @import "tailwindcss";
 
 /*
- * Pure mono palette, light and dark (VEL-WEB-landing AC-28..AC-30, revision 4). Each token is defined once with
- * light-dark(); the page is dark unless the visitor chose light with the header toggle (`data-theme` on <html>, set
- * before first paint by the inline script in layout.tsx). Black and white carry the brand; amber and green are reserved
- * for the trust states.
+ * Orange, black and white (VEL-WEB-landing AC-28..AC-30, revision 4; AC-53, revision 9):
+ * - brand: orange with black text (#FE7F2D in dark; a little dimmer and darker #E77123 in light) on the hero's,
+ *   pricing's and form's "Join early access" buttons, the wordmark dot, the active story step, link underlines and the FAQ "+";
+ * - brand-ink: orange for small text and focus rings (deeper #C2500A in light to pass AA on white);
+ * - accent: black (light) / white (dark) for every other control (including the header's Join button), links and icons.
+ * Orange never goes on the graphs, where amber means "suggested". Cards are neutral grey (light) and graphite (dark) on
+ * untinted sections, so they stand out. Each token is defined once with light-dark(); the page is dark unless the visitor chose
+ * light with the header toggle (`data-theme` on <html>, set before first paint by the inline script in layout.tsx).
  */
 @theme {
   --color-paper: light-dark(#ffffff, #000000);
-  --color-surface: light-dark(#f5f5f5, #111111);
+  --color-surface: light-dark(#f4f4f5, #18181b);
   --color-ink: light-dark(#0a0a0a, #ffffff);
   --color-muted: light-dark(#5c5c5c, #a3a3a3);
   --color-line: light-dark(#e5e5e5, #262626);
@@ -22,6 +26,9 @@
   --color-approved: light-dark(#1c7347, #4cc38a);
   --color-approved-soft: light-dark(#e3f2e9, #0f2a1c);
   --color-danger: light-dark(#b42318, #f97066);
+  --color-brand: light-dark(#e77123, #fe7f2d);
+  --color-on-brand: light-dark(#000000, #000000);
+  --color-brand-ink: light-dark(#c2500a, #fe7f2d);
 
   --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
@@ -68,7 +75,7 @@ a {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-brand-ink);
   outline-offset: 2px;
 }
 

@@ -17,7 +17,7 @@ export default function Privacy() {
         <h1 className="text-4xl font-semibold tracking-tight">Privacy policy</h1>
         <p className="text-muted">
           This policy covers this website. It is operated by {site.operator}. Contact:{" "}
-          <a href={`mailto:${site.email}`} className="underline">
+          <a href={`mailto:${site.email}`} className="underline decoration-brand/60">
             {site.email}
           </a>
           .
@@ -47,7 +47,7 @@ export default function Privacy() {
         <h2>Your choices</h2>
         <p>
           Email{" "}
-          <a href={`mailto:${site.email}`} className="underline">
+          <a href={`mailto:${site.email}`} className="underline decoration-brand/60">
             {site.email}
           </a>{" "}
           to see, correct or delete what we hold about you. We&apos;ll confirm within 30 days.
@@ -60,7 +60,7 @@ export default function Privacy() {
         </p>
 
         <p className="mt-12">
-          <Link href="/" className="font-medium text-accent underline">
+          <Link href="/" className="font-medium text-accent underline decoration-brand/60">
             Back to the home page
           </Link>
         </p>

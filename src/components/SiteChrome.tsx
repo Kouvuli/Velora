@@ -13,8 +13,10 @@ export function Header() {
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-paper/95 backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="/" className="text-lg font-bold tracking-tight">
+        <Link href="/" className="inline-flex items-center gap-1 text-lg font-bold tracking-tight">
           {site.name}
+          {/* Brand mark (VEL-WEB-landing AC-53): the only place orange appears on the page. */}
+          <span aria-hidden="true" data-brand-dot className="size-1.5 translate-y-1 rounded-full bg-brand" />
         </Link>
         <nav aria-label="Main" className="hidden md:block">
           <ul className="flex gap-6 text-sm font-medium text-muted">
@@ -31,8 +33,8 @@ export function Header() {
           <ThemeToggle />
           <Link
             href="/#early-access"
-          className="inline-flex h-10 items-center press rounded-md bg-accent px-4 text-sm font-semibold text-on-accent hover:bg-accent-strong"
-        >
+            className="inline-flex h-10 items-center press rounded-md bg-accent px-4 text-sm font-semibold text-on-accent hover:bg-accent-strong"
+          >
             Join early access
           </Link>
         </div>
@@ -48,7 +50,7 @@ export function Footer() {
         <div>
           <p className="font-semibold text-ink">{site.name}</p>
           <p className="mt-1">{site.operator}</p>
-          <a href={`mailto:${site.email}`} className="mt-1 inline-block underline">
+          <a href={`mailto:${site.email}`} className="mt-1 inline-block underline decoration-brand/60">
             {site.email}
           </a>
         </div>

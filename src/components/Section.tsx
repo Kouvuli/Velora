@@ -5,15 +5,15 @@ type Props = {
   title: string;
   intro?: React.ReactNode;
   children: React.ReactNode;
-  tone?: "paper" | "surface";
 };
 
-export function Section({ id, title, intro, children, tone = "paper" }: Props) {
+// Sections are never tinted (VEL-WEB-landing AC-53): cards carry the palette colour on the plain page, so they stand out.
+export function Section({ id, title, intro, children }: Props) {
   return (
     <section
       id={id}
       aria-labelledby={`${id}-title`}
-      className={`border-t border-line py-16 sm:py-24 ${tone === "surface" ? "bg-surface" : ""}`}
+      className="border-t border-line py-16 sm:py-24"
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <RevealHeading id={`${id}-title`} text={title} className="max-w-3xl text-4xl font-semibold tracking-[-0.03em] sm:text-5xl" />

@@ -2,14 +2,14 @@
 
 The public company website: explains the product, runs an interactive graph demo and collects early-access sign-ups.
 
-- **Requirements:** [.ai/knowledge/requirements/VEL-WEB-landing.md](.ai/knowledge/requirements/VEL-WEB-landing.md) (approved, revision 8)
+- **Requirements:** [.ai/knowledge/requirements/VEL-WEB-landing.md](.ai/knowledge/requirements/VEL-WEB-landing.md) (approved, revision 9)
 - **Product source of truth:** `../Velora — Product Vision v2.md`; the site follows its §14–16 website brief and §13 packaging
 - **Pages:** `/` (vision narrative), `/pricing` (plans, comparison, FAQ), `/privacy`
 - **Stack:** Next.js 16.4 (App Router), React 19.3, Tailwind CSS 4, React Flow 12 (demo), React Three Fiber 9 + three.js
   (hero, lazy-loaded), Motion 14 (story moments), Lucide icons
 - **Motion rules:** the `web-motion-3d` skill (`.claude/skills/web-motion-3d/`): still fallback first, 3D only after load
   and when visible, light tier on phones, nothing animated for reduced-motion visitors
-- **Theme:** pure mono (black and white), dark by default (`src/app/globals.css`, one `light-dark()` token per colour;
+- **Theme:** pure mono (black and white) in orange, black and white: orange #FE7F2D Join buttons and highlights (never graphs), black/white controls, grey/graphite cards, dark by default (`src/app/globals.css`, one `light-dark()` token per colour;
   contrast tested in `src/app/theme.test.ts`). The header toggle stores `theme` in localStorage and an inline script in
   `layout.tsx` applies it before first paint. Type: Geist and Geist Mono. Palette mocks: `../design-mocks/`
 - **Motion (scale.com-inspired patterns, no code taken):** full-bleed 3D hero (stacked on phones), Lenis smooth scroll

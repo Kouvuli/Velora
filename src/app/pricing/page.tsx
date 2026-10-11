@@ -87,7 +87,8 @@ export default function Pricing() {
                   {plan.cta === "join" ? (
                     <Link
                       href="/#early-access"
-                      className="press mt-6 inline-flex h-11 items-center justify-center rounded-full bg-accent px-5 font-semibold text-on-accent hover:bg-accent-strong"
+                      data-brand-cta
+                      className="press mt-6 inline-flex h-11 items-center justify-center rounded-full bg-brand px-5 font-semibold text-on-brand hover:bg-brand/90"
                     >
                       Join early access
                     </Link>
@@ -117,7 +118,7 @@ export default function Pricing() {
           </p>
         </div>
 
-        <Section id="compare" title="Compare features across plans" tone="surface">
+        <Section id="compare" title="Compare features across plans">
           {/* relative: keeps the absolutely positioned screen-reader labels inside the scroll box (no page overflow). */}
           <div className="relative overflow-x-auto rounded-xl border border-line bg-paper" data-compare>
             <table className="w-full min-w-[40rem] text-left text-sm">
@@ -165,7 +166,7 @@ export default function Pricing() {
               <details key={f.q} className="group py-4">
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold">
                   {f.q}
-                  <span aria-hidden="true" className="text-xl text-muted transition-transform group-open:rotate-45">
+                  <span aria-hidden="true" className="text-xl text-brand transition-transform group-open:rotate-45">
                     +
                   </span>
                 </summary>

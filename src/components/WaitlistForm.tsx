@@ -135,7 +135,7 @@ export function WaitlistForm({ endpoint, contactEmail, openMailto = (href) => wi
       {status === "error" && (
         <p role="alert" className="rounded-md border border-danger/30 bg-danger/5 p-4 text-sm">
           We couldn&apos;t save your sign-up. Try again, or email us at{" "}
-          <a href={`mailto:${contactEmail}`} className="font-medium text-accent underline">
+          <a href={`mailto:${contactEmail}`} className="font-medium text-accent underline decoration-brand/60">
             {contactEmail}
           </a>
           .
@@ -146,13 +146,14 @@ export function WaitlistForm({ endpoint, contactEmail, openMailto = (href) => wi
         <button
           type="submit"
           disabled={status === "sending"}
-          className="press h-12 rounded-md bg-accent px-6 font-semibold text-on-accent hover:bg-accent-strong disabled:cursor-wait disabled:opacity-70"
+          data-brand-cta
+          className="press h-12 rounded-md bg-brand px-6 font-semibold text-on-brand hover:bg-brand/90 disabled:cursor-wait disabled:opacity-70"
         >
           {status === "sending" ? "Joining…" : "Join early access"}
         </button>
         <p className="text-sm text-muted">
           See our{" "}
-          <Link href="/privacy" className="underline">
+          <Link href="/privacy" className="underline decoration-brand/60">
             privacy policy
           </Link>
           .

@@ -5,9 +5,9 @@ title: "Landing page"
 summary: "Public company website that tells the Velora product vision (understand, define, build, validate, publish) with a 3D hero, an interactive demo and a separate pricing page, and collects early-access sign-ups"
 owner: landing
 lifecycle: approved
-revision: 8
-approved_revision: 8
-approval_evidence: "user approved revision 8 as drafted in chat, 2026-10-11"
+revision: 9
+approved_revision: 9
+approval_evidence: "user chose orange, black and white (orange hero/pricing/form Join buttons, black/white header button, mono controls, neutral cards) in chat, 2026-10-11"
 updated: "2026-10-11"
 related: []
 status: CONFIRMED
@@ -36,7 +36,8 @@ reveals, hover zoom and a "Connects to" marquee. Revision 7 aligns the content w
 order, trust model, lifecycle, AI & privacy) and moves pricing to a separate `/pricing` page with plan cards, a feature
 comparison table and a FAQ, in the pattern of claude.com/pricing (studied for layout only). Revision 8 adds a hero status
 card and v2's supporting line, a Trusted Data Product checklist, v2-only pricing wording and First/Next audiences, and
-removes the "Why not just use ChatGPT?" FAQ.
+removes the "Why not just use ChatGPT?" FAQ. Revision 9 makes the site orange, black and white:
+orange Join buttons and highlights, mono controls, grey/graphite cards.
 
 ## Assumptions
 - ASSUMPTION: English only.
@@ -66,6 +67,7 @@ removes the "Why not just use ChatGPT?" FAQ.
 ### US-19 — Compare plans on a dedicated pricing page
 ### US-20 — Follow the product story from the vision: understand, define, build, validate, publish, keep current
 ### US-21 — See in the hero what Velora tells me about my data: documentation, contract coverage, validation and the next action
+### US-22 — Recognise Velora by its orange, black and white, without confusing orange with the trust colours
 
 ## Decisions and Contracts
 Decided with the user in chat, 2026-10-10:
@@ -150,6 +152,21 @@ Added for revision 8, decided with the user in chat, 2026-10-11 (closing the gap
 - Who it's for (v2 §18): **businesses moving onto an ERP first, labelled "Starting with"; data analysts and engineers
   second, labelled "Growing into"**.
 
+Added for revision 9, decided with the user in chat, 2026-10-11 (orange from colorhunt.co/palette/000000233d4dfe7f2deaecf0;
+earlier the same day a sky-blue accent, the palette's slate and an indigo accent were built and reviewed but never
+shipped, see `../design-mocks/rev9-*.png`):
+- **Orange, black and white only.** Orange with black text is the hero's, pricing's and form's "Join early access"
+  buttons (the header's is black/white so it does not compete with the hero): #FE7F2D in dark (8.3:1) and, a little dimmer and darker at the user's request, #E77123 in light
+  (6.8:1). Orange also marks the dot after the wordmark, the favicon's V, the share image's bar, the active how-it-works
+  step (bar and icon), link underlines and the FAQ "+". Small orange text (the "Starting with" / "Growing into" labels)
+  and focus rings use brand-ink: #C2500A in light (4.7:1 on white), #FE7F2D in dark.
+- **Every other control is black (light) / white (dark)**: the header's Join button, links (with an orange underline), icons, "Talk to us", the
+  demo's buttons, checked controls (revision 4's mono accent values). Orange never goes on the graphs or the demo,
+  because its hue (24°) is close to amber "suggested" (36°), which keeps its meaning from v2 §6.
+- **Cards**: neutral grey #F4F4F5 (light) and graphite #18181B (dark); sections are never tinted (page colour #ffffff /
+  #000000, separated by their top border), so cards stand out in both themes.
+- Paper, ink, muted, line and the trust colours keep revision 4's values; graphs stay neutral; dark by default stays.
+
 Form contract: `POST <endpoint>`, headers `Content-Type: application/json`, `Accept: application/json`, body
 `{ "email": string, "segment": "business" | "data-team" | "consultant", "readinessReport": boolean, "source": "landing" }`.
 
@@ -192,7 +209,7 @@ Decided in planning.
 - AC-27 (US-10): Given `/`, then the visible words in `problem`, `how-it-works`, `trust`, `lifecycle`, `ai-privacy`, `who`, `about` and `early-access` total at most 850. (Revision 7: new sections; was 680 over the old ones.)
 - AC-28 (US-11): Given a first-time visitor (no stored choice), whatever their system setting, when `/` or `/privacy` first paints, then the dark theme is applied before any content is shown (no flash), also without JavaScript, and form controls and scrollbars follow it (`color-scheme`). (Revision 4: was "follows the system".)
 - AC-29 (US-11): Given the header theme toggle (a real button whose label names the theme it switches to), when the visitor presses it, then the theme switches, the choice is remembered on that device across reloads, and the 3D hero and demo pick up the new colours.
-- AC-30 (US-11): Given the colour tokens (pure mono since revision 4), then every text/background pair used on the page meets WCAG AA (4.5:1 text, 3:1 large text and UI) in both themes, and text selection, focus rings, scrollbars and link underlines are themed from the tokens.
+- AC-30 (US-11): Given the colour tokens (pure mono since revision 4; the revision 9 palette since then), then every text/background pair used on the page meets WCAG AA (4.5:1 text, 3:1 large text and UI) in both themes, and text selection, focus rings, scrollbars and link underlines are themed from the tokens. (Revision 9: accent-strong text on paper and surface is checked too.)
 - AC-31 (US-12): Given the 3D hero on a pointer or touch device, when the visitor drags across it, then the graph rotates with the drag (limited range) and eases back when released; page scrolling on phones still works with vertical swipes.
 - AC-32 (US-12): Given the settled 3D hero, when the visitor hovers or taps a hub, then a label shows its name and record count (e.g. "Customers, 1,204 records"); when they hover or tap a record point, then a sample shows (e.g. "ACME, Inc. → matched to Acme Inc.").
 - AC-33 (US-12): Given the settled 3D hero, then one hub link stays amber as "Suggested"; when the visitor clicks it, or presses the "Approve suggested link" button below the scene, then it turns green and the caption confirms it; Replay resets it.
@@ -215,6 +232,7 @@ Decided in planning.
 - AC-50 (US-21): Given `/` (server HTML, still image, 3D scene, reduced motion or no WebGL alike), then the hero contains a status card labelled "Example" with five rows: sources connected, documentation ("58% documented, 11 to confirm"), contract coverage ("9 of 12 rules defined"), validation ("Dry run waiting on 1 approval") and the next action ("Confirm the customer identifier"); it is HTML text readable by screen readers, not part of the canvas. From 640 px it sits over the scene without covering the H1, subhead, CTAs, Replay or the "Approve suggested link" button; under 640 px it sits directly below the graph block. (Revision 8.)
 - AC-51 (US-01, US-21): Given `/`, then v2's supporting line "Profiling, documentation, contracts, transformation, and validation in one workspace — with Claude assistance you can switch off." is shown under the subhead; at 375×812 AC-01 still holds, and if the line would push "Join early access" below the fold, it moves below the CTAs on phones instead. (Revision 8.)
 - AC-52 (US-04): Given the `who` section, then businesses moving onto an ERP come first, labelled "Starting with", and data analysts and engineers second, labelled "Growing into". (Revision 8.)
+- AC-53 (US-22): Given the colour tokens, then accent, accent-strong and on-accent keep revision 4's mono values (light #0a0a0a, #2a2a2a, #ffffff; dark #ffffff, #e0e0e0, #000000); surface is #F4F4F5 (light) and #18181B (dark); brand is #E77123 (light) and #FE7F2D (dark) with #000000 text, and brand-ink is #C2500A (light) and #FE7F2D (dark); sections have no background of their own; the hero's, pricing's and form's "Join early access" buttons are orange and the header's is black/white; orange also appears on the wordmark's dot, the favicon, the share image's bar, the active how-it-works step, the audience labels, link underlines, the FAQ "+" and focus rings, and on no other button or link; no indigo or other hue is used; the 3D hero's colours and the demo graph's edges never use orange. (Revision 9.)
 
 ## Non-functional
 - No horizontal scroll at 320 px width; body text contrast ≥ 4.5:1; visible focus on every interactive element.
@@ -247,3 +265,4 @@ None blocking.
 - Revision 6: Reference-only change: the source of truth moves from the retired "Velora — Strategy & Plan.md" to "Velora — Product Vision v2.md"; no criteria changed. Approved by the user's "only repoint references" choice in chat, 2026-10-11.
 - Revision 7: Content follows Product Vision v2 (AC-01, AC-11, AC-12, AC-13, AC-25, AC-26, AC-27, AC-34, AC-39, AC-42 changed; US-19, US-20, AC-45..AC-49 added): v2 hero and narrative, five-stage scroll story, trust model and lifecycle sections, AI & privacy, and a separate /pricing page (cards, comparison table, FAQ; no dollar amounts). From the user's answers on 2026-10-11; approved by the user in chat, 2026-10-11.
 - Revision 8: Closes the gaps between the site and v2 (AC-14, AC-34, AC-45, AC-47 changed; US-21, AC-50..AC-52 added): hero status card and supporting line, ChatGPT FAQ removed, v2-only pricing wording, Trusted Data Product checklist, First/Next audiences. From the user's answers on 2026-10-11; approved by the user in chat, 2026-10-11.
+- Revision 9: Orange, black and white: orange #FE7F2D (from Color Hunt palette 000000-233d4d-fe7f2d-eaecf0; a little dimmer and darker #E77123 in light) with black text on every Join button and the highlights, mono controls, neutral grey/graphite cards on untinted sections (US-22, AC-53 added; AC-30 extended); graphs neutral, dark by default unchanged. A sky accent, the palette's slate and an indigo accent were tried and reviewed the same day but never shipped. From the user's answers on 2026-10-11; approved by the user in chat, 2026-10-11.

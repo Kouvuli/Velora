@@ -32,6 +32,11 @@ const pairs: [string, string, number][] = [
   ["on-accent", "accent-strong", 4.5],
   ["accent", "paper", 4.5],
   ["accent", "surface", 4.5],
+  ["accent-strong", "paper", 4.5],
+  ["accent-strong", "surface", 4.5],
+  ["on-brand", "brand", 4.5],
+  ["brand-ink", "paper", 4.5],
+  ["brand-ink", "surface", 3],
   ["suggested-ink", "suggested-soft", 4.5],
   ["approved", "approved-soft", 4.5],
   ["approved", "surface", 4.5],
@@ -40,7 +45,7 @@ const pairs: [string, string, number][] = [
   ["suggested", "surface", 3],
 ];
 
-describe("petrol theme tokens (VEL-WEB-landing AC-30)", () => {
+describe("colour tokens (VEL-WEB-landing AC-30)", () => {
   it("defines every token for light and dark", () => {
     const names = new Set(pairs.flat().filter((x): x is string => typeof x === "string"));
     for (const name of names) {
@@ -54,4 +59,31 @@ describe("petrol theme tokens (VEL-WEB-landing AC-30)", () => {
       expect(contrast(tokens[theme][fg], tokens[theme][bg])).toBeGreaterThanOrEqual(min);
     });
   }
+});
+
+// VEL-WEB-landing AC-53 (revision 9): orange, black and white. Orange #FE7F2D (Color Hunt palette 000000-233d4d-fe7f2d-
+// eaecf0) is every "Join early access" button and the highlights; all other controls are black/white on neutral cards.
+// Orange never goes on the graphs (amber = suggested).
+describe("revision 9 palette (VEL-WEB-landing AC-53)", () => {
+  const pick = (theme: "light" | "dark", names: string[]) => names.map((n) => tokens[theme][n]?.toLowerCase());
+
+  it("uses only orange, black and white: mono controls, orange brand, neutral cards", () => {
+    const changed = ["accent", "accent-strong", "on-accent", "surface", "brand", "on-brand", "brand-ink"];
+    // Light orange is a little dimmer and darker than dark's, at the user's request.
+    expect(pick("light", changed)).toEqual(["#0a0a0a", "#2a2a2a", "#ffffff", "#f4f4f5", "#e77123", "#000000", "#c2500a"]);
+    expect(pick("dark", changed)).toEqual(["#ffffff", "#e0e0e0", "#000000", "#18181b", "#fe7f2d", "#000000", "#fe7f2d"]);
+    const base = ["paper", "ink", "muted", "line", "danger"];
+    expect(pick("light", base)).toEqual(["#ffffff", "#0a0a0a", "#5c5c5c", "#e5e5e5", "#b42318"]);
+    expect(pick("dark", base)).toEqual(["#000000", "#ffffff", "#a3a3a3", "#262626", "#f97066"]);
+    // Sections are never tinted: cards carry their own colour on the plain page, so they never blend in.
+    expect(tokens.light.section).toBeUndefined();
+  });
+
+  it("uses the palette orange in the favicon and the share image", () => {
+    const icon = readFileSync(join(__dirname, "icon.svg"), "utf8").toLowerCase();
+    expect(icon).toContain("#fe7f2d");
+    const og = readFileSync(join(__dirname, "opengraph-image.tsx"), "utf8").toLowerCase();
+    expect(og).toContain("#fe7f2d");
+    expect(og).not.toContain("#4cc38a");
+  });
 });

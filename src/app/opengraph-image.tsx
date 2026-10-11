@@ -24,7 +24,7 @@ export default function OpengraphImage() {
         <div style={{ fontSize: 36, fontWeight: 700 }}>{site.name}</div>
         <div style={{ fontSize: 76, fontWeight: 700, lineHeight: 1.1, maxWidth: 980 }}>{alt}</div>
         <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 28, color: "#a3a3a3" }}>
-          <div style={{ width: 120, height: 6, background: "#4cc38a" }} />
+          <div style={{ width: 120, height: 6, background: "#fe7f2d" }} />
           From raw data to trusted data products.
         </div>
       </div>

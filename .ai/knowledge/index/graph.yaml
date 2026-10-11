@@ -1,38 +1,38 @@
 schema: ai-skill-os/knowledge-graph/v1
 generated_by: ai-skills knowledge discover
-updated_at: '2026-10-11T14:12:32+00:00'
+updated_at: '2026-10-11T16:05:39+00:00'
 note: Index for retrieval only. Source files are the truth; follow the evidence.
 sources:
-  .ai/knowledge/requirements/VEL-WEB-landing.md: 15ad7ad2a20d763a7e564b3707cd101d47c886aee569285dd51aae59fbd971dd
-  .next/dev/types/root-params.d.ts: f3387dd7800eec3c34273f7a8efad13e864598c7e8f788d321e407390989bb59
-  .next/dev/types/routes.d.ts: 369017bbbe8130f367bba331a3e3bdfc9ffe9e90b1f370f579d1dd502b693804
+  .ai/knowledge/requirements/VEL-WEB-landing.md: af75d85ffdce8c97050c17cee71e5e694f31595fb8cd3a5087b260d96d50e270
+  .next/types/root-params.d.ts: f3387dd7800eec3c34273f7a8efad13e864598c7e8f788d321e407390989bb59
+  .next/types/routes.d.ts: b1c8b4d0432d67eba94d575514fb637f260cd12f098bb3a5770522b90c044638
   e2e/landing.spec.ts: ebcf3df8a64a1ef827d4c2aa6570f5093d3264cb7c111a270861115653b5bc75
   e2e/motion.spec.ts: b06add724058f35b64407cd14cffe7433b19f0ed5114d4a86f1dd4e44d40b98a
   e2e/pricing.spec.ts: 8c4f24b6c7a3b4f14a2db3f289af2ff58e919a13c5ab3c8b66fb9c8342d05d71
-  e2e/theme.spec.ts: 6e4454a1d79cd61bd4349c4a150544f3f55cd6ba4b35cbc58a4e99696d6992f8
-  next-env.d.ts: 0f70629890b72a0a82e91972cc032c04b658b26c265373cb711cf576bfbf8fcc
+  e2e/theme.spec.ts: e61a976680b90cec336e0bd30fe6e3fd805d5fd6839bbb91b7fddeace1e3af11
+  next-env.d.ts: 1862ac4bbbc5192d4bf562161df66ea547ed3e67173100656ab606ae9797db2b
   package-lock.json: b99083878f5f9942ed34922978a8ffbfd4150e2ba70645b370c6eddafd1d1774
   package.json: e9c33e3b8da238be863d931dc14410d8a382a80bce201438b66f3b83451717fd
   playwright.config.ts: ff8f12a888ba3d076fd746fd8c7ae271f0ffe5a5791bb50ddc6b38224ba61529
   scripts/check-launch.mjs: 6716adab8713c158364e584a306d52bcad827b0b317e67253c0e2c58e50690f8
-  src/app/globals.css: 114d6dce23415abc0d7e75ea1fabd2eefb91e5eb6c90b84d8a83a4b97968dedb
+  src/app/globals.css: 7a0fb5ddabd300cf5a5cbe3b5bd2736adca0d9d34da384ac6d05a39fb913d058
   src/app/layout.tsx: aa177bf3dd1a5c1bdcbc36f9dd786c816216dfa39b3b42f711426eed5211c54b
-  src/app/opengraph-image.tsx: 4f8721ca3c2082907f216a6bd0fdb6520bfe508b3934bfa93fd0815664a53e48
-  src/app/page.tsx: e4f16c88728454bd951e54305846036a503d68f03014de894807e80b9343b4e2
-  src/app/pricing/page.tsx: c837541610358f343c622c60e761650e5015f95e28e9318a1e9c3aee5324175d
-  src/app/privacy/page.tsx: 2309bbdd06979e460a207e6b629111caff9911572f37f9b97d783816a7732526
-  src/app/theme.test.ts: 033d3bce57c9e7e95c5d938bceec0edfbe9ddd20264cc30c1e6934da08fa8a6a
+  src/app/opengraph-image.tsx: 9bc7ea6ae2e98cecd2d5dedf714ecdfca38a7f16f97738c5b1050ef7a047027e
+  src/app/page.tsx: 41aa42476f9900accbf6d8084ac063ded0a448469c9a8a60407c80b736983d2f
+  src/app/pricing/page.tsx: fe6a7e73d1f28db9968576f4a498a0d4660e6c5a821d7a5dad93414945a3bc37
+  src/app/privacy/page.tsx: b12c9630baab7f5ac03cce2c2eee153b1f75ef90ec57a6919a27fec7b523ab73
+  src/app/theme.test.ts: dcebcc12ee7dd9e65283d6aaa61356ca3b111e71c27c99defddef88a3cc296c2
   src/components/ConnectsMarquee.tsx: 1f7d81f73a6599c35b2e16599377a0f96421428ff6b42d1ec6d23a5c22fd3eb7
   src/components/GraphDemo.tsx: 54040a18e77328e6d1925af0bf21a547228f5470fcf965666be10989e3cfe197
-  src/components/HowItWorks.tsx: 2baeee4e85ae4c255b03dc6f2f6fdd1ba125c2812948df0b3d10f199225d9a5d
+  src/components/HowItWorks.tsx: ff665f57a85c7cb10faa260f16a7f5262810d27326d49ca98e10fee522b9083b
   src/components/RevealHeading.tsx: bca2d23ed01feccbe5b9fda25428aada5e9483d6a37e58eb66239c1a455be91d
-  src/components/Section.tsx: 41c6d21e5de40a1885e442ced271f01060307cdd9485f65bec970602c9da2136
-  src/components/SiteChrome.tsx: 841549d4dda825f70309311395055d805af137d3db924bc65aba15d9ebbcd5e2
+  src/components/Section.tsx: 836db691aa6011d091b345449799c8038863d88eead00d697ce12b4d564c4110
+  src/components/SiteChrome.tsx: 0b84f19c014eac46497e941df941d70f7c406f3f270d953c48a8be8d5f295cf9
   src/components/SmoothScroll.tsx: 8e71c156aa4895dda62a8d21f49479a868adbfc48da0c728eeabb85e4e101fa9
   src/components/StoryMotion.tsx: 4fc4cec7d6b294805fb52aba6523f0a75c31d04e04bf5e68269ae5549127286c
   src/components/ThemeToggle.tsx: ac86902b83dc70150a889404ab8107a4e45b06106bf97a3b9e9dce17ef9472f3
   src/components/WaitlistForm.test.tsx: 0d39b27ca6b239d2c1b0ae6965330a91b8cbbd373e6753dfad790162bed5c87c
-  src/components/WaitlistForm.tsx: 556dc8eecb039d0bebbb4288693da183473190c5944e4fca8fd32dc617467715
+  src/components/WaitlistForm.tsx: d2022ac9a58daa07c796fdea8bdf094b50400dcf692d889a7c8ce16dfd7c3412
   src/components/hero/HeroCanvas.tsx: b5eeacf47c2afe5169554216d03acf1068c9598ce28deaaf504bcb8d32c25785
   src/components/hero/HeroGraphStill.tsx: 6b1bf11d4f1b93dd488418e128d1709168f77d7c7cb0052dbc2f3bf019eae501
   src/components/hero/HeroScene.tsx: c640d1e579eb6434673d9feb49cace130c68a202a69c7ec98aaa340817d48594
@@ -224,9 +224,9 @@ nodes:
   kind: criterion
   evidence:
   - .ai/knowledge/requirements/VEL-WEB-landing.md
-  text: Given the colour tokens (pure mono since revision 4), then every text/background pair used on
-    the page meets WCAG AA (4.5:1 text, 3:1 large text and UI) in both themes, and text selection, focus
-    rings
+  text: Given the colour tokens (pure mono since revision 4; the revision 9 palette since then), then
+    every text/background pair used on the page meets WCAG AA (4.5:1 text, 3:1 large text and UI) in both
+    them
 - id: criterion:VEL-WEB-landing/AC-31
   kind: criterion
   evidence:
@@ -361,6 +361,13 @@ nodes:
   - .ai/knowledge/requirements/VEL-WEB-landing.md
   text: Given the `who` section, then businesses moving onto an ERP come first, labelled "Starting with",
     and data analysts and engineers second, labelled "Growing into". (Revision 8.)
+- id: criterion:VEL-WEB-landing/AC-53
+  kind: criterion
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  text: 'Given the colour tokens, then accent, accent-strong and on-accent keep revision 4''s mono values
+    (light #0a0a0a, #2a2a2a, #ffffff; dark #ffffff, #e0e0e0, #000000); surface is #F4F4F5 (light) and
+    #18181'
 - id: feature:VEL-WEB-landing
   kind: feature
   evidence:
@@ -369,14 +376,14 @@ nodes:
   lifecycle: approved
   owner: landing
   reference: false
-- id: module:.next/dev/types/root-params.d.ts
+- id: module:.next/types/root-params.d.ts
   kind: module
   evidence:
-  - .next/dev/types/root-params.d.ts:1
-- id: module:.next/dev/types/routes.d.ts
+  - .next/types/root-params.d.ts:1
+- id: module:.next/types/routes.d.ts
   kind: module
   evidence:
-  - .next/dev/types/routes.d.ts:1
+  - .next/types/routes.d.ts:1
 - id: module:e2e/landing.spec.ts
   kind: module
   evidence:
@@ -657,6 +664,11 @@ nodes:
   - .ai/knowledge/requirements/VEL-WEB-landing.md
   title: 'See in the hero what Velora tells me about my data: documentation, contract coverage, validation
     and the next action'
+- id: story:VEL-WEB-landing/US-22
+  kind: story
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+  title: Recognise Velora by its orange, black and white, without confusing orange with the trust colours
 - id: tech:animation:motion
   kind: technology
   evidence:
@@ -986,6 +998,12 @@ edges:
   status: CONFIRMED
   evidence:
   - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: criterion:VEL-WEB-landing/AC-53
+  rel: belongs_to
+  to: story:VEL-WEB-landing/US-22
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
 - from: feature:VEL-WEB-landing
   rel: has_story
   to: story:VEL-WEB-landing/US-01
@@ -1109,6 +1127,12 @@ edges:
 - from: feature:VEL-WEB-landing
   rel: has_story
   to: story:VEL-WEB-landing/US-21
+  status: CONFIRMED
+  evidence:
+  - .ai/knowledge/requirements/VEL-WEB-landing.md
+- from: feature:VEL-WEB-landing
+  rel: has_story
+  to: story:VEL-WEB-landing/US-22
   status: CONFIRMED
   evidence:
   - .ai/knowledge/requirements/VEL-WEB-landing.md
@@ -1389,15 +1413,22 @@ edges:
   status: CONFIRMED
   evidence:
   - e2e/theme.spec.ts:54
+- from: module:e2e/theme.spec.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-53
+  status: CONFIRMED
+  evidence:
+  - e2e/theme.spec.ts:69
+  - e2e/theme.spec.ts:114
 - from: module:next-env.d.ts
   rel: imports
-  to: module:.next/dev/types/root-params.d.ts
+  to: module:.next/types/root-params.d.ts
   status: CONFIRMED
   evidence:
   - next-env.d.ts:4
 - from: module:next-env.d.ts
   rel: imports
-  to: module:.next/dev/types/routes.d.ts
+  to: module:.next/types/routes.d.ts
   status: CONFIRMED
   evidence:
   - next-env.d.ts:3
@@ -1418,19 +1449,19 @@ edges:
   to: criterion:VEL-WEB-landing/AC-36
   status: CONFIRMED
   evidence:
-  - src/app/globals.css:94
+  - src/app/globals.css:101
 - from: module:src/app/globals.css
   rel: implements
   to: criterion:VEL-WEB-landing/AC-37
   status: CONFIRMED
   evidence:
-  - src/app/globals.css:110
+  - src/app/globals.css:117
 - from: module:src/app/globals.css
   rel: implements
   to: criterion:VEL-WEB-landing/AC-43
   status: CONFIRMED
   evidence:
-  - src/app/globals.css:158
+  - src/app/globals.css:165
 - from: module:src/app/layout.tsx
   rel: implements
   to: criterion:VEL-WEB-landing/AC-44
@@ -1494,7 +1525,14 @@ edges:
   status: CONFIRMED
   evidence:
   - src/app/theme.test.ts:6
-  - src/app/theme.test.ts:43
+  - src/app/theme.test.ts:48
+- from: module:src/app/theme.test.ts
+  rel: verifies
+  to: criterion:VEL-WEB-landing/AC-53
+  status: CONFIRMED
+  evidence:
+  - src/app/theme.test.ts:64
+  - src/app/theme.test.ts:67
 - from: module:src/components/ConnectsMarquee.tsx
   rel: implements
   to: criterion:VEL-WEB-landing/AC-43
@@ -1533,11 +1571,23 @@ edges:
   evidence:
   - src/components/RevealHeading.tsx:4
 - from: module:src/components/Section.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-53
+  status: CONFIRMED
+  evidence:
+  - src/components/Section.tsx:10
+- from: module:src/components/Section.tsx
   rel: imports
   to: module:src/components/RevealHeading.tsx
   status: CONFIRMED
   evidence:
   - src/components/Section.tsx:1
+- from: module:src/components/SiteChrome.tsx
+  rel: implements
+  to: criterion:VEL-WEB-landing/AC-53
+  status: CONFIRMED
+  evidence:
+  - src/components/SiteChrome.tsx:18
 - from: module:src/components/SiteChrome.tsx
   rel: imports
   to: module:src/components/ThemeToggle.tsx

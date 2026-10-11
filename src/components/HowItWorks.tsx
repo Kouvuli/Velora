@@ -232,7 +232,7 @@ function StageTitle({ stage, current }: { stage: Stage; current: boolean }) {
       <stage.icon
         aria-hidden="true"
         strokeWidth={1.75}
-        className={`size-6 shrink-0 transition-colors duration-300 ${current ? "text-accent" : "text-observed"}`}
+        className={`size-6 shrink-0 transition-colors duration-300 ${current ? "text-brand" : "text-observed"}`}
       />
       {stage.title}
     </h3>
@@ -275,7 +275,7 @@ function StaticSteps() {
             <StageTitle stage={s} current />
             <StageBody stage={s} />
           </div>
-          <div className="min-w-0 rounded-xl border border-line bg-surface p-5">
+          <div className="min-w-0 rounded-xl border border-line bg-surface p-5" data-art-box>
             <s.art />
           </div>
         </div>
@@ -300,7 +300,7 @@ function PinnedStory() {
               key={s.id}
               data-item="step"
               aria-current={i === active ? "step" : undefined}
-              className={`border-l-2 pl-6 transition-colors duration-300 ease-out ${i === active ? "border-accent" : "border-line"}`}
+              className={`border-l-2 pl-6 transition-colors duration-300 ease-out ${i === active ? "border-brand" : "border-line"}`}
             >
               <StageTitle stage={s} current={i === active} />
               {i === active && <StageBody stage={s} />}
