@@ -5,9 +5,9 @@ title: "Landing page"
 summary: "Public company website that explains Velora with a minimal 3D hero and an interactive graph demo, and collects early-access sign-ups"
 owner: landing
 lifecycle: approved
-revision: 5
-approved_revision: 5
-approval_evidence: "user chose 'Text first, graph below' for phones in chat, 2026-10-11 (revision 5)"
+revision: 6
+approved_revision: 6
+approval_evidence: "user chose 'only repoint references' in chat, 2026-10-11 (revision 6)"
 updated: "2026-10-11"
 related: []
 status: CONFIRMED
@@ -19,7 +19,8 @@ status: CONFIRMED
 Velora needs a live company website on its own domain, with a same-domain contact email, to apply to Anthropic's
 Claude Startups program and to start collecting early users. The page must explain the product in seconds and turn
 visitors (small businesses, data teams, consultants) into early-access sign-ups.
-Source of truth for content: `../Velora — Strategy & Plan.md` §19 (brief), §1, §3, §4, §6, §7, §8.
+Source of truth for content: `../Velora — Product Vision v2.md` (since 2026-10-11; the retired "Strategy & Plan" was the
+source up to revision 5).
 
 ## Scope
 In: one-page site (`/`), privacy page (`/privacy`), interactive graph demo, early-access form, Open Graph image,
@@ -192,3 +193,4 @@ None blocking.
 - Revision 3: Adds US-11..US-16 and AC-28..AC-38 (petrol palette with dark mode, interactive hero, scroll-driven story, richer demo, micro-interactions, cursor effects); AC-36 supersedes the destination part of AC-07. From the user's answers on 2026-10-10; approved by the user in chat, 2026-10-10.
 - Revision 4: Pure mono palette, dark by default (AC-28 changed), Geist type, full-bleed hero, smooth scroll, heading reveals, hover zoom and a "Connects to" marquee (US-17, US-18, AC-39..AC-44; AC-11 gains `connects`), from the user's answers on 2026-10-11 after studying scale.com; approved by the user in chat, 2026-10-11.
 - Revision 5: AC-39 on phones (under 640 px): text first, graph in its own block below, after the phone screenshot showed text overlapping the graph and controls; chosen by the user in chat, 2026-10-11.
+- Revision 6: Reference-only change: the source of truth moves from the retired "Velora — Strategy & Plan.md" to "Velora — Product Vision v2.md"; no criteria changed. Approved by the user's "only repoint references" choice in chat, 2026-10-11.
